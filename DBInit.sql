@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `HobbyHome`.`login` (
   `lastname` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `passhash` varchar(64) NOT NULL, --use sha256
+  `isadmin` bool NOT NULL,
   PRIMARY KEY (`userID`),
   UNIQUE INDEX `idUser_UNIQUE` (`userID` ASC) VISIBLE
 );
