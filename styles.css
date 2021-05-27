@@ -9,16 +9,16 @@ body {
   background-color: rgb(100, 170, 250);
   display: flex;
   flex-direction: row;
-  height: 220px;
+  height: 105px;
   justify-content: space-between;
   margin: 0;
-  padding-left: 50px;
+  padding: 12px 20px;
 }
 .header_container h1 {
-  font-size: 40px;
+  font-size: 30px;
 }
 .header_text {
-  padding: 100px;
+  padding: 50px;
 }
 /* Header END */
 
@@ -31,7 +31,7 @@ body {
   margin: 0;
   padding: 0;
   text-transform: uppercase;
-  font-size: 26px;
+  font-size: 20px;
 }
 .login_container {
   width: 500px;
@@ -97,5 +97,15 @@ body {
 #sign-up:hover,
 #create-acc:hover {
   background-color: rgb(193, 222, 255);
+}
+
+form p {
+  color: grey;
+  text-transform: uppercase;
+  font-size: 10px;
+  float: right;
+}
+form p:hover {
+  color: black;
 }
 /* Log-in Container END */
