@@ -9,19 +9,22 @@ body {
   background-color: rgb(100, 170, 250);
   display: flex;
   flex-direction: row;
-  height: 105px;
-  justify-content: space-between;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 12px 20px;
 }
 
 .header_container h1 {
-  font-size: 30px;
+  font-size: 50px;
+  padding: 10px;
 }
 
-.header_text {
-  padding: 50px;
+.header_container h1.hobby {
+  padding-right: 16px;
 }
+
 /* Header END ----------------------------- */
 
 /* Log-in Container START ----------------------------- */
@@ -41,7 +44,7 @@ body {
   width: 500px;
   height: 400px;
   background: white;
-  margin: 0 auto;
+  margin: 30px auto;
   border: 2px solid black;
   box-shadow: 0 15px 40px black;
 }
@@ -156,7 +159,7 @@ form p:hover {
   display: flex;
 }
 .main-container .main-box {
-  background-color: rgba(87, 179, 255, 0.767);
+  background-color: rgb(154, 238, 133);
   border: 3px solid black;
   padding: 20px 20px;
   width: 150px;
@@ -169,7 +172,7 @@ form p:hover {
 }
 
 .main-container .main-box:hover {
-  background-color: rgba(36, 156, 255, 0.767);
+  background-color: rgba(101, 255, 96, 0.767);
 }
 
 .main-box p {
