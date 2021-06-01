@@ -31,7 +31,7 @@ public class UserSignInServlet extends HttpServlet {
     	DBConnector con = new DBConnector("jdbc:mysql://localhost:3306/HobbyHome", username, password);
     	
     	return con.signIn(username, password);
-	}
+    }
   
     /** 
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) 
