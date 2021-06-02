@@ -59,12 +59,12 @@ class DBConnector{
 			String passHash = getSHA(newPass);
 			String sqlAddEntry = "INSERT INTO login VALUES (default, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sqlAddEntry);
-			ps.setString("username", newUser);
-			ps.setString("firstname", firstName);
-			ps.setString("lastname", lastName);
-			ps.setString("email", email);
-			ps.setString("passhash", passHash);
-			ps.setString("isadmin", false);
+			ps.setString(1, newUser);
+			ps.setString(2, firstName);
+			ps.setString(3, lastName);
+			ps.setString(4, email);
+			ps.setString(5, passHash);
+			ps.setString(6, false);
 			ps.executeUpdate();
 			return isUser(newUser);
 		}
@@ -76,7 +76,7 @@ class DBConnector{
 	// helper method to test if username is in database
 	private boolean isUser(String user){
 		try {
-			String sqlSelectUsernames = "SELECT username FROM login"
+			String sqlSelectUsernames = "SELECT username FROM login";
 			
 			ResultSet rs = conn.prepareStatement(sqlSelectUsernames).executeQuery();
 			while (rs.next()){
@@ -123,13 +123,13 @@ class DBConnector{
 	public boolean signIn(String user, String pass){
 		if (isUser(user)){
 			try {
-			String sqlSelectUsernames = "SELECT username,passhash FROM login"
+			String sqlSelectUsernames = "SELECT username,passhash FROM login";
 			
 			ResultSet rs = conn.prepareStatement(sqlSelectUsernames).executeQuery();
 			while (rs.next()){
 				if (user.equals(rs.getString("username")) && getSHA(pass).equals(rs.getString("passhash")){
 					rs.close();
-					return true
+					return true;
 				}
 			}
 			rs.close();
