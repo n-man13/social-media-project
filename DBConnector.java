@@ -64,7 +64,7 @@ class DBConnector{
 			ps.setString(3, lastName);
 			ps.setString(4, email);
 			ps.setString(5, passHash);
-			ps.setString(6, false);
+			ps.setBoolean(6, false);
 			ps.executeUpdate();
 			return isUser(newUser);
 		}
@@ -127,7 +127,7 @@ class DBConnector{
 			
 			ResultSet rs = conn.prepareStatement(sqlSelectUsernames).executeQuery();
 			while (rs.next()){
-				if (user.equals(rs.getString("username")) && getSHA(pass).equals(rs.getString("passhash")){
+				if (user.equals(rs.getString("username")) && getSHA(pass).equals(rs.getString("passhash"))){
 					rs.close();
 					return true;
 				}
