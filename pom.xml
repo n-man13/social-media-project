@@ -4,7 +4,8 @@
   <artifactId>social-media-project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Social Media Project</name>
-  <plugins>
+  <build>
+    <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
@@ -26,4 +27,5 @@
             </executions>
         </plugin>
     </plugins>
+  </build>
 </project>
