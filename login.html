@@ -4,6 +4,8 @@ Project: Social Media Project
 Wrote HTML code for login page
 -->
 
+<!--  -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,13 +34,15 @@ Wrote HTML code for login page
       <!-- div right contains the actual log in form -->
       <div class="right">
         <div class="formBox">
-          <form action="UserSignInServlet" method="post">
-            <input type="text" name="" placeholder="Username" id="username" />
-            <input type="text" name="" placeholder="Password" id="password" />
+          <form action="login" method="post">
+            <input type="text" name="username" placeholder="Username" id="username" required />
+            <input type="password" name="password" placeholder="Password" id="password" required />
             <!-- TEMPORARY TEST, SIGN IN = user-landing.html -->
-            <input type="button" value="Sign in" id="sign-in" />
-            <input type="button" value="Sign up" id="sign-up" />
-            <a href="#"><p>Forgot Password</p></a>
+            <input type="submit" value="Sign in" id="sign-in" />
+            <a href="signup.html">
+              <input type="button" value="Sign up" id="sign-up" />
+            </a>
+            <a href="UserSignInServlet"><p>Forgot Password</p></a>
           </form>
         </div>
       </div>
