@@ -108,8 +108,9 @@ body {
   color: red;
   margin-bottom: 5px;
 }
-
+/*  */
 .formBox input[type="text"],
+.formBox input[type="password"],
 .formBox-signup input[type="password"],
 .formBox-signup input[type="text"] {
   border: none;
@@ -126,7 +127,8 @@ body {
   height: 25px;
 }
 
-#create-acc {
+#create-acc,
+#sign-in {
   margin-top: 10px;
   margin-bottom: 15px;
 }
