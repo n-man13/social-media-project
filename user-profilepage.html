@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>User Page</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -20,8 +20,8 @@
     <!-- Navigation -->
     <div class="navigation">
       <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
+      <a href="">Search</a>
+      <a href="">Inbox</a>
       <div class="right">
         <a href="">Username_Placeholder</a>
         <a href="login.html">Logout</a>
@@ -31,6 +31,12 @@
     <!-- Main Content -->
     <div class="main-container">
       <div class="hobby-bar">
+        <div class="search-bar">
+          <form action="search" method="post">
+            <input type="text" placeholder="Search..." id="search-box" />
+            <input type="submit" value="GO" id="search-submit" />
+          </form>
+        </div>
         <div class="main-box"><p>Sports</p></div>
         <div class="main-box">
           <p>Video<br />Games</p>
@@ -43,12 +49,12 @@
         <div class="profile-post">
           <label for="userpage-textbox"><h2>Post your status!</h2></label>
           <form action="status" method="post">
-            <textarea name="userpage-textbox" id="userpage-textbox" cols="80" rows="8" required></textarea>
+            <textarea name="userpage-textbox" id="userpage-textbox" cols="80" rows="8" placeholder="Let the world know..." required></textarea>
             <input type="submit" value="Post" id="user-status" />
           </form>
         </div>
         <div class="user-posts">
-          <h5>USER POSTS HERE</h5>
+          <h5>USER POSTS HERE (Temporary color)</h5>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem asperiores, error deserunt sit officia voluptatem pariatur ex architecto commodi! Similique, nesciunt praesentium rerum
             excepturi ea quo veritatis iste deserunt eveniet voluptate. Esse eaque recusandae, quibusdam illo reprehenderit sunt nostrum officiis dolor eligendi adipisci. Numquam sint enim ratione,

@@ -108,7 +108,7 @@ body {
   color: red;
   margin-bottom: 5px;
 }
-/*  */
+
 .formBox input[type="text"],
 .formBox input[type="password"],
 .formBox-signup input[type="password"],
@@ -184,7 +184,7 @@ form p:hover {
   display: flex;
 }
 .main-container .main-box {
-  background-color: rgb(238, 196, 133);
+  background-color: rgb(167, 255, 163);
   border: 3px solid black;
   padding: 20px 20px;
   width: 150px;
@@ -197,7 +197,7 @@ form p:hover {
 }
 
 .main-container .main-box:hover {
-  background-color: rgba(255, 183, 50, 0.767);
+  background-color: rgba(110, 255, 91, 0.767);
 }
 
 .main-box p {
@@ -208,6 +208,24 @@ form p:hover {
   background-color: rgb(167, 167, 168);
   padding: 20px 20px;
   width: 250px;
+}
+
+.search-bar {
+  display: flex;
+}
+
+.search-bar #search-box {
+  margin-left: 11px;
+  margin-bottom: 5px;
+  margin-right: 0px;
+  padding: 5px;
+  width: 138px;
+}
+
+.search-bar #search-submit {
+  width: 39px;
+  height: 29px;
+  font-weight: bold;
 }
 
 .main-content {
