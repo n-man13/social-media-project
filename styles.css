@@ -189,7 +189,7 @@ form p:hover {
   padding: 20px 20px;
   width: 150px;
   height: 80px;
-  margin: 10px;
+  margin: 10px 0;
   font-size: 30px;
   display: flex;
   justify-content: center;
@@ -205,9 +205,12 @@ form p:hover {
 }
 
 .hobby-bar {
-  background-color: rgb(167, 167, 168);
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(182, 182, 182);
   padding: 20px 20px;
   width: 250px;
+  border-right: 4px solid black;
 }
 
 .search-bar {
@@ -215,7 +218,7 @@ form p:hover {
 }
 
 .search-bar #search-box {
-  margin-left: 11px;
+  margin-left: 0px;
   margin-bottom: 5px;
   margin-right: 0px;
   padding: 5px;
@@ -302,6 +305,10 @@ form p:hover {
   width: 100%;
 }
 
+textarea {
+  font-family: sans-serif;
+}
+
 #userpage-textbox,
 #post-textbox {
   resize: none;
@@ -346,10 +353,6 @@ form p:hover {
   border: 1px solid rgb(150, 150, 150);
 }
 
-.user-posts p {
-  text-indent: 30px;
-}
-
 .user-posts .post-content {
   border: 1px solid black;
   background-color: rgb(228, 228, 228);
@@ -377,3 +380,63 @@ form p:hover {
 }
 
 /* user-profilepage.html END ----------------------------- */
+
+/* user-inbox.html START ----------------------------- */
+
+.messaging {
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1 0 auto;
+  overflow: auto;
+  margin-bottom: 168px;
+}
+
+.send-message {
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: rgb(100, 170, 250);
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  margin: 0;
+  border-top: 4px solid black;
+}
+
+.user-message {
+  margin: 10px 20px 10px 20px;
+  width: fit-content;
+}
+
+.user-message h5 {
+  color: rgb(0, 119, 255);
+  font-weight: bolder;
+}
+
+.inbox-search {
+  margin-bottom: 10px;
+}
+
+.user-bar .user {
+  height: fit-content;
+  padding: 0;
+  margin-bottom: 0px;
+}
+
+#user-owner {
+  background-color: rgb(204, 204, 204);
+  width: fit-content;
+  padding: 2px 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(150, 150, 150);
+  width: auto;
+  margin-bottom: 10px;
+}
+
+#user-owner p {
+  margin: 5px 2px;
+  font-size: 14px;
+}
+/* user-inbox.html END ----------------------------- */
