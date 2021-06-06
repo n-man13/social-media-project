@@ -274,3 +274,42 @@ form p:hover {
 }
 
 /* Administration page Main Content END ----------------------------- */
+
+/* user-profilepage.html START ----------------------------- */
+
+.profile-post {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 100%;
+}
+
+#userpage-textbox {
+  resize: none;
+  width: 84%;
+}
+
+.profile-post h2 {
+  margin-bottom: 5px;
+}
+
+.profile-post form {
+  display: flex;
+}
+
+.profile-post input[type="submit"] {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+.main-content .user-posts {
+  background-color: rgb(252, 101, 101);
+  margin: 20px;
+}
+
+.user-posts p {
+  text-indent: 30px;
+}
+
+/* user-profilepage.html END ----------------------------- */
