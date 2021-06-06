@@ -310,7 +310,8 @@ textarea {
 }
 
 #userpage-textbox,
-#post-textbox {
+#post-textbox,
+#message-textbox {
   resize: none;
   width: 84%;
 }
