@@ -40,7 +40,7 @@ Wrote HTML code for user-landing page
       <a href="">Link</a>
       <div class="right">
         <a href="" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.html">Logout</a>
+        <a href="login.jsp">Logout</a>
       </div>
     </div>
 
