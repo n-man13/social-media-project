@@ -14,8 +14,25 @@ Wrote HTML code for login page
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hobby Home Log in</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      function myFunction() {
+        const queryString = window.location.search;
+        console.log(queryString);
+
+        const urlParams = new URLSearchParams(queryString);
+        const errorCode = urlParams.get("error");
+
+        const codes = {
+          10: "User does not exist.",
+        };
+
+        for (const errorCode, value of Object.entries(codes)) {
+          console.log(`${errorCode}: ${value}`);
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body onload="myFunction()">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
