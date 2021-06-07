@@ -6,6 +6,7 @@ async function pageLoad() {
   var myDiv = document.getElementById("errormsg");
 
   var errorCode = '<%= request.getAttribute("error") %>';
+  console.log(errorCode);
 
   const codes = {
     10: "User does not exist.",
