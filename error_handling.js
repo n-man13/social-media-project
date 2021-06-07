@@ -5,12 +5,8 @@ function sleep(ms) {
 async function pageLoad() {
   var myDiv = document.getElementById("errormsg");
 
-  const queryString = window.location.search;
-  console.log(queryString);
-  const urlParams = new URLSearchParams(queryString);
-
   if (urlParams.has("error")) {
-    const errorCode = urlParams.get("error");
+    var errorCode = '<%= request.getAttribute("error") %>';
 
     const codes = {
       10: "User does not exist.",
