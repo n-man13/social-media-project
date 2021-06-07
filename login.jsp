@@ -6,8 +6,6 @@ Wrote HTML code for login page
 
 <!--  -->
 
-<% out.println(request.getAttribute("message")); %>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
