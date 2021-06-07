@@ -12,8 +12,22 @@ Wrote HTML code for user-landing page
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hobby Home</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      function getInfo() {
+        var a_value = document.getElementById("username_placeholder");
+
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+
+        const first = urlParams.get("fname");
+        const last = urlParams.get("lname");
+
+        a_value.innerHTML = first + ", " + last;
+      }
+    </script>
   </head>
-  <body>
+  <body onload="getInfo()">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -29,7 +43,7 @@ Wrote HTML code for user-landing page
       <a href="">Link</a>
       <a href="">Link</a>
       <div class="right">
-        <a href="">Username_Placeholder</a>
+        <a href="" id="username_placeholder">Username_Placeholder</a>
         <a href="login.html">Logout</a>
       </div>
     </div>

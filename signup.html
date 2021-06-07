@@ -14,8 +14,10 @@ Wrote Script for CheckPassword
     <title>Hobby Home Sign Up</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="signup.js"></script>
+    <script src="error_handling.js"></script>
   </head>
-  <body>
+  
+  <body onload="pageLoad()">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -26,6 +28,7 @@ Wrote Script for CheckPassword
     </div>
 
     <div class="title"><h2>Sign Up Today</h2></div>
+    <div id="errormsg">Error message</div>
 
     <!-- Container for Log In -->
     <div class="login_container">

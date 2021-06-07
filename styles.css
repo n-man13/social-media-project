@@ -150,6 +150,12 @@ form p:hover {
   color: black;
 }
 
+div#errormsg {
+  display: none;
+  color: rgb(206, 0, 0);
+  font-weight: bold;
+  text-align: center;
+}
 /* Log-in Container END ----------------------------- */
 
 /* Navigation bar START ----------------------------- */
