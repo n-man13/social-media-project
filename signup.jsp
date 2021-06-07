@@ -51,7 +51,7 @@ Wrote Script for CheckPassword
             <input type="password" name="password2" placeholder="Re-enter Password" id="password2" required />
             <p class="req">* Required</p>
             <input type="submit" value="Create Account" id="create-acc" />
-            <a href="login.html">
+            <a href="login.jsp">
               <input type="button" value="Sign in" id="sign-in" />
             </a>
           </form>
