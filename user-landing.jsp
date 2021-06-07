@@ -4,8 +4,6 @@ Project: Social Media Project
 Wrote HTML code for user-landing page
 -->
 
-<% out.println(request.getAttribute("message")); %>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
