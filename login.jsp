@@ -42,7 +42,7 @@ Wrote HTML code for login page
             <input type="password" name="password" placeholder="Password" id="password" required />
             <!-- TEMPORARY TEST, SIGN IN = user-landing.html -->
             <input type="submit" value="Sign in" id="sign-in" />
-            <a href="signup.html">
+            <a href="signup.jsp">
               <input type="button" value="Sign up" id="sign-up" />
             </a>
             <a href="UserSignInServlet"><p>Forgot Password</p></a>

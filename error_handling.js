@@ -5,18 +5,16 @@ function sleep(ms) {
 async function pageLoad() {
   var myDiv = document.getElementById("errormsg");
 
-  if (urlParams.has("error")) {
-    var errorCode = '<%= request.getAttribute("error") %>';
+  var errorCode = '<%= request.getAttribute("error") %>';
 
-    const codes = {
-      10: "User does not exist.",
-      5: "A user already exists with that username",
-      6: "A user already exists with that email address",
-    };
+  const codes = {
+    10: "User does not exist.",
+    5: "A user already exists with that username",
+    6: "A user already exists with that email address",
+  };
 
-    myDiv.innerHTML = codes[errorCode];
-    myDiv.style.display = "block";
-    await sleep(3000);
-    myDiv.style.display = "none";
-  }
+  myDiv.innerHTML = codes[errorCode];
+  myDiv.style.display = "block";
+  await sleep(3000);
+  myDiv.style.display = "none";
 }
