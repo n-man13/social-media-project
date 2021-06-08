@@ -1,0 +1,56 @@
+/*
+* Author: Nikhil Shah
+* Project: Social Media Project
+* Create and Populate Tables
+*/
+
+
+-- -----------------------------------------------------
+-- Schema HobbyHome
+-- -----------------------------------------------------
+CREATE SCHEMA HobbyHome;
+
+-- -----------------------------------------------------
+-- Table HobbyHome.login
+-- -----------------------------------------------------
+CREATE TABLE HobbyHome.login (
+  username VARCHAR(20) UNIQUE NOT NULL,
+  firstname VARCHAR(20) NOT NULL,
+  lastname VARCHAR(20) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  isadmin BOOL NOT NULL,
+  PRIMARY KEY(username),
+);
+
+-- -----------------------------------------------------
+-- Table HobbyHome.posts
+-- -----------------------------------------------------
+CREATE TABLE HobbyHome.posts (
+    postID SERIAL,
+    username VARCHAR(20) NOT NULL,
+    postTitle VARCHAR(45),
+    postContent VARCHAR(240)NOT NULL,
+    parentPost INT,
+    PRIMARY KEY(postID),
+    CONSTRAINT fk_user
+      FOREIGN KEY(username) 
+	  REFERENCES HobbyHome.login(username),
+);
+
+-- -----------------------------------------------------
+-- Table HobbyHome.messaging
+-- -----------------------------------------------------
+CREATE TABLE HobbyHome.messaging (
+	messageID SERIAL,
+	sendingUsername VARCHAR(20) NOT NULL,
+	receivingUsername VARCHAR(20) NOT NULL,
+	messageContent VARCHAR(120) NOT NULL,
+	PRIMARY KEY(messageID),
+	CONSTRAINT fk_sender
+		FOREIGN KEY(sendingUsername)
+		REFERENCES HobbyHome.login(username),
+	CONSTRAINT fk_receiver
+		FOREIGN KEY(receivingUsername)
+		REFERENCES HobbyHome.login(username)
+);

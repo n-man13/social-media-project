@@ -177,11 +177,51 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Push new post to Database
+	 * 
+	 * @param username		username associated to post
+	 * @param userPost		post content to be written
+	 * @return 				true if post was sent, otherwise false
+	 */
 	public boolean pushPost(String username, String userPost) {
+		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent) VALUES (?, ?)";
+		PreparedStatement ps;
+		try {
+			ps = this.conn.prepareStatement(sqlAddNewPost);
+			ps.setString(1, username);
+			ps.setString(2, userPost);
+			ps.executeUpdate();
+		} catch (SQLException e){
+			System.err.println(e.toString());
+			return false;
+		}
+		closeStatement(ps);
 		return true;
 	}
 	
+	/**
+	 * Push new post reply to Database
+	 * 
+	 * @param username		username associated to post
+	 * @param userPost		post content to be written
+	 * @param postid		post id of parent post
+	 * @return 				true if post reply was sent, otherwise false
+	 */
 	public boolean pushReply(String username, String userPost, int postid) {
+		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost) VALUES (?, ?, ?)";
+		PreparedStatement ps;
+		try {
+			ps = this.conn.prepareStatement(sqlAddNewPost);
+			ps.setString(1, username);
+			ps.setString(2, userPost);
+			ps.setInt(3, postid);
+			ps.executeUpdate();
+		} catch (SQLException e){
+			System.err.println(e.toString());
+			return false;
+		}
+		closeStatement(ps);
 		return true;
 	}
 	
