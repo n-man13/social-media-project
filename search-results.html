@@ -12,8 +12,16 @@ Wrote HTML code for signup page
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search-Results</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      function getInfo() {
+        var a_value = document.getElementById("username_placeholder");
+        var first = '<%= session.getAttribute("fname") %>';
+        var last = '<%= session.getAttribute("lname") %>';
+        a_value.innerHTML = first + ", " + last;
+      }
+    </script>
   </head>
-  <body>
+  <body onload="getInfo()">
     <!-- Header  -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -29,7 +37,7 @@ Wrote HTML code for signup page
       <a href="">Link</a>
       <a href="">Link</a>
       <div class="right">
-        <a href="">Username_Placeholder</a>
+        <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
       </div>
     </div>

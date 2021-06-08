@@ -34,7 +34,7 @@
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" placeholder="Search..." id="search-box" />
+            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>

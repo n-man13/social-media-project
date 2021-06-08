@@ -33,7 +33,7 @@
       <div class="hobby-bar user-bar">
         <div class="search-bar inbox-search">
           <form action="search" method="post">
-            <input type="text" placeholder="Search..." id="search-box" />
+            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
