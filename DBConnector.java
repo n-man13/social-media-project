@@ -66,18 +66,16 @@ public class DBConnector {
 		boolean retVal = false;
 		PreparedStatement ps = null;
 		if (!isUserExists(newUser)){
-			int nextVal = getNextValue();
 			String passHash = newPass; //getSHA(newPass); skipping hashing for alpha
-			String sqlAddEntry = "INSERT INTO HobbyHome.login(userid, username, firstname, lastname, email, passhash, isadmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sqlAddEntry = "INSERT INTO HobbyHome.login(username, firstname, lastname, email, password, isadmin) VALUES (?, ?, ?, ?, ?, ?)";
 			try {
 				ps = this.conn.prepareStatement(sqlAddEntry);
-				ps.setInt(1, (nextVal+1));
-				ps.setString(2, newUser);
-				ps.setString(3, firstName);
-				ps.setString(4, lastName);
-				ps.setString(5, email);
-				ps.setString(6, passHash);
-				ps.setBoolean(7, false);
+				ps.setString(1, newUser);
+				ps.setString(2, firstName);
+				ps.setString(3, lastName);
+				ps.setString(4, email);
+				ps.setString(5, passHash);
+				ps.setBoolean(6, false);
 				ps.executeUpdate();
 				retVal = true;
 			}
@@ -89,27 +87,6 @@ public class DBConnector {
 			}
 		}		
 		return retVal;
-	}
-	
-	private int getNextValue(){
-		int retValue = 0;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "SELECT max(userid) FROM HobbyHome.login";
-		try {			
-			ps = this.conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				retValue = rs.getInt(1);
-			}
-		}
-		catch (SQLException e){
-			System.err.println(e.toString());
-		}
-		finally {
-			closeResultSetStatement(rs, ps);
-		}
-		return retValue;
 	}
 	
 	// helper method to test if username is in database
@@ -168,7 +145,7 @@ public class DBConnector {
 		int retVal = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlSelectUsernames = "SELECT username,passhash,isadmin FROM HobbyHome.login WHERE username=? AND passhash=?";
+		String sqlSelectUsernames = "SELECT username, password, isadmin FROM HobbyHome.login WHERE username=? AND password=?";
 		
 			try {
 				ps = this.conn.prepareStatement(sqlSelectUsernames);
@@ -199,7 +176,7 @@ public class DBConnector {
 		String retVal = "";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlSelectUsernames = "SELECT username, passhash, firstname, lastname FROM HobbyHome.login WHERE username=? AND passhash=?";
+		String sqlSelectUsernames = "SELECT username, password, firstname, lastname FROM HobbyHome.login WHERE username=? AND password=?";
 		
 			try {
 				ps = this.conn.prepareStatement(sqlSelectUsernames);
@@ -227,7 +204,7 @@ public class DBConnector {
 		String retVal = "";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlSelectUsernames = "SELECT username, passhash, firstname, lastname FROM HobbyHome.login WHERE username=? AND passhash=?";
+		String sqlSelectUsernames = "SELECT username, password, firstname, lastname FROM HobbyHome.login WHERE username=? AND password=?";
 		
 			try {
 				ps = this.conn.prepareStatement(sqlSelectUsernames);
