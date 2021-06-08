@@ -316,6 +316,7 @@ textarea {
 }
 
 #userpage-textbox,
+#replytextbox,
 #post-textbox,
 #message-textbox {
   resize: none;
