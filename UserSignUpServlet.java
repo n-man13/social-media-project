@@ -1,4 +1,7 @@
-import java.io.IOException;  
+package com.njit.smp.servlets;
+import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;  
 import javax.servlet.annotation.WebServlet;  
 import javax.servlet.http.HttpServlet;  
@@ -8,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Atharv Tyagi <at477@njit.edu>
  * @project Social Media Project 
- * Servlet implementation to sign up new users
+ * Servlet implementation to sign up new users to website
  */
-@WebServlet("/UserSignInServlet")  
+@WebServlet("/UserSignUpServlet")  
 public class UserSignUpServlet extends HttpServlet {  
     private static final long serialVersionUID = 1L;  
          
@@ -29,11 +32,13 @@ public class UserSignUpServlet extends HttpServlet {
      * @param lastName 		last name of user to pass to database
      * @param firstName 	first name of user to pass to database
      * @param email 		email of user to pass to database
+     * @throws SQLException 
      */
-    protected boolean signUp(String username, String password, String firstName, String lastName, String email) {
-    	DBConnector con = new DBConnector("jdbc:mysql://localhost:3306/HobbyHome", username, password);
-    	
-    	return con.addUser(username, password, firstName, lastName, email);
+    protected boolean signUp(String username, String password, String firstName, String lastName, String email) throws SQLException {
+    	System.out.println("connecting to db");    	
+    	DBConnector connector = DBConnector.getInstance();
+    	System.out.println("connected to db");    	
+    	return connector.addUser(username, password, firstName, lastName, email);
 	}
   
     /** 
@@ -48,20 +53,25 @@ public class UserSignUpServlet extends HttpServlet {
      */  
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
     	String username  = request.getParameter("username");
-    	String password  = request.getParameter("password");
-    	String firstName = request.getParameter("firstName");
-    	String lastName  = request.getParameter("lastName");
+    	String password  = request.getParameter("password1");
+    	String firstName = request.getParameter("firstname");
+    	String lastName  = request.getParameter("lastname");
     	String email 	 = request.getParameter("email");
     	
     	//Send new user information to database
-    	if (signUp(username, password, firstName, lastName, email)) {
-    		//Redirect to user landing
-    		response.sendRedirect("http://localhost:8080/BasicWebApplication/login.html");
-    	}
-    	else {
-    		//Redirect to signup
-    		response.sendRedirect("http://localhost:8080/BasicWebApplication/signup.html");
-    	}
+    	try {
+			if (signUp(username, password, firstName, lastName, email)) {
+				//Redirect to user landing
+				response.sendRedirect("/");
+			}
+			else {
+				//Redirect to signup
+				//request.setAttribute("GEN_ERROR", e.getMessage());
+				response.sendRedirect("signup.html");
+			}
+		} catch (SQLException | IOException e) {
+			e.getMessage();
+		}
     }  
   
 } 

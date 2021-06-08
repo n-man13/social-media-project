@@ -1,3 +1,5 @@
+package com.njit.smp.servlets;
+
 import java.sql.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -5,34 +7,37 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author		Nikhil Shah <ns555@njit.edu>
- * @project Social Media Project
- * Connect Java to SQL Database
+ * @project 		Social Media Project
+ * Connect Java to PostgreSQL Database
 **/
 
-class DBConnector{
+public class DBConnector {
 	
-	private String url; // sample url "jdbc:mysql://localhost:3306/HobbyHome"
-	private String username;
-	private String password;
+	private final String url = "jdbc:postgresql://ec2-18-214-195-34.compute-1.amazonaws.com:5432/d31vf441kgsriv"; // sample url "jdbc:postgresql://localhost:5432/HobbyHome"
+	private final String username = "cytrvwhcgxsesg";;
+	private final String password = "4f7f4474d027fc97cd0a626d85608136869f6a51ecef3a69802ff612c60779a2";
 	private Connection conn;
+	private static DBConnector instance;
 	
-	/**
-	 * Constructor
-	 * @param 	url			url path to connect to mysql server. Sample: "jdbc:mysql://localhost:3306/HobbyHome"
-	 * @param 	username 	username to connect to server
-	 * @param 	password	password to connect to server
-	**/
-	public DBConnector(String url, String username, String password){
-		this.url = url;
-		this.username = username;
-		this.password = password;
-		testConnect();
+	private DBConnector() {	
+		this.conn = getConnection();
+	}
+	
+	public static DBConnector getInstance() {
+		if (instance == null) {
+			instance = new DBConnector();
+		}
+		return instance;
 	}
 	
 	// helper method to test if connection works
-	private void testConnect(){
+	private Connection getConnection() {
+		System.err.println("Testing the connection.");
+		if(this.conn != null) {
+			return this.conn;
+		}
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			this.conn = DriverManager.getConnection(url, username, password);
 			Statement st = conn.createStatement();
 		} catch (SQLException e){
@@ -40,6 +45,7 @@ class DBConnector{
 		} catch (ClassNotFoundException f){
 			System.err.println("class not found: " + f.toString());
 		}
+		return this.conn;
 	}
 	
 	/**
@@ -53,44 +59,80 @@ class DBConnector{
 	 * @param lastName 		name to be associated
 	 * @param email			email to be associated
 	 * @return 				true if user was successfully added to database, false if username is already in use
+	 * @throws SQLException 
 	**/
-	public boolean addUser(String newUser, String newPass, String firstName, String lastName, String email){
-		if (!isUser(newUser)){
-			String passHash = getSHA(newPass);
-			String sqlAddEntry = "INSERT INTO login VALUES (default, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement ps = conn.prepareStatement(sqlAddEntry);
-			ps.setString(1, newUser);
-			ps.setString(2, firstName);
-			ps.setString(3, lastName);
-			ps.setString(4, email);
-			ps.setString(5, passHash);
-			ps.setBoolean(6, false);
-			ps.executeUpdate();
-			return isUser(newUser);
+	public boolean addUser(String newUser, String newPass, String firstName, String lastName, String email) throws SQLException{
+		System.out.println("user is: " + newUser + " pass is: " + newPass);
+		boolean retVal = false;
+		PreparedStatement ps = null;
+		if (!isUserExists(newUser)){
+			int nextVal = getNextValue();
+			String passHash = newPass; //getSHA(newPass); skipping hashing for alpha
+			String sqlAddEntry = "INSERT INTO HobbyHome.login(userid, username, firstname, lastname, email, passhash, isadmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			try {
+				ps = this.conn.prepareStatement(sqlAddEntry);
+				ps.setInt(1, (nextVal+1));
+				ps.setString(2, newUser);
+				ps.setString(3, firstName);
+				ps.setString(4, lastName);
+				ps.setString(5, email);
+				ps.setString(6, passHash);
+				ps.setBoolean(7, false);
+				ps.executeUpdate();
+				retVal = true;
+			}
+			catch (SQLException e){
+				System.err.println(e.toString());
+			}
+			finally {
+				closeStatement(ps);
+			}
+		}		
+		return retVal;
+	}
+	
+	private int getNextValue(){
+		int retValue = 0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "SELECT max(userid) FROM HobbyHome.login";
+		try {			
+			ps = this.conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				retValue = rs.getInt(1);
+			}
 		}
-		else{ 
-			return false;
+		catch (SQLException e){
+			System.err.println(e.toString());
 		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		return retValue;
 	}
 	
 	// helper method to test if username is in database
-	private boolean isUser(String user){
-		try {
-			String sqlSelectUsernames = "SELECT username FROM login";
-			
-			ResultSet rs = conn.prepareStatement(sqlSelectUsernames).executeQuery();
-			while (rs.next()){
-				if (user.equals(rs.getString("username"))){
-					rs.close();
-					return true;
-				}
+	private boolean isUserExists(String user){
+		boolean retValue = false;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "SELECT username FROM HobbyHome.login WHERE username=?";
+		try {			
+			ps = this.conn.prepareStatement(sqlSelectUsernames);
+			ps.setString(1, user);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				retValue = true;
 			}
-			rs.close();
-			return false;
-			
-		} catch (SQLException e){
+		} 
+		catch (SQLException e){
 			System.err.println(e.toString());
 		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		return retValue;
 	}
 	
 	// helper method to hash with SHA-256 protocol
@@ -111,6 +153,7 @@ class DBConnector{
 		} catch(NoSuchAlgorithmException e){
 			System.err.println("Exception thrown" + e.toString());
 		}
+		return null;
 	}
 	
 	/**
@@ -118,27 +161,124 @@ class DBConnector{
 	 * 
 	 * @param user		username to be signed in
 	 * @param pass 		password to be checked if matching hashed
-	 * @return 			true if user can be signed in, otherwise false
+	 * @return 			1 if user can be signed in, 2 if admin, otherwise 0
 	**/
-	public boolean signIn(String user, String pass){
-		if (isUser(user)){
+	public int signIn(String user, String pass){
+		System.out.println("inside connector user = "+user + "  and pass = " + pass);
+		int retVal = 0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "SELECT username,passhash,isadmin FROM HobbyHome.login WHERE username=? AND passhash=?";
+		
 			try {
-			String sqlSelectUsernames = "SELECT username,passhash FROM login";
-			
-			ResultSet rs = conn.prepareStatement(sqlSelectUsernames).executeQuery();
-			while (rs.next()){
-				if (user.equals(rs.getString("username")) && getSHA(pass).equals(rs.getString("passhash"))){
-					rs.close();
-					return true;
+				ps = this.conn.prepareStatement(sqlSelectUsernames);
+				ps.setString(1, user);
+				ps.setString(2, pass);
+				rs = ps.executeQuery();
+				System.out.println(ps);
+				while(rs.next()) {
+					System.out.print("Column 1 returned ");
+				    System.out.println(rs.getString(1));
+					retVal = 1;
+					if (rs.getBoolean("isadmin")) {
+						retVal = 2;
+					}
 				}
 			}
-			rs.close();
-			return false;
-			
-			} catch (SQLException e){
+			catch (SQLException e){
 				System.err.println(e.toString());
 			}
-		}
-		else return false;
+			finally {
+				closeResultSetStatement(rs, ps);
+			}
+		
+		return retVal;
 	}
+	
+	public String getFName(String user, String pass) {
+		String retVal = "";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "SELECT username, passhash, firstname, lastname FROM HobbyHome.login WHERE username=? AND passhash=?";
+		
+			try {
+				ps = this.conn.prepareStatement(sqlSelectUsernames);
+				ps.setString(1, user);
+				ps.setString(2, pass);
+				rs = ps.executeQuery();
+				System.out.println(ps);
+				while(rs.next()) {
+					System.out.print("Column 1 returned ");
+				    System.out.println(rs.getString(2));
+					retVal = rs.getString(2);
+				}
+			}
+			catch (SQLException e){
+				System.err.println(e.toString());
+			}
+			finally {
+				closeResultSetStatement(rs, ps);
+			}
+		
+		return retVal;
+	}
+	
+	public String getLName(String user, String pass) {
+		String retVal = "";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "SELECT username, passhash, firstname, lastname FROM HobbyHome.login WHERE username=? AND passhash=?";
+		
+			try {
+				ps = this.conn.prepareStatement(sqlSelectUsernames);
+				ps.setString(1, user);
+				ps.setString(2, pass);
+				rs = ps.executeQuery();
+				System.out.println(ps);
+				while(rs.next()) {
+					System.out.print("Column 1 returned ");
+				    System.out.println(rs.getString("lastname"));
+					retVal = rs.getString(3);
+				}
+			}
+			catch (SQLException e){
+				System.err.println(e.toString());
+			}
+			finally {
+				closeResultSetStatement(rs, ps);
+			}
+		
+		return retVal;
+	}
+
+	/**
+	 * Run to close the outgoing database connection
+	 * @throws SQLException 
+	 */
+	public void closeConnection() throws SQLException {
+		conn.close();
+	}
+	
+	public void closeResultSetStatement(ResultSet rs, Statement ps) {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        catch (SQLException e1) {
+        	System.err.println(e1.toString());
+        }
+
+        closeStatement(ps);
+    }
+	public void closeStatement(Statement ps) {
+        if (ps != null) {
+            try {
+                ps.close();
+            }
+            catch (SQLException e1) {
+            	System.err.println(e1.toString());
+            }
+        }
+    }
 }
