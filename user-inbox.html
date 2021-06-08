@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Page</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      function sendMessage(event) {}
+
+      const form = document.getElementById("send-message");
+      const msg = document.getElementById("message-template");
+      form.addEventListener("submit", sendMessage);
+    </script>
   </head>
   <body>
     <!-- Header -->
@@ -42,63 +49,14 @@
       </div>
       <div class="main-content messaging">
         <div class="messages">
-          <div class="user-reply user-message">
+          <!-- User Message\reply Template START -->
+          <div class="user-reply user-message" id="message-template">
             <h5>Username_Placeholder</h5>
             <p>User reply goes here - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, autem?</p>
           </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>User reply goes here - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, autem?</p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur at, a esse rerum tenetur assumenda eos cum quae nulla similique dignissimos hic minima doloribus quo debitis
-              quisquam earum ipsum. Nihil, sapiente expedita, quisquam error alias aliquid eius fuga velit exercitationem animi explicabo maiores voluptates libero, provident odio iste. Soluta,
-              suscipit.
-            </p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure reiciendis harum voluptatem recusandae dolore cumque voluptatibus amet error vero inventore nulla non minima temporibus nemo
-              ab, similique quas repellendus, eum quo ad ut quam quae dolor! Delectus impedit possimus repudiandae unde culpa repellat illo consequatur? Animi, nobis. Quasi dolores sed explicabo
-              fugiat excepturi magni corrupti accusantium, dolore deserunt quam voluptatum est ut aliquam, praesentium maxime. Blanditiis aliquam sunt recusandae dolores perspiciatis, quibusdam
-              voluptates iste expedita quia repudiandae perferendis aliquid nobis neque nam veritatis doloremque veniam. Dolorum, cupiditate facere odio, aliquam quos est necessitatibus officia,
-              ducimus ipsa neque veniam ad quod illo quo voluptate assumenda dicta quis quibusdam! Harum, aliquid est! Accusantium quasi, facilis dicta ut aliquam voluptas officiis sed tenetur
-              pariatur, laudantium vitae ipsa dolorem aliquid repellat! Rerum, sunt esse, temporibus non iure quibusdam dolores saepe repellendus sed eius vero corrupti quasi quae dolorum. Quos
-              mollitia praesentium temporibus distinctio laudantium amet fuga sit adipisci quae cupiditate eius soluta, itaque vero voluptatibus sint, facilis inventore. Quia consectetur, vitae
-              eligendi mollitia dolorem inventore repellat optio. Aliquid dolorum odit eius qui minima sunt aut quis totam reprehenderit itaque possimus voluptatem, consectetur adipisci nihil, ex quae
-              aperiam cumque fugit quisquam voluptates. Sunt, dolor. Ducimus.
-            </p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quisquam! Quos, repellendus. Velit minus nisi debitis vero dicta, quisquam illo, placeat, unde cupiditate error
-              illum doloribus repellendus voluptate aliquam consectetur.
-            </p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore ipsam, architecto at sequi corporis sapiente. Obcaecati rem modi perspiciatis itaque facilis. Vitae, nisi laudantium culpa
-              quidem in labore itaque. Accusamus.
-            </p>
-          </div>
-          <div class="user-reply user-message">
-            <h5>Username_Placeholder</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore ipsam, architecto at sequi corporis sapiente. Obcaecati rem modi perspiciatis itaque facilis. Vitae, nisi laudantium culpa
-              quidem in labore itaque. Accusamus.
-            </p>
-          </div>
+          <!-- User Message\reply Template END -->
         </div>
-        <div class="profile-post send-message">
+        <div class="profile-post send-message" id="send-message">
           <form action="message" method="post">
             <textarea name="message-textbox" id="message-textbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />

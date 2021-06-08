@@ -15,10 +15,8 @@ Wrote HTML code for user-landing page
     <script>
       function getInfo() {
         var a_value = document.getElementById("username_placeholder");
-
         var first = '<%= request.getAttribute("fname") %>';
         var last = '<%= request.getAttribute("lname") %>';
-
         a_value.innerHTML = first + ", " + last;
       }
     </script>
@@ -39,7 +37,7 @@ Wrote HTML code for user-landing page
       <a href="">Link</a>
       <a href="">Link</a>
       <div class="right">
-        <a href="" id="username_placeholder">Username_Placeholder</a>
+        <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
       </div>
     </div>
