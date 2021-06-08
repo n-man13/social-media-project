@@ -220,10 +220,10 @@ public class DBConnector {
 		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
 		UserMessage post;
 		List<UserMessage> posts = new ArrayList<UserMessage>();
-		PreparedStatement ps;
-		PreparedStatement ps2;
-		ResultSet rs;
-		ResultSet rs2;
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
 		try {
 			ps = this.conn.prepareStatement(sqlSelectUserPosts);
 			ps.setString(1, firstname);
@@ -254,6 +254,10 @@ public class DBConnector {
 				post.setReplies(replies);
 				posts.add(post);
 			}
+		}catch (SQLException e){
+			System.err.println(e.toString());
+		}finally {
+			closeResultSetStatement(rs, ps);
 		}
 	}
 	
