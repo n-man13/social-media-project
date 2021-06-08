@@ -177,6 +177,14 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	public boolean pushPost(String username, String userPost) {
+		return true;
+	}
+	
+	public boolean pushReply(String username, String userPost, int postid) {
+		return true;
+	}
+	
 	public List<UserMessage> getAllPosts() {
 		UserMessage poster = null;		
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
