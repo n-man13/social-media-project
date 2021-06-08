@@ -6,49 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Page</title>
     <link rel="stylesheet" href="styles.css" />
-    <script>
-      function getPosts() {
-        /*
-        var user = '<%= request.getAttribute("user") %>';
-        var userpost = '<%= request.getAttribute("userpost") %>';
-        var postDiv = document.getElementById("userposts");
-
-        let post_template = `
-            <div class="post-content">
-            <h5 id="post-owner">${user}</h5>
-            <p>
-              ${userpost}
-            </p>
-            <hr />
-            <div class="replies" id="replies">
-            </div>
-            <form action="post-comment" method="post">
-              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
-              <input type="submit" value="Reply" id="post-response" />
-            </form>
-          </div>
-            `;
-
-        postDiv.innerHTML += post_template;
-
-        var userReplies = '<%= request.getAttribute("replies") %>';
-        var replyDiv = document.getElementById("replies");
-
-        for (each reply in userReplies) {
-            let userreply =
-            `
-            <div class="user-reply">
-                <h5>${replyuser}</h5>
-                <p>${reply}</p>
-              </div>
-            `
-            replyDiv.innerHTML += userreply;
-        }
- */
-      }
-    </script>
   </head>
-  <body onload="getPosts()">
+  <body>
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -94,7 +53,7 @@
             <input type="submit" value="Post" id="userstatus" />
           </form>
         </div>
-        <div class="user-posts" id="userposts">
+        <div class="user-posts">
           <div class="post-content">
             <h5 id="post-owner">Username_Placeholder</h5>
             <p>
@@ -109,10 +68,43 @@
               laboriosam eveniet saepe officia repellat quibusdam ipsam et! Repellat?
             </p>
             <hr />
-            <div class="replies" id="replies">
+            <div class="replies">
               <div class="user-reply">
                 <h5>Username_Placeholder</h5>
                 <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, pariatur.</p>
+              </div>
+              <div class="user-reply">
+                <h5>Username_Placeholder</h5>
+                <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odio cumque veritatis.</p>
+              </div>
+            </div>
+            <form action="post-comment" method="post">
+              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+              <input type="submit" value="Reply" id="post-response" />
+            </form>
+          </div>
+          <div class="post-content">
+            <h5>Username_Placeholder</h5>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem asperiores, error deserunt sit officia voluptatem pariatur ex architecto commodi! Similique, nesciunt praesentium rerum
+              excepturi ea quo veritatis iste deserunt eveniet voluptate. Esse eaque recusandae, quibusdam illo reprehenderit sunt nostrum officiis dolor eligendi adipisci. Numquam sint enim ratione,
+              placeat non, aspernatur fugit ab sed perferendis quasi quia eum, ipsa tempora libero nostrum tempore! Sunt autem consequatur esse, obcaecati labore quasi cupiditate alias mollitia
+              accusamus. Hic voluptatibus natus, repellat, quo dolores blanditiis debitis distinctio facilis dolorum iste facere nihil animi asperiores sunt assumenda nulla minus, mollitia sint
+              expedita illo. Molestias voluptate quod repellat fugit voluptas totam cumque voluptates, consectetur aliquid rerum. Nam autem nulla nostrum quos facere quibusdam, a at hic rerum qui
+              aperiam harum, saepe sed itaque obcaecati. Exercitationem qui nam atque blanditiis. A obcaecati rerum tenetur laborum, odit, dolor omnis, amet aspernatur cupiditate consequatur nam.
+              Atque, debitis fugit! Optio voluptas repudiandae unde dolores consectetur dolor nihil necessitatibus ipsam ullam aperiam, enim est veritatis, magnam possimus odio impedit totam aliquid,
+              voluptate debitis. Adipisci aperiam, rerum quas odio expedita aspernatur voluptatum tempore, dolores assumenda iste atque in nisi deleniti suscipit accusantium necessitatibus tenetur
+              laboriosam eveniet saepe officia repellat quibusdam ipsam et! Repellat?
+            </p>
+            <hr />
+            <div class="replies">
+              <div class="user-reply">
+                <h5>Username_Placeholder</h5>
+                <p>User reply goes here - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, autem?</p>
+              </div>
+              <div class="user-reply">
+                <h5>Username_Placeholder</h5>
+                <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quod eaque consequuntur.</p>
               </div>
             </div>
             <form action="status" method="post">

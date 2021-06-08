@@ -90,8 +90,8 @@ Wrote HTML code for user-landing page
                 <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, pariatur.</p>
               </div>
             </div>
-            <form action="post-comment" method="post">
-              <textarea name="post-textbox" id="post-textbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+            <form action="status" method="post">
+              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
               <input type="submit" value="Reply" id="post-response" />
             </form>
           </div>
