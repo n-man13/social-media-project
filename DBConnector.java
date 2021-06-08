@@ -1,6 +1,11 @@
 package com.njit.smp.servlets;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.njit.smp.model.UserMessage;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -170,6 +175,61 @@ public class DBConnector {
 			}
 		
 		return retVal;
+	}
+	
+	public List<UserMessage> getAllPosts() {
+		UserMessage poster = null;		
+		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
+		
+		
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		String sqlSelectPrimaryPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost is null order by postid desc";
+		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
+		
+		try {
+			ps = this.conn.prepareStatement(sqlSelectPrimaryPosts);
+			rs = ps.executeQuery();			
+			
+			while (rs.next()) {
+				poster = new UserMessage();
+				poster.setPostid(rs.getInt("postid"));
+				poster.setFirstName(rs.getString("firstname"));
+				poster.setLastName(rs.getString("lastname"));
+				poster.setPostContent(rs.getString("postcontent"));
+				
+				//loop to get replies for this post
+				ps2 = this.conn.prepareStatement(sqlSelectReplies);
+				ps2.setInt(1, poster.getPostid());
+				rs2 = ps2.executeQuery();
+				List<UserMessage> replies = new ArrayList<UserMessage>();
+				UserMessage replier = null;
+				
+				while (rs2.next()) {
+					replier = new UserMessage();
+					replier.setFirstName(rs.getString("firstname"));
+					replier.setLastName(rs.getString("lastname"));
+					replier.setPostContent(rs.getString("postcontent"));
+					replies.add(replier);
+				}
+				
+				if(!replies.isEmpty()) {
+					poster.setReplies(replies);
+				}
+			}
+			
+			primaryPosts.add(poster);
+		}
+		catch (SQLException e){
+			System.err.println(e.toString());
+		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		
+		return primaryPosts;
 	}
 	
 	public String getFName(String user, String pass) {
