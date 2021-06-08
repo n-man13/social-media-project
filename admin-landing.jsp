@@ -38,7 +38,7 @@ Wrote HTML code for signup page
       <a href="">Link</a>
       <a href="">Link</a>
       <div class="right">
-        <a href="">Username_Placeholder</a>
+        <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
       </div>
     </div>
