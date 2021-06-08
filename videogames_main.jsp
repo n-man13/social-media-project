@@ -62,6 +62,13 @@ Wrote HTML code for user-landing page
         <div class="main-box"><p>Technology</p></div>
       </div>
       <div class="main-content">
+        <div class="profile-post">
+          <label for="userpage-textbox"><h2>Post your status!</h2></label>
+          <form action="status" method="post">
+            <textarea name="userpagetextbox" id="userpagetextbox" cols="80" rows="8" placeholder="Let the world know..." required></textarea>
+            <input type="submit" value="Post" id="userstatus" />
+          </form>
+        </div>
         <div class="user-posts userposts-mainpage">
           <div class="post-content">
             <h5 id="post-owner">Username_Placeholder</h5>
