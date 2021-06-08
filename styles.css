@@ -457,16 +457,3 @@ textarea {
   font-size: 14px;
 }
 /* user-inbox.html END ----------------------------- */
-
-/* user-search.html START ----------------------------- */
-
-.user-result {
-  text-align: center;
-  margin: 0px 10px;
-}
-
-.search-results {
-  padding-top: 10px;
-}
-
-/* user-search.html END ----------------------------- */
