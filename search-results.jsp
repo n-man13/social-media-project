@@ -13,8 +13,8 @@ Wrote HTML code for user-landing page
 <%
 List<UserMessage> userPosts = null;
 
-if (request.getAttribute("posts") != null) {
-  userPosts = (List<UserMessage>) request.getAttribute("posts");
+if (request.getAttribute("searchposts") != null) {
+  userPosts = (List<UserMessage>) request.getAttribute("searchposts");
 }
 %>
 <!DOCTYPE html>
