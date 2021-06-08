@@ -10,6 +10,10 @@ body {
   margin: 0;
 }
 
+.main-container {
+  height: 100%;
+}
+
 /* Header START ----------------------------- */
 .header_container {
   background-color: rgb(100, 170, 250);
@@ -189,7 +193,7 @@ div#errormsg {
 .main-container {
   display: flex;
 }
-.main-container .main-box {
+.main-box {
   background-color: rgb(167, 255, 163);
   border: 2px solid black;
   padding: 20px 20px;
@@ -202,7 +206,7 @@ div#errormsg {
   align-items: center;
 }
 
-.main-container .main-box:hover {
+.main-box:hover {
   background-color: rgba(110, 255, 91, 0.767);
 }
 

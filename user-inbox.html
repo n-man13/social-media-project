@@ -38,8 +38,8 @@
 
     <!-- Main Content -->
     <div class="main-container">
-      <div class="hobby-bar user-bar">
-        <div class="search-bar inbox-search">
+      <div class="hobby-bar">
+        <div class="search-bar">
           <form action="search" method="post">
             <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
@@ -48,13 +48,19 @@
         <div class="user" id="user-owner"><p>John Doe</p></div>
         <div class="user" id="user-owner"><p>Mike Bob</p></div>
       </div>
-      <div class="main-content messaging">
+      <div class="main-content">
         <div class="messages">
+          <% if(!userPosts.isEmpty()) {
+            for(UserMessage userPost: userPosts){
+              List<UserMessage> replies = userPost.getReplies();
+            %>
           <!-- User Message\reply Template START -->
           <div class="user-reply user-message" id="messagetemplate">
-            <h5>Username_Placeholder</h5>
-            <p>User reply goes here - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, autem?</p>
+            <h5><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
+            <p><%=userPost.getFirstName()%></p>
           </div>
+          <%}
+          }$>
           <!-- User Message\reply Template END -->
         </div>
         <div class="profile-post send-message">
