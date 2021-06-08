@@ -238,7 +238,7 @@ public class DBConnector {
 				post.setPostContent(rs.getString("postcontent"));
 				
 				ps2 = this.conn.prepareStatement(sqlSelectReplies);
-				ps2.setInt(1, post.getPostid());
+				ps2.setInt(1, post.getPostId());
 				rs2 = ps2.executeQuery();
 				
 				List<UserMessage> replies = new ArrayList<UserMessage>();
