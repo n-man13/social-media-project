@@ -52,9 +52,11 @@ Wrote HTML code for user-landing page
           </form>
         </div>
         <div class="main-box"><p>Sports</p></div>
-        <div class="main-box">
-          <p>Video<br />Games</p>
-        </div>
+        <a href="videogames_main.jsp">
+          <div class="main-box">
+            <p>Video<br />Games</p>
+          </div>
+        </a>
         <div class="main-box"><p>Music</p></div>
         <div class="main-box"><p>Arts & Crafts</p></div>
         <div class="main-box"><p>Technology</p></div>
