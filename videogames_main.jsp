@@ -13,15 +13,48 @@ Wrote HTML code for user-landing page
     <title>Hobby Home</title>
     <link rel="stylesheet" href="styles.css" />
     <script>
-      function getInfo() {
-        var a_value = document.getElementById("username_placeholder");
-        var first = '<%= request.getAttribute("fname") %>';
-        var last = '<%= request.getAttribute("lname") %>';
-        a_value.innerHTML = first + ", " + last;
+      function getPosts() {
+        /*
+          var user = '<%= request.getAttribute("user") %>';
+          var userpost = '<%= request.getAttribute("userpost") %>';
+          var postDiv = document.getElementById("userposts");
+  
+          let post_template = `
+              <div class="post-content">
+              <h5 id="post-owner">${user}</h5>
+              <p>
+                ${userpost}
+              </p>
+              <hr />
+              <div class="replies" id="replies">
+              </div>
+              <form action="post-comment" method="post">
+                <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+                <input type="submit" value="Reply" id="post-response" />
+              </form>
+            </div>
+              `;
+  
+          postDiv.innerHTML += post_template;
+  
+          var userReplies = '<%= request.getAttribute("replies") %>';
+          var replyDiv = document.getElementById("replies");
+  
+          for (each reply in userReplies) {
+              let userreply =
+              `
+              <div class="user-reply">
+                  <h5>${replyuser}</h5>
+                  <p>${reply}</p>
+                </div>
+              `
+              replyDiv.innerHTML += userreply;
+          }
+   */
       }
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getPosts()">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>

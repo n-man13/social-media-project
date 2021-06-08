@@ -52,11 +52,12 @@ Wrote HTML code for user-landing page
           </form>
         </div>
         <div class="main-box"><p>Sports</p></div>
-        <a href="videogames_main.jsp">
+        <form action="status" method="post">
           <div class="main-box">
             <p>Video<br />Games</p>
           </div>
-        </a>
+          <input type="submit" name="initload" value="GO" id="initload" />
+        </form>
         <div class="main-box"><p>Music</p></div>
         <div class="main-box"><p>Arts & Crafts</p></div>
         <div class="main-box"><p>Technology</p></div>
