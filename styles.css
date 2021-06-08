@@ -219,6 +219,11 @@ div#errormsg {
   border-right: 4px solid black;
 }
 
+.hobby-bar a {
+  text-decoration: none;
+  color: black;
+}
+
 .search-bar {
   display: flex;
 }
@@ -228,7 +233,7 @@ div#errormsg {
   margin-bottom: 5px;
   margin-right: 0px;
   padding: 5px;
-  width: 138px;
+  width: 136px;
 }
 
 .search-bar #search-submit {
@@ -316,6 +321,7 @@ textarea {
 }
 
 #userpage-textbox,
+#replytextbox,
 #post-textbox,
 #message-textbox {
   resize: none;
@@ -339,6 +345,10 @@ textarea {
 
 .main-content .user-posts {
   margin: 0px 20px 20px 20px;
+}
+
+.userposts-mainpage {
+  padding-top: 20px;
 }
 
 .post-content form {

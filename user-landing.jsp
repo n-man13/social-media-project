@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%
+String username = (String) session.getAttribute("uname");
+%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
@@ -17,10 +20,8 @@ Wrote HTML code for user-landing page
     <script>
       function getInfo() {
         var a_value = document.getElementById("username_placeholder");
-
-        var first = '<%= request.getAttribute("fname") %>';
-        var last = '<%= request.getAttribute("lname") %>';
-
+        var first = '<%= session.getAttribute("fname") %>';
+        var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
     </script>
@@ -56,9 +57,13 @@ Wrote HTML code for user-landing page
           </form>
         </div>
         <div class="main-box"><p>Sports</p></div>
-        <div class="main-box">
-          <p>Video<br />Games</p>
-        </div>
+        <form action="status" method="post">
+        <input type="hidden" name="initload" value="initload"> 
+          <div class="main-box">
+            <p>Video<br />Games</p>
+          </div>
+          <input type="submit" value="Fetch Posts" />
+        </form>
         <div class="main-box"><p>Music</p></div>
         <div class="main-box"><p>Arts & Crafts</p></div>
         <div class="main-box"><p>Technology</p></div>

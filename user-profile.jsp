@@ -71,17 +71,17 @@
             </p>
             <hr />
             <div class="replies">
-              <div class="user-reply">
+              <div class="userreply">
                 <h5>Username_Placeholder</h5>
                 <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, pariatur.</p>
               </div>
-              <div class="user-reply">
+              <div class="userreply">
                 <h5>Username_Placeholder</h5>
                 <p>User reply goes here - Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odio cumque veritatis.</p>
               </div>
             </div>
-            <form action="post-comment" method="post">
-              <textarea name="post-textbox" id="post-textbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+            <form action="status" method="post">
+              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
               <input type="submit" value="Reply" id="post-response" />
             </form>
           </div>
