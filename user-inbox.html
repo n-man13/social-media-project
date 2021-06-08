@@ -6,13 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Page</title>
     <link rel="stylesheet" href="styles.css" />
-    <script>
-      function sendMessage(event) {}
-
-      const form = document.getElementById("send-message");
-      const msg = document.getElementById("message-template");
-      form.addEventListener("submit", sendMessage);
-    </script>
   </head>
   <body>
     <!-- Header -->
@@ -50,15 +43,15 @@
       <div class="main-content messaging">
         <div class="messages">
           <!-- User Message\reply Template START -->
-          <div class="user-reply user-message" id="message-template">
+          <div class="user-reply user-message" id="messagetemplate">
             <h5>Username_Placeholder</h5>
             <p>User reply goes here - Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, autem?</p>
           </div>
           <!-- User Message\reply Template END -->
         </div>
-        <div class="profile-post send-message" id="send-message">
-          <form action="message" method="post">
-            <textarea name="message-textbox" id="message-textbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
+        <div class="profile-post send-message">
+          <form action="message" method="post" id="sendform">
+            <textarea name="message-textbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />
           </form>
         </div>
