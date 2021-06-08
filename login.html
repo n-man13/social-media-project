@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
@@ -14,7 +15,24 @@ Wrote HTML code for login page
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hobby Home Log in</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="error_handling.js"></script>
+    <script>
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function pageLoad() {
+        var myDiv = document.getElementById("errormsg");
+
+        var errorCode = '<%= request.getAttribute("error") %>';
+
+        if (errorCode == "10") {
+          myDiv.innerHTML = "User does not exist";
+          myDiv.style.display = "block";
+          await sleep(3000);
+          myDiv.style.display = "none";
+        }
+      }
+    </script>
   </head>
 
   <body onload="pageLoad()">
@@ -42,7 +60,7 @@ Wrote HTML code for login page
             <input type="password" name="password" placeholder="Password" id="password" required />
             <!-- TEMPORARY TEST, SIGN IN = user-landing.html -->
             <input type="submit" value="Sign in" id="sign-in" />
-            <a href="signup.html">
+            <a href="signup.jsp">
               <input type="button" value="Sign up" id="sign-up" />
             </a>
             <a href="UserSignInServlet"><p>Forgot Password</p></a>
