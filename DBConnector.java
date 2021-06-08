@@ -214,6 +214,49 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	public List<UserMessage> getUserPosts(String firstname, String lastname){
+		String sqlSelectUserPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p "
+				+ "WHERE u.username=p.username AND p.parentpost is null AND u.firstname=? AND u.lastname=? ORDER BY postid desc";
+		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
+		UserMessage post;
+		List<UserMessage> posts = new ArrayList<UserMessage>();
+		PreparedStatement ps;
+		PreparedStatement ps2;
+		ResultSet rs;
+		ResultSet rs2;
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUserPosts);
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				post = new UserMessage();
+				post.setPostid(rs.getInt("postid"));
+				post.setFirstName(rs.getString("firstname"));
+				post.setLastName(rs.getString("lastname"));
+				post.setPostContent(rs.getString("postcontent"));
+				
+				ps2 = this.conn.prepareStatement(sqlSelectReplies);
+				ps2.setInt(1, post.getPostid());
+				rs2 = ps2.executeQuery();
+				
+				List<UserMessage> replies = new ArrayList<UserMessage>();
+				UserMessage reply;
+				
+				while (rs2.next()) {
+					reply = new UserMessage();
+					reply.setFirstName(rs2.getString("firstname"));
+					reply.setLastName(rs2.getString("lastname"));
+					reply.setPostContent(rs2.getString("postcontent"));
+					replies.add(reply);
+				}
+				post.setReplies(replies);
+				posts.add(post);
+			}
+		}
+	}
+	
 	public List<UserMessage> getAllPosts() {
 		
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
