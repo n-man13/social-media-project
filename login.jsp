@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
@@ -14,25 +13,25 @@ Wrote HTML code for login page
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hobby Home Log in</title>
+    <title>Login</title>
     <link rel="stylesheet" href="styles.css" />
     <script>
-    	function sleep(ms) {
-			return new Promise((resolve) => setTimeout(resolve, ms));
-		}
-		
-		async function pageLoad() {
-			var myDiv = document.getElementById("errormsg");
-		
-			var errorCode = '<%= request.getAttribute("error") %>';
-		  
-			if (errorCode == "10") {
-				myDiv.innerHTML = "User does not exist";
-				myDiv.style.display = "block";
-				await sleep(3000);
-				myDiv.style.display = "none";
-			}
-		}
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function pageLoad() {
+        var myDiv = document.getElementById("errormsg");
+
+        var errorCode = '<%= request.getAttribute("error") %>';
+
+        if (errorCode == "10") {
+          myDiv.innerHTML = "User does not exist";
+          myDiv.style.display = "block";
+          await sleep(3000);
+          myDiv.style.display = "none";
+        }
+      }
     </script>
   </head>
 

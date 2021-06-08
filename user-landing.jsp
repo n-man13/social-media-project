@@ -1,8 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%
-String username = (String) session.getAttribute("uname");
-%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> <% String username = (String) session.getAttribute("uname"); %>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
@@ -15,7 +11,7 @@ Wrote HTML code for user-landing page
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hobby Home</title>
+    <title>HUser-landing</title>
     <link rel="stylesheet" href="styles.css" />
     <script>
       function getInfo() {
@@ -58,7 +54,7 @@ Wrote HTML code for user-landing page
         </div>
         <div class="main-box"><p>Sports</p></div>
         <form action="status" method="post">
-        <input type="hidden" name="initload" value="initload"> 
+          <input type="hidden" name="initload" value="initload" />
           <div class="main-box">
             <p>Video<br />Games</p>
           </div>
