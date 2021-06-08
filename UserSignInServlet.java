@@ -1,14 +1,15 @@
 package com.njit.smp.servlets;
+
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;  
-import javax.servlet.annotation.WebServlet;  
-import javax.servlet.http.HttpServlet;  
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
   
 /**
  * @author Atharv Tyagi <at477@njit.edu>
@@ -75,6 +76,7 @@ public class UserSignInServlet extends HttpServlet {
     	String lastName  = "";
     	System.out.println("inside servlet user = "+ username + "  and pass = " + password);
     	int authVal = 0;
+    	HttpSession hs = request.getSession();
     	
     	RequestDispatcher dispatcher = null;
     	
@@ -89,8 +91,9 @@ public class UserSignInServlet extends HttpServlet {
 				//Redirect to user landing
 				dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
 				
-				request.setAttribute("fname", firstName);
-				request.setAttribute("lname", lastName);
+				hs.setAttribute("uname", username);
+				hs.setAttribute("fname", firstName);
+				hs.setAttribute("lname", lastName);
 				
 				dispatcher.forward(request, response);
 			}
@@ -98,6 +101,10 @@ public class UserSignInServlet extends HttpServlet {
 				System.out.println("redirecting to admin-landing");
 				//Redirect to admin landing
 				dispatcher = getServletContext().getRequestDispatcher("/admin-landing.jsp");
+				
+				hs.setAttribute("uname", username);
+				hs.setAttribute("fname", firstName);
+				hs.setAttribute("lname", lastName);
 				
 				dispatcher.forward(request, response);
 			}

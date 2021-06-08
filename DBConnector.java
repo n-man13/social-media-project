@@ -177,56 +177,45 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	/**
-	 * Push new post to Database
-	 * 
-	 * @param username		username associated to post
-	 * @param userPost		post content to be written
-	 * @return 				true if post was sent, otherwise false
-	 */
 	public boolean pushPost(String username, String userPost) {
+		boolean retVal = false;
 		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent) VALUES (?, ?)";
-		PreparedStatement ps;
+		PreparedStatement ps = null;
 		try {
 			ps = this.conn.prepareStatement(sqlAddNewPost);
 			ps.setString(1, username);
 			ps.setString(2, userPost);
 			ps.executeUpdate();
+			retVal = true;
 		} catch (SQLException e){
 			System.err.println(e.toString());
-			return false;
+		} finally {
+			closeStatement(ps);
 		}
-		closeStatement(ps);
-		return true;
+		return retVal;
 	}
 	
-	/**
-	 * Push new post reply to Database
-	 * 
-	 * @param username		username associated to post
-	 * @param userPost		post content to be written
-	 * @param postid		post id of parent post
-	 * @return 				true if post reply was sent, otherwise false
-	 */
-	public boolean pushReply(String username, String userPost, int postid) {
+	public boolean pushReply(String username, String userPost, int postId) {
+		boolean retVal = false;
 		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost) VALUES (?, ?, ?)";
-		PreparedStatement ps;
+		PreparedStatement ps = null;
 		try {
-			ps = this.conn.prepareStatement(sqlAddNewPost);
+			ps = this.conn.prepareStatement(sqlAddReply);
 			ps.setString(1, username);
 			ps.setString(2, userPost);
-			ps.setInt(3, postid);
+			ps.setInt(3, postId);
 			ps.executeUpdate();
+			retVal = true;
 		} catch (SQLException e){
 			System.err.println(e.toString());
-			return false;
+		} finally {
+			closeStatement(ps);
 		}
-		closeStatement(ps);
-		return true;
+		return retVal;
 	}
 	
 	public List<UserMessage> getAllPosts() {
-		UserMessage poster = null;		
+		
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
 		
 		
@@ -239,36 +228,32 @@ public class DBConnector {
 		
 		try {
 			ps = this.conn.prepareStatement(sqlSelectPrimaryPosts);
+			ps2 = this.conn.prepareStatement(sqlSelectReplies);
 			rs = ps.executeQuery();			
-			
+			UserMessage poster = null;
 			while (rs.next()) {
 				poster = new UserMessage();
-				poster.setPostid(rs.getInt("postid"));
+				poster.setPostId(rs.getInt("postid"));
 				poster.setFirstName(rs.getString("firstname"));
 				poster.setLastName(rs.getString("lastname"));
 				poster.setPostContent(rs.getString("postcontent"));
 				
-				//loop to get replies for this post
-				ps2 = this.conn.prepareStatement(sqlSelectReplies);
-				ps2.setInt(1, poster.getPostid());
+				//loop to get replies for this post				
+				ps2.setInt(1, poster.getPostId());
 				rs2 = ps2.executeQuery();
 				List<UserMessage> replies = new ArrayList<UserMessage>();
 				UserMessage replier = null;
 				
 				while (rs2.next()) {
 					replier = new UserMessage();
-					replier.setFirstName(rs.getString("firstname"));
-					replier.setLastName(rs.getString("lastname"));
-					replier.setPostContent(rs.getString("postcontent"));
-					replies.add(replier);
-				}
-				
-				if(!replies.isEmpty()) {
-					poster.setReplies(replies);
-				}
-			}
-			
-			primaryPosts.add(poster);
+					replier.setFirstName(rs2.getString("firstname"));
+					replier.setLastName(rs2.getString("lastname"));
+					replier.setPostContent(rs2.getString("postcontent"));
+					replies.add(replier);					
+				}				
+				poster.setReplies(replies);
+				primaryPosts.add(poster);
+			}			
 		}
 		catch (SQLException e){
 			System.err.println(e.toString());
@@ -294,8 +279,8 @@ public class DBConnector {
 				System.out.println(ps);
 				while(rs.next()) {
 					System.out.print("Column 1 returned ");
-				    System.out.println(rs.getString(2));
-					retVal = rs.getString(2);
+				    System.out.println(rs.getString("firstname"));
+					retVal = rs.getString("firstname");
 				}
 			}
 			catch (SQLException e){
@@ -323,7 +308,7 @@ public class DBConnector {
 				while(rs.next()) {
 					System.out.print("Column 1 returned ");
 				    System.out.println(rs.getString("lastname"));
-					retVal = rs.getString(3);
+					retVal = rs.getString("lastname");
 				}
 			}
 			catch (SQLException e){

@@ -1,6 +1,7 @@
 package com.njit.smp.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.njit.smp.model.UserMessage;
+
 /**
- * Servlet implementation class UserStatusServlet
+ * @author Atharv Tyagi <at477@njit.edu>
+ * @project Social Media Project 
+ * Servlet implementation to store and display posts made by users
  */
 @WebServlet("/UserStatusServlet")
 public class UserStatusServlet extends HttpServlet {
@@ -21,6 +26,30 @@ public class UserStatusServlet extends HttpServlet {
      */
     public UserStatusServlet() {
         super();
+    }
+    
+    protected boolean logPost(String username, String userPost) {
+    	System.out.println("connecting to db");    	
+    	DBConnector connector = DBConnector.getInstance();
+    	System.out.println("connected to db");
+    	
+    	return connector.pushPost(username, userPost);
+    }
+    
+    protected boolean logReply(String username, String userPost, int postId) {
+    	System.out.println("connecting to db");    	
+    	DBConnector connector = DBConnector.getInstance();
+    	System.out.println("connected to db");
+    	
+    	return connector.pushReply(username, userPost, postId);
+    }
+    
+    protected List<UserMessage> getAllPosts() {
+    	System.out.println("connecting to db");    	
+    	DBConnector connector = DBConnector.getInstance();
+    	System.out.println("connected to db");
+    	
+    	return connector.getAllPosts();
     }
 
 	/**
@@ -35,18 +64,38 @@ public class UserStatusServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userPost = request.getParameter("userpagetextbox");
-		String username = "";
-		System.out.println("inside servlet userPost = "+ userPost);
-		//Send to database to log.
+		String userReply = request.getParameter("replytextbox");
+		String pageLoad = request.getParameter("initload");
+		String username = request.getParameter("username");
 		
+		boolean success = false;
 		RequestDispatcher dispatcher = null;
 		
-		dispatcher = getServletContext().getRequestDispatcher("/user-profile.jsp");
+		System.out.println("inside servlet userPost = " + userPost + " userReply = " + userReply + " username = " + username);
+		//Send to database to log.
 		
-		request.setAttribute("user", username);
-		request.setAttribute("userpost", userPost);
+		if (userPost != null) {
+			success = logPost(username, userPost);
+		}
+		if (userReply != null) {
+			int postId = Integer.parseInt(request.getParameter("postId"));
+			success = logReply(username, userReply, postId);
+		}
+		if (pageLoad != null) {
+			success = true;
+		}
 		
-		dispatcher.forward(request, response);
+		if (success) {
+			List<UserMessage> posts = getAllPosts();
+			request.setAttribute("posts", posts);
+			
+			dispatcher = getServletContext().getRequestDispatcher("/videogames.jsp");
+			dispatcher.forward(request, response);
+		}
+		else {
+			dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
