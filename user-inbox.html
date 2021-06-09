@@ -82,16 +82,18 @@ if (request.getAttribute("fullname") != null) {
             for(DirectMessage userMessage: userMessages){ 
           %>
           <!-- User Message\reply Template START -->
+          <% if(userMessage.isSentByUser()){%>
           <div class="user-reply user-message" id="messagetemplate">
-            <% if(userMessage.isSentByUser()){%>
             <h5><%=userMessage.getUsername()%></h5>
             <p><%=userMessage.getMessage()%></p>
+          </div>
             <%}
             else {%>
-              <h5><%=userMessage.getOtherUser()%></h5>
-              <p><%=userMessage.getMessage()%></p>
-            <%}%>
+          <div class="user-reply user-message" id="messagetemplate">
+            <h5><%=userMessage.getOtherUser()%></h5>
+            <p><%=userMessage.getMessage()%></p>
           </div>
+            <%}%>
           <%} }%>
           <!-- User Message\reply Template END -->
         </div>
