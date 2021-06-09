@@ -12,11 +12,17 @@ Wrote HTML code for user-landing page
 
 <%
 List<UserMessage> userPosts = null;
+String userFullName = null;
 
 if (request.getAttribute("searchposts") != null) {
   userPosts = (List<UserMessage>) request.getAttribute("searchposts");
 }
+
+if (request.getAttribute("fullname") != null) {
+  userFullName = (String) request.getAttribute("fullname");
+}
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
