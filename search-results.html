@@ -94,13 +94,6 @@ if (request.getAttribute("searchposts") != null) {
               		</div>
             	</div>
             <% } }%>
-            <form action="status" method="post">
-              <input type="hidden" name="postId" value="<%=userPost.getPostId() %>">
-              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
-              <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
-              <input type="submit" value="Reply" id="post-response" />
-            </form>
-          </div>
           <% } }%>
         </div>
       </div>
