@@ -261,6 +261,7 @@ div#errormsg {
 .content-piece {
   margin-top: 20px;
   margin: 0 30px;
+  /* width: 600px; */
 }
 
 .content-piece h2 {
