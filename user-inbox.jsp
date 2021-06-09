@@ -1,3 +1,15 @@
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.njit.smp.model.UserMessage"%>
+
+<%
+List<UserMessage> userPosts = null;
+
+if (request.getAttribute("posts") != null) {
+  userPosts = (List<UserMessage>) request.getAttribute("posts");
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -60,7 +72,7 @@
             <p><%=userPost.getMessage()%></p>
           </div>
           <%}
-          }$>
+          }%>
           <!-- User Message\reply Template END -->
         </div>
         <div class="profile-post send-message">
