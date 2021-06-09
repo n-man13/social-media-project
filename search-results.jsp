@@ -12,9 +12,13 @@ Wrote HTML code for user-landing page
 
 <%
 List<UserMessage> userPosts = null;
+String userFullName = null;
 
-if (request.getAttribute("posts") != null) {
-  userPosts = (List<UserMessage>) request.getAttribute("posts");
+if (request.getAttribute("searchposts") != null) {
+  userPosts = (List<UserMessage>) request.getAttribute("searchposts");
+}
+if (request.getAttribute("fullname") != null) {
+	userFullName = (String) request.getAttribute("fullname");
 }
 %>
 <!DOCTYPE html>
@@ -23,7 +27,7 @@ if (request.getAttribute("posts") != null) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hobby Home</title>
+    <title>Videogames</title>
     <link rel="stylesheet" href="styles.css" />    
     <script>
       function getInfo() {
@@ -61,30 +65,21 @@ if (request.getAttribute("posts") != null) {
         <div class="search-bar">
           <form action="search" method="post">
             <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
-            <input type="submit" value="GO" />
+            <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <div class="main-box"><p>Sports</p></div>
-        <form action="status" method="post">
-        <input type="hidden" name="initload" value="initload"> 
-          <div class="main-box">
-            <p>Video<br />Games</p>
-          </div>
-          <input type="submit" value="Fetch Posts" />
-        </form>
-        <div class="main-box"><p>Music</p></div>
-        <div class="main-box"><p>Arts & Crafts</p></div>
-        <div class="main-box"><p>Technology</p></div>
+        <%
+        	if(userFullName != null) {
+        %>
+        	<div class="user" id="user-owner"><p><%=userFullName%></p></div>	
+        <%} %>
+        <% if(!userPosts.isEmpty()) {
+          for(UserMessage userPost: userPosts){
+            %>
+        <%}
+        }%>
       </div>
       <div class="main-content">
-        <div class="profile-post">
-          <label for="userpage-textbox"><h2>Post your status!</h2></label>
-          <form action="status" method="post">
-            <textarea name="userpagetextbox" id="userpagetextbox" cols="80" rows="8" placeholder="Let the world know..." required></textarea>
-            <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
-            <input type="submit" value="Post Status" />
-          </form>
-        </div>
         <div class="user-posts userposts-mainpage">
         <% if(!userPosts.isEmpty()) {
         	for(UserMessage userPost: userPosts){
@@ -107,12 +102,6 @@ if (request.getAttribute("posts") != null) {
               		</div>
             	</div>
             <% } }%>
-            <form action="status" method="post">
-              <input type="hidden" name="postId" value="<%=userPost.getPostId() %>">
-              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
-              <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
-              <input type="submit" value="Reply" id="post-response" />
-            </form>
           </div>
           <% } }%>
         </div>
