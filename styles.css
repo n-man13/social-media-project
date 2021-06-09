@@ -324,6 +324,11 @@ div#errormsg {
   width: 100%;
 }
 
+#userheader {
+  width: 100%;
+  text-align: center;
+}
+
 textarea {
   font-family: sans-serif;
 }
