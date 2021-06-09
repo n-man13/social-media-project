@@ -177,6 +177,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Push new post to Database
+	 * 
+	 * @param username		username associated to post
+	 * @param userPost		post content to be written
+	 * @return 				true if post was sent, otherwise false
+	 */
 	public boolean pushPost(String username, String userPost) {
 		boolean retVal = false;
 		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent) VALUES (?, ?)";
@@ -195,6 +202,14 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Push new post reply to Database
+	 * 
+	 * @param username		username associated to post
+	 * @param userPost		post content to be written
+	 * @param postid		post id of parent post
+	 * @return 				true if post reply was sent, otherwise false
+	 */
 	public boolean pushReply(String username, String userPost, int postId) {
 		boolean retVal = false;
 		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost) VALUES (?, ?, ?)";
@@ -214,6 +229,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Returns all posts from a specified user
+	 * 
+	 * @param firstname			first name of user that is in contact with main user
+	 * @param lastname			last name of user that is in contact with main user
+	 * @return					List of posts and all their replies associated with said user
+	 */
 	public List<UserMessage> getUserPosts(String firstname, String lastname){
 		String sqlSelectUserPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p "
 				+ "WHERE u.username=p.username AND p.parentpost is null AND u.firstname=? AND u.lastname=? ORDER BY postid desc";
@@ -258,6 +280,7 @@ public class DBConnector {
 			System.err.println(e.toString());
 		}finally {
 			closeResultSetStatement(rs, ps);
+			closeResultSetStatement(rs2, ps2);
 		}
 	}
 	
@@ -307,9 +330,104 @@ public class DBConnector {
 		}
 		finally {
 			closeResultSetStatement(rs, ps);
+			closeResultSetStatement(rs2, ps2);
 		}
 		
 		return primaryPosts;
+	}
+	
+	/**
+	 * Returns username of user with specified first and last name
+	 * 
+	 * @param firstname			first name of user that is in contact with main user
+	 * @param lastname			last name of user that is in contact with main user
+	 * @return					username associated with this account
+	 */
+	public String getUsername(String firstname, String lastname) {
+		String sqlSelectUsername = "Select u.username FROM HobbyHome.login u WHERE u.firstname=? AND u.lastname=?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String username = null;
+		
+		try {
+			ps = conn.prepareStatement(sqlSelectUsername);
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			rs = ps.executeQuery();
+			rs.next();
+			username = rs.getString("username");
+			if (username == null || username.isEmpty()) {
+				username = null;
+			}
+		} catch (SQLException e){
+			System.err.println(e.toString());
+		} finally {
+			closeResultSetStatement(rs, ps);
+			return username;
+		}
+	}
+	
+	/**
+	 * Returns a list of Messages between two users
+	 * @param username 			username logged in and asking for message history
+	 * @param firstname			first name of user that is in contact with main user
+	 * @param lastname			last name of user that is in contact with main user
+	 * @return 					List of messages between the two specified users ordered by messageID
+	 */
+	public List<DirectMessage> getMessages(String username, String firstname, String lastname){
+		List<DirectMessage> messages = new ArrayList<DirectMessage>();
+		String otherUsername = getUsername(firstname, lastname);
+		
+		String sqlSelectUserMessages = "SELECT m.sendingUsername, m.receivingUsername, m.message, m.messageID FROM HobbyHome.login u, HobbyHome.messaging m "
+				+ "WHERE m.sendingUsername=? AND m.receivingUsername=? ORDER BY messageID desc";
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUserMessages);
+			ps.setString(1, username);
+			ps.setString(2, otherUsername);
+			rs = ps.executeQuery();
+			DirectMessage message = null;
+			while(rs.next()) {
+				message = new DirectMessage();
+				message.setUsername(rs.getString("sendingUsername"));
+				message.setOtherUsername(rs.getString("receivingUsername"));
+				message.setMessage(rs.getString("message"));
+				message.setSent(true)
+				message.setMessageID(rs.getInt("messageID"));
+				messages.add(message);
+			}
+			
+			ps.setString(1, otherUsername);
+			ps.setString(2, username);
+			rs2 = ps.executeQuery();
+			while(rs2.next()) {
+				message = new DirectMessage();
+				message.setUsername(rs2.getString("sendingUsername"));
+				message.setOtherUsername(rs2.getString("receivingUsername"));
+				message.setMessage(rs2.getString("message"));
+				message.setSent(false)
+				message.setMessageID(rs2.getInt("messageID"));
+				messages.add(message);
+			}
+			
+			Collections.sort(messages, new Comparator<DirectMessage>() {
+				@Override
+		        public int compare(DirectMessage one, DirectMessage two) {
+					return one.getMessageID() - two.getMessageID();
+				}
+			}
+			
+		} catch (SQLException e){
+			System.err.println(e.toString());
+		} finally {
+			closeResultSetStatement(rs, ps);
+			closeResultSetStatement(rs2, ps);
+			return messages;
+		}
+		
 	}
 	
 	public String getFName(String user, String pass) {
