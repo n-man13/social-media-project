@@ -2,8 +2,11 @@ package com.njit.smp.servlets;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import com.njit.smp.model.DirectMessage;
 import com.njit.smp.model.UserMessage;
 
 import java.math.BigInteger;
@@ -94,6 +97,30 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	public String doesUserExistByName(String firstName, String lastName) {
+		String retVal = null;
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectName = "SELECT firstname, lastname FROM HobbyHome.login WHERE firstname=? AND lastname=?";
+		
+		try {
+			ps = this.conn.prepareStatement(sqlSelectName);
+			ps.setString(1, firstName);
+			ps.setString(2, lastName);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				retVal = rs.getString("firstname") + " " + rs.getString("lastname");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.toString());
+		} finally {
+			closeResultSetStatement(rs, ps);
+		}
+		
+		return retVal;
+	}
+	
 	// helper method to test if username is in database
 	private boolean isUserExists(String user){
 		boolean retValue = false;
@@ -177,13 +204,6 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	/**
-	 * Push new post to Database
-	 * 
-	 * @param username		username associated to post
-	 * @param userPost		post content to be written
-	 * @return 				true if post was sent, otherwise false
-	 */
 	public boolean pushPost(String username, String userPost) {
 		boolean retVal = false;
 		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent) VALUES (?, ?)";
@@ -202,14 +222,6 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	/**
-	 * Push new post reply to Database
-	 * 
-	 * @param username		username associated to post
-	 * @param userPost		post content to be written
-	 * @param postid		post id of parent post
-	 * @return 				true if post reply was sent, otherwise false
-	 */
 	public boolean pushReply(String username, String userPost, int postId) {
 		boolean retVal = false;
 		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost) VALUES (?, ?, ?)";
@@ -229,32 +241,38 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	/**
-	 * Returns all posts from a specified user
-	 * 
-	 * @param firstname			first name of user that is in contact with main user
-	 * @param lastname			last name of user that is in contact with main user
-	 * @return					List of posts and all their replies associated with said user
-	 */
-	public List<UserMessage> getUserPosts(String firstname, String lastname){
-		String sqlSelectUserPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p "
-				+ "WHERE u.username=p.username AND p.parentpost is null AND u.firstname=? AND u.lastname=? ORDER BY postid desc";
-		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
-		UserMessage post;
-		List<UserMessage> posts = new ArrayList<UserMessage>();
+	public List<UserMessage> getUserPosts(String firstName, String lastName){
+		List<UserMessage> userPosts = new ArrayList<UserMessage>();
+		
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		StringBuilder sbr = new StringBuilder();
+		sbr.append("SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p");
+		sbr.append(" WHERE u.username=p.username AND p.parentpost is null");
+		sbr.append(" AND u.firstname=?");
+		if(lastName!=null) {
+			sbr.append(" AND u.lastname=?");	
+		}
+		sbr.append(" ORDER BY postid desc");
+		
+		String sqlSelectUserPosts = sbr.toString();
+		System.out.println(sqlSelectUserPosts);
+		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
+		
 		try {
+			UserMessage post = null;
 			ps = this.conn.prepareStatement(sqlSelectUserPosts);
-			ps.setString(1, firstname);
-			ps.setString(2, lastname);
+			ps.setString(1, firstName);
+			if(lastName!=null) {
+				ps.setString(2, lastName);
+			}
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				post = new UserMessage();
-				post.setPostid(rs.getInt("postid"));
+				post.setPostId(rs.getInt("postid"));
 				post.setFirstName(rs.getString("firstname"));
 				post.setLastName(rs.getString("lastname"));
 				post.setPostContent(rs.getString("postcontent"));
@@ -264,7 +282,7 @@ public class DBConnector {
 				rs2 = ps2.executeQuery();
 				
 				List<UserMessage> replies = new ArrayList<UserMessage>();
-				UserMessage reply;
+				UserMessage reply = null;
 				
 				while (rs2.next()) {
 					reply = new UserMessage();
@@ -274,20 +292,20 @@ public class DBConnector {
 					replies.add(reply);
 				}
 				post.setReplies(replies);
-				posts.add(post);
+				userPosts.add(post);
 			}
-		}catch (SQLException e){
+		} catch (SQLException e){
 			System.err.println(e.toString());
-		}finally {
-			closeResultSetStatement(rs, ps);
-			closeResultSetStatement(rs2, ps2);
 		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		
+		return userPosts;
 	}
 	
 	public List<UserMessage> getAllPosts() {
-		
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
-		
 		
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
@@ -330,7 +348,6 @@ public class DBConnector {
 		}
 		finally {
 			closeResultSetStatement(rs, ps);
-			closeResultSetStatement(rs2, ps2);
 		}
 		
 		return primaryPosts;
@@ -363,8 +380,9 @@ public class DBConnector {
 			System.err.println(e.toString());
 		} finally {
 			closeResultSetStatement(rs, ps);
-			return username;
 		}
+		
+		return username;
 	}
 	
 	/**
@@ -378,10 +396,11 @@ public class DBConnector {
 		List<DirectMessage> messages = new ArrayList<DirectMessage>();
 		String otherUsername = getUsername(firstname, lastname);
 		
-		String sqlSelectUserMessages = "SELECT m.sendingUsername, m.receivingUsername, m.messageContent, m.messageID FROM HobbyHome.login u, HobbyHome.messaging m "
-				+ "WHERE m.sendingUsername=? AND m.receivingUsername=? ORDER BY messageID desc";
+		String sqlSelectUserMessages = "SELECT m.sendingUsername, m.receivingUsername, m.messageContent, m.messageID FROM HobbyHome.messaging m "
+				+ "WHERE m.sendingUsername=? AND m.receivingUsername=? ORDER BY messageID";
 		
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		try {
@@ -391,42 +410,45 @@ public class DBConnector {
 			rs = ps.executeQuery();
 			DirectMessage message = null;
 			while(rs.next()) {
+				System.out.println("hello from first while loop");
 				message = new DirectMessage();
 				message.setUsername(rs.getString("sendingUsername"));
 				message.setOtherUsername(rs.getString("receivingUsername"));
-				message.setMessage(rs.getString("message"));
-				message.setSent(true)
+				message.setMessage(rs.getString("messageContent"));
+				message.setSent(true);
 				message.setMessageID(rs.getInt("messageID"));
 				messages.add(message);
 			}
-			
-			ps.setString(1, otherUsername);
-			ps.setString(2, username);
-			rs2 = ps.executeQuery();
+			System.out.println("first set = " + messages.size());
+			ps2 = this.conn.prepareStatement(sqlSelectUserMessages);
+			ps2.setString(1, otherUsername);
+			ps2.setString(2, username);
+			rs2 = ps2.executeQuery();
 			while(rs2.next()) {
 				message = new DirectMessage();
 				message.setUsername(rs2.getString("sendingUsername"));
 				message.setOtherUsername(rs2.getString("receivingUsername"));
-				message.setMessage(rs2.getString("message"));
-				message.setSent(false)
+				message.setMessage(rs2.getString("messageContent"));
+				message.setSent(false);
 				message.setMessageID(rs2.getInt("messageID"));
 				messages.add(message);
 			}
-			
+			System.out.println("second set = " + messages.size());
 			Collections.sort(messages, new Comparator<DirectMessage>() {
 				@Override
 		        public int compare(DirectMessage one, DirectMessage two) {
 					return one.getMessageID() - two.getMessageID();
 				}
-			}
-			
+			});
+			System.out.println("sorted set = " + messages.size());
 		} catch (SQLException e){
 			System.err.println(e.toString());
 		} finally {
 			closeResultSetStatement(rs, ps);
-			closeResultSetStatement(rs2, ps);
-			return messages;
+			closeResultSetStatement(rs2, ps2);
 		}
+		
+		return messages;
 		
 	}
 	
@@ -438,15 +460,16 @@ public class DBConnector {
 	 * @param message			content of message
 	 * @return 					true if message was sent, otherwise false
 	 */
-	public boolean pushMessage(String sendingUser, String receivingUser, String message) {
+	public boolean pushMessage(String sendingUser, String firstname, String lastname, String message) {
 		boolean retVal = false;
+		String receivingUser = getUsername(firstname, lastname);
 		String sqlAddMessage = "INSERT INTO HobbyHome.messaging (sendingUsername, receivingUsername, messageContent) VALUES (?, ?, ?)";
 		PreparedStatement ps = null;
 		try {
 			ps = this.conn.prepareStatement(sqlAddMessage);
 			ps.setString(1, sendingUser);
 			ps.setString(2, receivingUser);
-			ps.setInt(3, Message);
+			ps.setString(3, message);
 			ps.executeUpdate();
 			retVal = true;
 		} catch (SQLException e){
