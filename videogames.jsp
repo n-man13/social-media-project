@@ -64,17 +64,14 @@ if (request.getAttribute("posts") != null) {
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <div class="main-box"><p>Sports</p></div>
-        <form action="status" method="post">
-        <input type="hidden" name="initload" value="initload"> 
-          <div class="main-box">
-            <p>Video<br />Games</p>
-          </div>
-          <input type="submit" value="Fetch Posts" />
+        <form action="status" method="post" id="videogameform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="submit" value="Video Games" id="main-button" />
         </form>
-        <div class="main-box"><p>Music</p></div>
-        <div class="main-box"><p>Arts & Crafts</p></div>
-        <div class="main-box"><p>Technology</p></div>
+        <input type="submit" value="Music" id="main-button" />
+        <input type="submit" value="Arts & Crafts" id="main-button" />
+        <input type="submit" value="Technology" id="main-button" />
+        <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
         <div class="profile-post">

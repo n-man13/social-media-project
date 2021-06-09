@@ -193,20 +193,20 @@ div#errormsg {
 .main-container {
   display: flex;
 }
-.main-box {
+
+#main-button {
   background-color: rgb(167, 255, 163);
-  border: 2px solid black;
-  padding: 20px 20px;
-  width: 150px;
+  width: 100%;
   height: 80px;
-  margin: 10px 0;
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 2px solid black;
+  margin: 10px 0px;
 }
 
-.main-box:hover {
+#main-button:hover {
   background-color: rgba(110, 255, 91, 0.767);
 }
 
@@ -221,6 +221,10 @@ div#errormsg {
   padding: 20px 20px;
   width: 250px;
   border-right: 4px solid black;
+}
+
+.hobby-bar #videogameform {
+  margin: 0px;
 }
 
 .hobby-bar a {
