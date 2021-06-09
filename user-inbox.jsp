@@ -54,6 +54,7 @@
             %>
             <form action="messageuser" method="post">
               <input type="hidden" name="initload" value="initload" />
+              <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
               <input type="submit" value="<%=userFullName%>" id="userbutton" />
             </form>
             <%} %>
