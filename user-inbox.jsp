@@ -70,6 +70,11 @@
               <input type="submit" value="<%=userFullName%>" id="userbutton" />
             </form>
             <%} %>
+            <% if(!userMessages.isEmpty()) {
+              for(UserMessage userMessage: userMessages){
+                %>
+            <%}
+            }%>
           </div>
           <div class="main-content">
             <div class="messages">
@@ -78,8 +83,14 @@
               %>
               <!-- User Message\reply Template START -->
               <div class="user-reply user-message" id="messagetemplate">
-                <h5><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
-                <p><%=userPost.getMessage()%></p>
+                <% if(userMessage.isSentByUser()){%>
+                <h5><%=userMessage.getUsername()%></h5>
+                <p><%=userMessage.getMessage()%></p>
+                <%}
+                else {%>
+                  <h5><%=userMessage.getOtherUser()%></h5>
+                  <p><%=userMessage.getMessage()%></p>
+                <%}%>
               </div>
               <%} }%>
               <!-- User Message\reply Template END -->
