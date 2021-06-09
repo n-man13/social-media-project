@@ -465,6 +465,13 @@ textarea {
   margin-bottom: 10px;
 }
 
+#userbutton {
+  background-color: rgb(204, 204, 204);
+  width: fit-content;
+  margin: 5px 2px;
+  font-size: 14px;
+}
+
 #user-owner p {
   margin: 5px 2px;
   font-size: 14px;

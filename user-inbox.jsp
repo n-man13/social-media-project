@@ -52,7 +52,7 @@ if (request.getAttribute("posts") != null) {
     <div class="main-container">
       <div class="hobby-bar">
         <div class="search-bar">
-          <form action="search" method="post">
+          <form action="usersearch" method="post">
             <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
