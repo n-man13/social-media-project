@@ -1,5 +1,5 @@
-<%@ page import="java.util.ArrayList"%> <%@ page import="java.util.List"%> <%@ page import="com.njit.smp.model.DirectMessage"%> <% List<UserMessage>
-  userMessages = null; if (request.getAttribute("messages") != null) { userMessages = (List<UserMessage
+<%@ page import="java.util.ArrayList"%> <%@ page import="java.util.List"%> <%@ page import="com.njit.smp.model.DirectMessage"%> <% List<DirectMessage>
+  userMessages = null; if (request.getAttribute("messages") != null) { userMessages = (List<DirectMessage
     >) request.getAttribute("messages"); } %>
 
     <!DOCTYPE html>
@@ -45,21 +45,27 @@
           <div class="hobby-bar">
             <div class="search-bar">
               <form action="usersearch" method="post">
-                <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
+                <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
                 <input type="submit" value="GO" id="search-submit" />
               </form>
             </div>
-            <!-- CREATE THIS DYNAMICALLY -->
-            <% if(!userMessages.isEmpty()) { for(UserMessage userMessage: userMessages){ %>
-            <form action="status" method="post">
+            <%
+              if(userFullName != null) {
+            %>
+            <form action="messageuser" method="post">
               <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="Username_Placeholder" id="userbutton" />
+              <input type="submit" value="<%=userFullName%>" id="userbutton" />
             </form>
-            <%} }%>
+            <%} %>
+            <% if(!userPosts.isEmpty()) {
+              for(UserMessage userPost: userPosts){
+                %>
+            <%}
+            }%>
           </div>
           <div class="main-content">
             <div class="messages">
-              <% if(!userMessages.isEmpty()) { for(UserMessage userMessage: userMessages){ %>
+              <% if(!userMessages.isEmpty()) { for(DirectMessage userMessage: userMessages){ %>
               <!-- User Message\reply Template START -->
               <div class="user-reply user-message" id="messagetemplate">
                 <h5><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>

@@ -60,14 +60,18 @@ if (request.getAttribute("searchposts") != null) {
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
+            <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
+        <%
+        	if(userFullName != null) {
+        %>
+        	<div class="user" id="user-owner"><p><%=userFullName%></p></div>	
+        <%} %>
         <% if(!userPosts.isEmpty()) {
           for(UserMessage userPost: userPosts){
             %>
-        <div class="user" id="user-owner"><p><%=userPost.getFirstName()%> <%=userPost.getLastName() %></p></div>
         <%}
         }%>
       </div>
