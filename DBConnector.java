@@ -378,7 +378,7 @@ public class DBConnector {
 		List<DirectMessage> messages = new ArrayList<DirectMessage>();
 		String otherUsername = getUsername(firstname, lastname);
 		
-		String sqlSelectUserMessages = "SELECT m.sendingUsername, m.receivingUsername, m.message, m.messageID FROM HobbyHome.login u, HobbyHome.messaging m "
+		String sqlSelectUserMessages = "SELECT m.sendingUsername, m.receivingUsername, m.messageContent, m.messageID FROM HobbyHome.login u, HobbyHome.messaging m "
 				+ "WHERE m.sendingUsername=? AND m.receivingUsername=? ORDER BY messageID desc";
 		
 		PreparedStatement ps = null;
@@ -428,6 +428,33 @@ public class DBConnector {
 			return messages;
 		}
 		
+	}
+	
+	/**
+	 * Adds a new Message to the Database
+	 * 
+	 * @param sendingUser		username associated to post
+	 * @param receivingUser		post content to be written
+	 * @param message			content of message
+	 * @return 					true if message was sent, otherwise false
+	 */
+	public boolean pushMessage(String sendingUser, String receivingUser, String message) {
+		boolean retVal = false;
+		String sqlAddMessage = "INSERT INTO HobbyHome.messaging (sendingUsername, receivingUsername, messageContent) VALUES (?, ?, ?)";
+		PreparedStatement ps = null;
+		try {
+			ps = this.conn.prepareStatement(sqlAddMessage);
+			ps.setString(1, sendingUser);
+			ps.setString(2, receivingUser);
+			ps.setInt(3, Message);
+			ps.executeUpdate();
+			retVal = true;
+		} catch (SQLException e){
+			System.err.println(e.toString());
+		} finally {
+			closeStatement(ps);
+		}
+		return retVal;
 	}
 	
 	public String getFName(String user, String pass) {
