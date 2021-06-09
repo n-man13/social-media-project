@@ -5,14 +5,16 @@ public class DirectMessage{
 	private Integer messageID;
 	private String user;
 	private String otherUser;
+	private String message;
 	private boolean sentByUser;
 	
 	public DirectMessage() {
 		
 	}
-	public DirectMessage(Integer id, String username, String other, boolean sentByUs) {
+	public DirectMessage(Integer id, String username, String other, String content, boolean sentByUs) {
 		messageID = id;
 		user = username;
+		message = content;
 		otherUser = other;
 		sentByUser = sentByUs;
 	}
@@ -25,6 +27,9 @@ public class DirectMessage{
 	public String getOtherUser() {
 		return otherUser;
 	}
+	public String getMessage() {
+		return message;
+	}
 	public boolean isSentByUser() {
 		return sentByUser;
 	}
@@ -36,6 +41,9 @@ public class DirectMessage{
 	}
 	public void setOtherUsername(String otherUsername) {
 		otherUser = otherUsername;
+	}
+	public void setMessage(String content) {
+		message = content;
 	}
 	public void setSent(boolean sentByUs) {
 		sentByUser = sentByUs;
