@@ -3,7 +3,7 @@
 <%@ page import="com.njit.smp.model.DirectMessage"%>
 
 <% List<DirectMessage> userMessages = null;
-String userNullName = null;
+  String userFullName = null;
 
 if (request.getAttribute("messages") != null) {
   userMessages = (List<DirectMessage>) request.getAttribute("messages");
@@ -71,7 +71,7 @@ if (request.getAttribute("fullname") != null) {
         </form>
         <%} %>
         <% if(!userMessages.isEmpty()) {
-          for(UserMessage userMessage: userMessages){
+          for(DirectMessage userMessage: userMessages){
             %>
         <%}
         }%>
