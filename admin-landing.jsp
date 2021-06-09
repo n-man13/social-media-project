@@ -2,7 +2,6 @@
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for signup page
 -->
 
 <!DOCTYPE html>
@@ -34,9 +33,8 @@ Wrote HTML code for signup page
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
+      <a href="user-landing.jsp">Home</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>

@@ -3,9 +3,9 @@
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for user-landing page
 -->
 
+<!-- Java Collaboration: Atharv -->
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.UserMessage"%>
@@ -47,8 +47,7 @@ if (request.getAttribute("posts") != null) {
     <!-- Navigation -->
     <div class="navigation">
       <a href="user-landing.jsp">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>

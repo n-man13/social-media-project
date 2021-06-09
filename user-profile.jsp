@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!-- 
+Author: Joseph Santantonio
+Project: Social Media Project
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,9 +33,8 @@
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Inbox</a>
+      <a href="user-landing.jsp">Home</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
