@@ -3,9 +3,9 @@
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for user-landing page
 -->
 
+<!-- Java Collaboration: Atharv -->
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.UserMessage"%>
@@ -17,10 +17,12 @@ String userFullName = null;
 if (request.getAttribute("searchposts") != null) {
   userPosts = (List<UserMessage>) request.getAttribute("searchposts");
 }
+
 if (request.getAttribute("fullname") != null) {
-	userFullName = (String) request.getAttribute("fullname");
+  userFullName = (String) request.getAttribute("fullname");
 }
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,8 +53,7 @@ if (request.getAttribute("fullname") != null) {
     <!-- Navigation -->
     <div class="navigation">
       <a href="user-landing.jsp">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
@@ -64,20 +65,10 @@ if (request.getAttribute("fullname") != null) {
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
+            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <%
-        	if(userFullName != null) {
-        %>
-        	<div class="user" id="user-owner"><p><%=userFullName%></p></div>	
-        <%} %>
-        <% if(!userPosts.isEmpty()) {
-          for(UserMessage userPost: userPosts){
-            %>
-        <%}
-        }%>
       </div>
       <div class="main-content">
         <div class="user-posts userposts-mainpage">

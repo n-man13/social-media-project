@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!-- 
+Author: Joseph Santantonio
+Project: Social Media Project
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,9 +33,8 @@
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Inbox</a>
+      <a href="user-landing.jsp">Home</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
@@ -42,20 +46,21 @@
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
-            <input type="submit" value="GO" />
+            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
+            <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <div class="main-box"><p>Sports</p></div>
-        <div class="main-box">
-          <p>Video<br />Games</p>
-        </div>
-        <div class="main-box"><p>Music</p></div>
-        <div class="main-box"><p>Arts & Crafts</p></div>
-        <div class="main-box"><p>Technology</p></div>
+        <form action="status" method="post" id="videogameform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="submit" value="Video Games" id="main-button" />
+        </form>
+        <input type="submit" value="Music" id="main-button" />
+        <input type="submit" value="Arts & Crafts" id="main-button" />
+        <input type="submit" value="Technology" id="main-button" />
+        <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
-        <h1>WELCOME HOME</h1>
+        <h1 id="profileheader">WELCOME HOME</h1>
       </div>
     </div>
   </body>

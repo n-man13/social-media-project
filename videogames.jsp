@@ -3,9 +3,9 @@
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for user-landing page
 -->
 
+<!-- Java Collaboration: Atharv -->
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.UserMessage"%>
@@ -23,7 +23,7 @@ if (request.getAttribute("posts") != null) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hobby Home</title>
+    <title>Videogames</title>
     <link rel="stylesheet" href="styles.css" />    
     <script>
       function getInfo() {
@@ -47,8 +47,7 @@ if (request.getAttribute("posts") != null) {
     <!-- Navigation -->
     <div class="navigation">
       <a href="user-landing.jsp">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
@@ -60,21 +59,18 @@ if (request.getAttribute("posts") != null) {
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" name="searchbox" placeholder="Search..." id="searchbox" />
-            <input type="submit" value="GO" />
+            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
+            <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <div class="main-box"><p>Sports</p></div>
-        <form action="status" method="post">
-        <input type="hidden" name="initload" value="initload"> 
-          <div class="main-box">
-            <p>Video<br />Games</p>
-          </div>
-          <input type="submit" value="Fetch Posts" />
+        <form action="status" method="post" id="videogameform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="submit" value="Video Games" id="main-button" />
         </form>
-        <div class="main-box"><p>Music</p></div>
-        <div class="main-box"><p>Arts & Crafts</p></div>
-        <div class="main-box"><p>Technology</p></div>
+        <input type="submit" value="Music" id="main-button" />
+        <input type="submit" value="Arts & Crafts" id="main-button" />
+        <input type="submit" value="Technology" id="main-button" />
+        <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
         <div class="profile-post">

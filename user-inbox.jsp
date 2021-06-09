@@ -1,22 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for user-landing page
 -->
 
+<!-- Java Collaboration: Atharv -->
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.DirectMessage"%>
 
-<%
-List<DirectMessage> userMessages = null;
+<% List<DirectMessage> userMessages = null;
+  String userFullName = null;
 
 if (request.getAttribute("messages") != null) {
-	userMessages = (List<DirectMessage>) request.getAttribute("messages");
+  userMessages = (List<DirectMessage>) request.getAttribute("messages");
+}
+
+if (request.getAttribute("fullname") != null) {
+    userFullName = (String) request.getAttribute("fullname");
+}
+
+if (request.getAttribute("otherperson") != null) {
+    userFullName = (String) request.getAttribute("otherperson");
+}
+
+if (session.getAttribute("messaging") != null) {
+	userFullName = (String) session.getAttribute("messaging");
 }
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,9 +43,21 @@ if (request.getAttribute("messages") != null) {
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
+      
+      //await(5000);
+    function submitForm(){
+    	if(document.forms['openmessages']){
+      		document.forms['openmessages'].submit();
+      	}
+    }
+      
+    function autoReload(){
+    	setTimeout("submitForm()", 10000);
+    }
+
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();autoReload();">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -46,9 +69,8 @@ if (request.getAttribute("messages") != null) {
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Inbox</a>
+      <a href="user-landing.jsp">Home</a>
+      <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
@@ -59,36 +81,48 @@ if (request.getAttribute("messages") != null) {
     <div class="main-container">
       <div class="hobby-bar">
         <div class="search-bar">
-          <form action="search" method="post">
+          <form action="message" method="post">
             <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <div class="user" id="user-owner"><p>John Doe</p></div>
-        <div class="user" id="user-owner"><p>Mike Bob</p></div>
+        <%
+          if(userFullName != null || session.getAttribute("messaging") != null) {
+        %>
+        <form action="message" name="openmessages" method="post">
+          <input type="hidden" name="messageuser" value="messageuser" />
+          <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+          <input type="hidden" name="messageto" value="<%=userFullName%>">
+          <input type="submit" value="<%=userFullName%>" id="userbutton" />
+        </form>
+        <% } %>
       </div>
       <div class="main-content">
         <div class="messages">
-          <% if(!userMessages.isEmpty()) {
+          <% if(userMessages != null && !userMessages.isEmpty()) {
+        	  userMessages = (List<DirectMessage>) request.getAttribute("messages");
             for(DirectMessage userMessage: userMessages){
-              
-            %>
+            	System.out.println("message = "+userMessage.getMessage()+" user then otheruser = "+userMessage.getUsername()+" "+userMessage.getOtherUser());
+          %>
           <!-- User Message\reply Template START -->
-          <div class="user-reply user-message" id="messagetemplate">
-            <h5><%=userMessages.getFirstName()%> <%=userPost.getLastName() %></h5>
-            <p><%=userMessages.getMessage()%></p>
+         <div class="user-reply user-message" id="messagetemplate">
+           <h5><%=userMessage.getUsername()%></h5>
+            <p><%=userMessage.getMessage()%></p>
           </div>
-          <%}
-          }%>
+          <%} }%>
           <!-- User Message\reply Template END -->
         </div>
         <div class="profile-post send-message">
           <form action="message" method="post" id="sendform">
-            <textarea name="message-textbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
+          	<input type="hidden" name="sendmessage" value="sendmessage">
+          	<input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+          	<input type="hidden" name="messageto" value="<%=userFullName%>" id="userbutton" />
+            <textarea name="messagetextbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />
           </form>
         </div>
       </div>
     </div>
   </body>
-</html>
+</html> </UserMessage
+></UserMessage>
