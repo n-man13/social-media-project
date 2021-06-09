@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserMessage {
 	
-	private Integer postid;
+	private Integer postId;
 	private String firstName;
 	private String lastName;
 	private String postContent;
@@ -12,12 +12,12 @@ public class UserMessage {
 	
 	public UserMessage() {}
 	
-	public Integer getPostid() {
-		return postid;
+	public Integer getPostId() {
+		return postId;
 	}
 
-	public void setPostid(Integer postid) {
-		this.postid = postid;
+	public void setPostId(Integer postId) {
+		this.postId = postId;
 	}
 
 	public String getFirstName() {
