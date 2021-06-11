@@ -69,11 +69,19 @@ if (session.getAttribute("messaging") != null) {
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
+      <form action="message" method="post">
+      	<input type="hidden" name="resetfullname" value="resetfullname" />	
+        <input type="submit" value="Home" id="reset-messages" />
+      </form>
+      <!-- a href="user-landing.jsp">Home</a-->
       <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <form action="login" method="post">
+      	  <input type="hidden" name="resetfullname" value="resetfullname" />	
+          <input type="submit" value="Logout" id="reset-messages" />
+        </form>
+        <!-- a href="login.jsp">Logout</a-->
       </div>
     </div>
 
