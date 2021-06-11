@@ -29,25 +29,19 @@ public class UserStatusServlet extends HttpServlet {
     }
     
     protected boolean logPost(String username, String userPost) {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.pushPost(username, userPost);
     }
     
     protected boolean logReply(String username, String userPost, int postId) {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.pushReply(username, userPost, postId);
     }
     
     protected List<UserMessage> getAllPosts() {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.getAllPosts();
     }
@@ -71,7 +65,6 @@ public class UserStatusServlet extends HttpServlet {
 		boolean success = false;
 		RequestDispatcher dispatcher = null;
 		
-		System.out.println("inside servlet userPost = " + userPost + " userReply = " + userReply + " username = " + username);
 		//Send to database to log.
 		
 		if (userPost != null) {

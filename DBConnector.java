@@ -70,7 +70,6 @@ public class DBConnector {
 	 * @throws SQLException 
 	**/
 	public boolean addUser(String newUser, String newPass, String firstName, String lastName, String email) throws SQLException{
-		System.out.println("user is: " + newUser + " pass is: " + newPass);
 		boolean retVal = false;
 		PreparedStatement ps = null;
 		if (!isUserExists(newUser)){
@@ -173,7 +172,6 @@ public class DBConnector {
 	 * @return 			1 if user can be signed in, 2 if admin, otherwise 0
 	**/
 	public int signIn(String user, String pass){
-		System.out.println("inside connector user = "+user + "  and pass = " + pass);
 		int retVal = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -184,10 +182,7 @@ public class DBConnector {
 				ps.setString(1, user);
 				ps.setString(2, pass);
 				rs = ps.executeQuery();
-				System.out.println(ps);
 				while(rs.next()) {
-					System.out.print("Column 1 returned ");
-				    System.out.println(rs.getString(1));
 					retVal = 1;
 					if (rs.getBoolean("isadmin")) {
 						retVal = 2;
@@ -241,6 +236,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Returns a list of Posts by the person specified in the search parameters
+	 * @param firstName			first name of the poster
+	 * @param lastName			last name of the poster
+	 * @return 					List of Posts ordered by postID
+	 */
+	
 	public List<UserMessage> getUserPosts(String firstName, String lastName){
 		List<UserMessage> userPosts = new ArrayList<UserMessage>();
 		
@@ -258,7 +260,6 @@ public class DBConnector {
 		sbr.append(" ORDER BY postid desc");
 		
 		String sqlSelectUserPosts = sbr.toString();
-		System.out.println(sqlSelectUserPosts);
 		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
 		
 		try {
@@ -303,6 +304,11 @@ public class DBConnector {
 		
 		return userPosts;
 	}
+	
+	/**
+	 * Returns a list of Posts
+	 * @return 					List of Posts ordered by postID
+	 */
 	
 	public List<UserMessage> getAllPosts() {
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
@@ -410,7 +416,6 @@ public class DBConnector {
 			rs = ps.executeQuery();
 			DirectMessage message = null;
 			while(rs.next()) {
-				System.out.println("hello from first while loop");
 				message = new DirectMessage();
 				message.setUsername(rs.getString("sendingUsername"));
 				message.setOtherUsername(rs.getString("receivingUsername"));
@@ -419,7 +424,6 @@ public class DBConnector {
 				message.setMessageID(rs.getInt("messageID"));
 				messages.add(message);
 			}
-			System.out.println("first set = " + messages.size());
 			ps2 = this.conn.prepareStatement(sqlSelectUserMessages);
 			ps2.setString(1, otherUsername);
 			ps2.setString(2, username);
@@ -433,14 +437,12 @@ public class DBConnector {
 				message.setMessageID(rs2.getInt("messageID"));
 				messages.add(message);
 			}
-			System.out.println("second set = " + messages.size());
 			Collections.sort(messages, new Comparator<DirectMessage>() {
 				@Override
 		        public int compare(DirectMessage one, DirectMessage two) {
 					return one.getMessageID() - two.getMessageID();
 				}
 			});
-			System.out.println("sorted set = " + messages.size());
 		} catch (SQLException e){
 			System.err.println(e.toString());
 		} finally {
@@ -480,6 +482,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Returns first name of the username given
+	 * @param username			username of the person being searched
+	 * @param password			password of the person being searched
+	 * @return 					first name of the person being searched
+	 */
+	
 	public String getFName(String user, String pass) {
 		String retVal = "";
 		PreparedStatement ps = null;
@@ -491,10 +500,7 @@ public class DBConnector {
 				ps.setString(1, user);
 				ps.setString(2, pass);
 				rs = ps.executeQuery();
-				System.out.println(ps);
 				while(rs.next()) {
-					System.out.print("Column 1 returned ");
-				    System.out.println(rs.getString("firstname"));
 					retVal = rs.getString("firstname");
 				}
 			}
@@ -508,6 +514,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Returns last name of the username given
+	 * @param username			username of the person being searched
+	 * @param password			password of the person being searched
+	 * @return 					last name of the person being searched
+	 */
+	
 	public String getLName(String user, String pass) {
 		String retVal = "";
 		PreparedStatement ps = null;
@@ -519,10 +532,7 @@ public class DBConnector {
 				ps.setString(1, user);
 				ps.setString(2, pass);
 				rs = ps.executeQuery();
-				System.out.println(ps);
 				while(rs.next()) {
-					System.out.print("Column 1 returned ");
-				    System.out.println(rs.getString("lastname"));
 					retVal = rs.getString("lastname");
 				}
 			}

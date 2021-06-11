@@ -35,17 +35,14 @@ public class UserSignInServlet extends HttpServlet {
      * @throws SQLException 
      */
     protected int authenticate(String username, String password) throws SQLException {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	int isAuth = connector.signIn(username, password);
-    	System.out.println("isAuth = "+isAuth);
+    	
     	return isAuth;
 	}
     
     protected String getFirstName(String username, String password) {
     	DBConnector connector = DBConnector.getInstance();
-    	
     	String fName = connector.getFName(username, password);
     	
     	return fName;
@@ -53,7 +50,6 @@ public class UserSignInServlet extends HttpServlet {
     
     protected String getLastName(String username, String password) {
     	DBConnector connector = DBConnector.getInstance();
-    	
     	String lName = connector.getLName(username, password);
     	
     	return lName;
@@ -72,9 +68,9 @@ public class UserSignInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
     	String username  = request.getParameter("username");
     	String password  = request.getParameter("password");
+    	String resetFullName = request.getParameter("resetfullname");
     	String firstName = "";
     	String lastName  = "";
-    	System.out.println("inside servlet user = "+ username + "  and pass = " + password);
     	int authVal = 0;
     	HttpSession hs = request.getSession();
     	
@@ -87,7 +83,6 @@ public class UserSignInServlet extends HttpServlet {
     		lastName = getLastName(username, password);
     		
 			if (authVal == 1) {
-				System.out.println("redirecting to user-landing");
 				//Redirect to user landing
 				dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
 				
@@ -98,7 +93,6 @@ public class UserSignInServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			else if (authVal == 2) {
-				System.out.println("redirecting to admin-landing");
 				//Redirect to admin landing
 				dispatcher = getServletContext().getRequestDispatcher("/admin-landing.jsp");
 				
@@ -109,7 +103,14 @@ public class UserSignInServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			else {
-				System.out.println("redirecting to login");
+				if (resetFullName != null) {
+					hs.removeAttribute("messaging");
+					
+					dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+					dispatcher.forward(request, response);
+					
+					return;
+				}
 				//Redirect to login
 				dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 				

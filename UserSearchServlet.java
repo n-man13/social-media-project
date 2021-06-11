@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.njit.smp.model.UserMessage;
 
 /**
- * Servlet implementation class UserSearchServlet
+ * @author Atharv Tyagi <at477@njit.edu>
+ * @project Social Media Project 
+ * Servlet implementation to search for and display posts made by users
  */
 @WebServlet("/UserSearchServlet")
 public class UserSearchServlet extends HttpServlet {
@@ -28,17 +30,13 @@ public class UserSearchServlet extends HttpServlet {
     }
     
     protected List<UserMessage> getUserPosts(String firstName, String lastName) {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.getUserPosts(firstName, lastName);
     }
     
     protected String userExists(String firstName, String lastName) {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.doesUserExistByName(firstName, lastName);
     }
@@ -65,11 +63,10 @@ public class UserSearchServlet extends HttpServlet {
 				firstName = str[0];
 				lastName  = str[1];
 			}
-		else if(str.length==1) {
-			firstName = str[0];
-		}
-		
-			System.out.println("inside servlet userSearch = " + userSearch + " " + "firstname = " + firstName + " " + "lastname = " + lastName);
+			else if(str.length==1) {
+				firstName = str[0];
+			}
+			
 			//Send to database to log.
 			List<UserMessage> posts = getUserPosts(firstName, lastName);
 			String userFullName = userExists(firstName, lastName);
@@ -89,5 +86,4 @@ public class UserSearchServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
-
 }

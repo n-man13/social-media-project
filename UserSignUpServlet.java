@@ -35,9 +35,8 @@ public class UserSignUpServlet extends HttpServlet {
      * @throws SQLException 
      */
     protected boolean signUp(String username, String password, String firstName, String lastName, String email) throws SQLException {
-    	System.out.println("connecting to db");
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
+    	
     	return connector.addUser(username, password, firstName, lastName, email);
 	}
   

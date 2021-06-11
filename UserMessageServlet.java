@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.njit.smp.model.DirectMessage;
-import com.njit.smp.model.UserMessage;
 
 /**
- * Servlet implementation class UserMessageServlet
+ * @author Atharv Tyagi <at477@njit.edu>
+ * @project Social Media Project 
+ * Servlet implementation to message other users
  */
 @WebServlet("/UserMessageServlet")
 public class UserMessageServlet extends HttpServlet {
@@ -29,25 +30,19 @@ public class UserMessageServlet extends HttpServlet {
     }
     
     protected String userExists(String firstName, String lastName) {
-    	System.out.println("connecting to db");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db");
     	
     	return connector.doesUserExistByName(firstName, lastName);
     }
     
     protected List<DirectMessage> getMessages(String username, String firstName, String lastName) {
-    	System.out.println("connecting to db from getmessage");
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db from getmessage");
     	
     	return connector.getMessages(username, firstName, lastName);
     }
     
     protected boolean pushMessage(String sendingUser, String firstName, String lastName, String message) {
-    	System.out.println("connecting to db from pushmessage");    	
     	DBConnector connector = DBConnector.getInstance();
-    	System.out.println("connected to db from pushmessage");
     	
     	return connector.pushMessage(sendingUser, firstName, lastName, message);
     }
@@ -66,10 +61,11 @@ public class UserMessageServlet extends HttpServlet {
 		String userSearch = request.getParameter("searchbox");
 		String messageUser = request.getParameter("messageuser");
 		String sendMessage = request.getParameter("sendmessage");
+		String resetFullName = request.getParameter("resetfullname");
 		String username = request.getParameter("username");
 		String otherPerson = request.getParameter("messageto");
 		String messageContent = request.getParameter("messagetextbox");
-		System.out.println("otherPerson = " + otherPerson);
+		
 		String firstName = null;
 		String lastName = null;
 		RequestDispatcher dispatcher = null;
@@ -85,7 +81,6 @@ public class UserMessageServlet extends HttpServlet {
 			else if(str.length==1) {
 				firstName = str[0];
 			}
-			System.out.println("inside servlet userMessage = " + userSearch + " " + "firstname = " + firstName + " " + "lastname = " + lastName);
 		}
 		
 		if (otherPerson != null) {
@@ -97,7 +92,6 @@ public class UserMessageServlet extends HttpServlet {
 			else if(str.length==1) {
 				firstName = str[0];
 			}
-			System.out.println("inside servlet userMessage = " + otherPerson + " " + "firstname = " + firstName + " " + "lastname = " + lastName);
 		}
 		
 		String userFullName = userExists(firstName, lastName);
@@ -112,6 +106,12 @@ public class UserMessageServlet extends HttpServlet {
 			request.setAttribute("fullname", userFullName);
 			
 			dispatcher = getServletContext().getRequestDispatcher("/user-inbox.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if (resetFullName != null) {
+			hs.removeAttribute("messaging");
+			
+			dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
 			dispatcher.forward(request, response);
 		}
 		else if (sendMessage != null) {
