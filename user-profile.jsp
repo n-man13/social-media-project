@@ -60,7 +60,7 @@ Project: Social Media Project
         <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
-        <h1>WELCOME HOME</h1>
+        <h1 id="profileheader">WELCOME HOME</h1>
       </div>
     </div>
   </body>

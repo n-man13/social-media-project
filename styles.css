@@ -335,12 +335,11 @@ textarea {
 }
 
 #userpage-textbox,
-#userpagetextbox,
 #replytextbox,
 #post-textbox,
-#message-textbox,
-#messagetextbox {
+#message-textbox {
   resize: none;
+  width: 84%;
 }
 
 .profile-post h2 {
@@ -488,5 +487,10 @@ textarea {
 #user-owner p {
   margin: 5px 2px;
   font-size: 14px;
+}
+
+#profileheader {
+  width: 100%;
+  text-align: center;
 }
 /* user-inbox.html END ----------------------------- */

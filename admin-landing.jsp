@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
+Wrote HTML code for signup page
 -->
 
 <!DOCTYPE html>
@@ -10,7 +12,7 @@ Project: Social Media Project
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin-landing</title>
+    <title>Admin Page</title>
     <link rel="stylesheet" href="styles.css" />
     <script>
       function getInfo() {
@@ -33,10 +35,11 @@ Project: Social Media Project
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
-      <a href="user-inbox.jsp">Inbox</a>
+      <a href="">Home</a>
+      <a href="">Link</a>
+      <a href="">Link</a>
       <div class="right">
-        <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
+        <a href="">Username_Placeholder</a>
         <a href="login.jsp">Logout</a>
       </div>
     </div>
