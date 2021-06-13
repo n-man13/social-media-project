@@ -162,7 +162,41 @@ div#errormsg {
 }
 /* Log-in Container END ----------------------------- */
 
-/* Navigation bar START ----------------------------- */
+/* Navbar START ----------------------------- */
+.nav {
+  background-color: black;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#left-nav,
+#right-nav {
+  display: flex;
+}
+
+#reset-messages,
+#nav-text,
+#username_placeholder {
+  color: white;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+#reset-messages {
+  background-color: black;
+  border: none;
+}
+
+#reset-messages:hover,
+#nav-text:hover,
+#username_placeholder:hover {
+  background-color: rgb(56, 56, 56);
+}
+
+/* Navigation bar END ----------------------------- */
 
 /* Landing page Main Content START ----------------------------- */
 
@@ -195,7 +229,7 @@ div#errormsg {
   flex-direction: column;
   background-color: rgb(182, 182, 182);
   padding: 20px 20px;
-  width: 250px;
+  width: 175px;
   border-right: 4px solid black;
 }
 
@@ -217,7 +251,7 @@ div#errormsg {
   margin-bottom: 5px;
   margin-right: 0px;
   padding: 5px;
-  width: 136px;
+  width: 131px;
 }
 
 .search-bar #search-submit {
@@ -228,7 +262,7 @@ div#errormsg {
 
 .main-content {
   background-color: rgb(221, 236, 255);
-  width: 100%;
+  width: 641px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -298,7 +332,7 @@ div#errormsg {
   display: flex;
   flex-direction: column;
   margin: 20px;
-  width: 100%;
+  width: 600px;
 }
 
 #userheader {
@@ -470,39 +504,3 @@ textarea {
   text-align: center;
 }
 /* user-inbox.html END ----------------------------- */
-
-/* Navbar START ----------------------------- */
-.nav {
-  background-color: black;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-}
-
-#left-nav,
-#right-nav {
-  display: flex;
-}
-
-#reset-messages,
-#nav-text,
-#username_placeholder {
-  color: white;
-  text-align: center;
-  padding: 16px 20px;
-  font-size: 16px;
-  text-decoration: none;
-}
-
-#reset-messages {
-  background-color: black;
-  border: none;
-}
-
-#reset-messages:hover,
-#nav-text:hover,
-#username_placeholder:hover {
-  background-color: rgb(56, 56, 56);
-}
-
-/* Navigation bar END ----------------------------- */
