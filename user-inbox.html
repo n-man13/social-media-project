@@ -18,6 +18,14 @@ if (request.getAttribute("messages") != null) {
 if (request.getAttribute("fullname") != null) {
     userFullName = (String) request.getAttribute("fullname");
 }
+
+if (request.getAttribute("otherperson") != null) {
+    userFullName = (String) request.getAttribute("otherperson");
+}
+
+if (session.getAttribute("messaging") != null) {
+	userFullName = (String) session.getAttribute("messaging");
+}
 %>
 
 <!DOCTYPE html>
@@ -35,9 +43,21 @@ if (request.getAttribute("fullname") != null) {
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
+      
+      //await(5000);
+    function submitForm(){
+    	if(document.forms['openmessages']){
+      		document.forms['openmessages'].submit();
+      	}
+    }
+      
+    function autoReload(){
+    	setTimeout("submitForm()", 10000);
+    }
+
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();autoReload();">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -49,11 +69,19 @@ if (request.getAttribute("fullname") != null) {
 
     <!-- Navigation -->
     <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
+      <form action="message" method="post">
+      	<input type="hidden" name="resetfullname" value="resetfullname" />	
+        <input type="submit" value="Home" id="reset-messages" />
+      </form>
+      <!-- a href="user-landing.jsp">Home</a-->
       <a href="user-inbox.jsp">Inbox</a>
       <div class="right">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <form action="login" method="post">
+      	  <input type="hidden" name="resetfullname" value="resetfullname" />	
+          <input type="submit" value="Logout" id="reset-messages" />
+        </form>
+        <!-- a href="login.jsp">Logout</a-->
       </div>
     </div>
 
@@ -61,50 +89,43 @@ if (request.getAttribute("fullname") != null) {
     <div class="main-container">
       <div class="hobby-bar">
         <div class="search-bar">
-          <form action="usersearch" method="post">
+          <form action="message" method="post">
             <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
-            <input type="submit" value="GO" id="userbutton"/>
+            <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
         <%
-          if(userFullName != null) {
+          if(userFullName != null || session.getAttribute("messaging") != null) {
         %>
-        <form action="messageuser" method="post">
-          <input type="hidden" name="initload" value="initload" />
+        <form action="message" name="openmessages" method="post">
+          <input type="hidden" name="messageuser" value="messageuser" />
           <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+          <input type="hidden" name="messageto" value="<%=userFullName%>">
           <input type="submit" value="<%=userFullName%>" id="userbutton" />
         </form>
-        <%} %>
-        <% if(!userMessages.isEmpty()) {
-          for(DirectMessage userMessage: userMessages){
-            %>
-        <%}
-        }%>
+        <% } %>
       </div>
       <div class="main-content">
         <div class="messages">
-          <% if(!userMessages.isEmpty()) { 
-            for(DirectMessage userMessage: userMessages){ 
+          <% if(userMessages != null && !userMessages.isEmpty()) {
+        	  userMessages = (List<DirectMessage>) request.getAttribute("messages");
+            for(DirectMessage userMessage: userMessages){
+            	System.out.println("message = "+userMessage.getMessage()+" user then otheruser = "+userMessage.getUsername()+" "+userMessage.getOtherUser());
           %>
           <!-- User Message\reply Template START -->
-          <% if(userMessage.isSentByUser()){%>
-          <div class="user-reply user-message" id="messagetemplate">
-            <h5><%=userMessage.getUsername()%></h5>
+         <div class="user-reply user-message" id="messagetemplate">
+           <h5><%=userMessage.getUsername()%></h5>
             <p><%=userMessage.getMessage()%></p>
           </div>
-            <%}
-            else {%>
-          <div class="user-reply user-message" id="messagetemplate">
-            <h5><%=userMessage.getOtherUser()%></h5>
-            <p><%=userMessage.getMessage()%></p>
-          </div>
-            <%}%>
           <%} }%>
           <!-- User Message\reply Template END -->
         </div>
         <div class="profile-post send-message">
           <form action="message" method="post" id="sendform">
-            <textarea name="message-textbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
+          	<input type="hidden" name="sendmessage" value="sendmessage">
+          	<input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+          	<input type="hidden" name="messageto" value="<%=userFullName%>" id="userbutton" />
+            <textarea name="messagetextbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />
           </form>
         </div>
