@@ -48,7 +48,7 @@ Project: Social Media Project
       <div class="hobby-bar">
         <div class="search-bar">
           <form action="search" method="post">
-            <input type="text" name="searchbox" placeholder="Search..." id="search-box" />
+            <input type="text" class="search" name="searchbox" placeholder="Search..." id="search-box" />
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
@@ -66,54 +66,88 @@ Project: Social Media Project
         <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
-        <h2 id="explore-text">Are you bored and uninspired? Choose a category below for a random generated hobby idea!</h2>
+        <h2 id="explore-text">Are you bored and uninspired? <br />Generate a hobby idea!</h2>
         <div class="api-answer">
-          <p>Task from API goes here</p>
+          <p>Generate a task below!</p>
         </div>
         <div class="categories">
           <form action="activity" method="post" id="apiform">
-            <input type="radio" name="choice" value="random" id="random" checked="checked" />
-            <label for="random">Random</label>
-            <input type="radio" name="choice" value="education" id="education" />
-            <label for="education">Education</label>
-            <input type="radio" name="choice" value="recreation" id="recreation" />
-            <label for="recreation">Recreation</label>
-            <input type="radio" name="choice" value="social" id="social" />
-            <label for="social">Social</label>
-            <input type="radio" name="choice" value="diy" id="diy" />
-            <label for="diy">DIY</label>
-            <input type="radio" name="choice" value="charity" id="charity" />
-            <label for="charity">Charity</label>
-            <input type="radio" name="choice" value="cooking" id="cooking" />
-            <label for="cooking">Cooking</label>
-            <input type="radio" name="choice" value="relaxation" id="relaxation" />
-            <label for="relaxation">Relaxation</label>
-            <input type="radio" name="choice" value="music" id="music" />
-            <label for="music">Music</label>
-            <input type="radio" name="choice" value="busywork" id="busywork" />
-            <label for="busywork">Busywork</label>
-            <label for="difficulty">Choose Diffuclty:</label>
-            <select name="difficulty" id="difficulty">
-              <option disabled selected value>Optional</option>
-              <option value="0.0">Easy</option>
-              <option value="0.5">Medium</option>
-              <option value="1.0">Hard</option>
-            </select>
-            <label for="cost">Cost:</label>
-            <select name="cost" id="cost">
-              <option disabled selected value>Optional</option>
-              <option value="0.0">Free</option>
-              <option value="0.25">Low</option>
-              <option value="0.5">Moderate</option>
-              <option value="0.75">High</option>
-              <option value="1.0">Expensive</option>
-            </select>
-            <label for="people">Number of participants:</label>
-            <input type="number" name="people" id="people" placeholder="Optional" min="1" />
-            <input type="submit" value="Submit" />
+            <div class="radio-buttons">
+              <div class="rbtn">
+                <input type="radio" name="choice" value="random" id="random" checked="checked" />
+                <label for="random">Random</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="education" id="education" />
+                <label for="education">Education</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="recreation" id="recreation" />
+                <label for="recreation">Recreation</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="social" id="social" />
+                <label for="social">Social</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="diy" id="diy" />
+                <label for="diy">DIY</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="charity" id="charity" />
+                <label for="charity">Charity</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="cooking" id="cooking" />
+                <label for="cooking">Cooking</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="relaxation" id="relaxation" />
+                <label for="relaxation">Relaxation</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="music" id="music" />
+                <label for="music">Music</label>
+              </div>
+              <div class="rbtn">
+                <input type="radio" name="choice" value="busywork" id="busywork" />
+                <label for="busywork">Busywork</label>
+              </div>
+            </div>
+            <div class="form-right">
+              <div class="optional-category">
+                <div class="optional-form">
+                  <label for="difficulty">Diffuclty</label>
+                  <select name="difficulty" id="difficulty">
+                    <option selected value>Random</option>
+                    <option value="0.0">Easy</option>
+                    <option value="0.5">Medium</option>
+                    <option value="1.0">Hard</option>
+                  </select>
+                </div>
+                <div class="optional-form">
+                  <label for="cost">Cost</label>
+                  <select name="cost" id="cost">
+                    <option selected value>Random</option>
+                    <option value="0.0">Free</option>
+                    <option value="0.25">Low</option>
+                    <option value="0.5">Moderate</option>
+                    <option value="0.75">High</option>
+                    <option value="1.0">Expensive</option>
+                  </select>
+                </div>
+                <div class="optional-form">
+                  <label for="people"
+                    >Number of<br />
+                    participants</label
+                  >
+                  <input type="number" name="people" id="people" value="1" min="1" />
+                </div>
+              </div>
+              <input type="submit" value="GENERATE" id="generatebutton" />
+            </div>
           </form>
         </div>
-        <div class="categories"></div>
       </div>
     </div>
   </body>

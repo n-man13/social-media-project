@@ -65,6 +65,10 @@ if (request.getAttribute("posts") != null) {
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
+        <form action="status" method="post" id="exploreform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="submit" value="Explore" id="main-button" />
+        </form>
         <form action="status" method="post" id="videogameform">
           <input type="hidden" name="initload" value="initload" />
           <input type="submit" value="Video Games" id="main-button" />

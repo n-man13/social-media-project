@@ -209,7 +209,8 @@ div#errormsg {
 }
 
 #main-button {
-  background-color: rgb(167, 255, 163);
+  /* background-color: rgb(167, 255, 163); */
+  background-color: rgb(119, 183, 255);
   width: 100%;
   height: 80px;
   color: black;
@@ -222,7 +223,8 @@ div#errormsg {
 }
 
 #main-button:hover {
-  background-color: rgba(110, 255, 91, 0.767);
+  /* background-color: rgba(110, 255, 91, 0.767); */
+  background-color: rgb(100, 170, 250);
 }
 
 .main-box p {
@@ -265,12 +267,14 @@ div#errormsg {
   margin-right: 0px;
   padding: 5px;
   width: 131px;
+  border: 1px solid black;
 }
 
 .search-bar #search-submit {
   width: 39px;
-  height: 29px;
+  height: 27px;
   font-weight: bold;
+  border: 1px solid black;
 }
 
 .main-content {
@@ -533,8 +537,92 @@ textarea {
 .api-answer {
   margin: 20px auto;
   border: 2px solid black;
+  background-color: whitesmoke;
   padding: 20px;
   width: 550px;
+  text-align: center;
+  border-radius: 50px;
 }
 
+.api-answer p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.categories {
+  margin: 10px auto;
+}
+
+.radio-buttons {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgb(182, 182, 182);
+}
+
+.categories label {
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.rbtn {
+  margin: 8px;
+}
+
+.optional-category {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgb(182, 182, 182);
+}
+
+.optional-form {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+}
+
+#people {
+  width: 40px;
+}
+
+.categories form {
+  display: flex;
+}
+
+.categories .form-right {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+select {
+  font-size: 18px;
+}
+
+.form-right label {
+  margin-bottom: 5px;
+}
+
+#generatebutton {
+  margin-top: 20px;
+  border-radius: 20px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  height: 133px;
+  border: 2px solid black;
+  background-color: rgb(205, 164, 252);
+}
+
+#generatebutton:hover {
+  background-color: rgb(188, 130, 255);
+}
 /* explore.html END ----------------------------- */
