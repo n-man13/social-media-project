@@ -521,3 +521,41 @@ textarea {
   text-align: center;
 }
 /* user-inbox.html END ----------------------------- */
+
+/* explore.html START ----------------------------- */
+
+#explore-text {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.api-answer {
+  margin: 20px auto;
+  border: 2px solid black;
+  padding: 20px;
+  width: 550px;
+}
+
+.randomdiv {
+  margin: 0px auto;
+  width: 530px;
+}
+
+.categories {
+  margin: 0px auto;
+}
+
+.row {
+  display: flex;
+}
+
+.row form {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.row #main-button {
+  width: 150px;
+}
+
+/* explore.html END ----------------------------- */
