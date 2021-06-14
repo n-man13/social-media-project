@@ -559,7 +559,7 @@ textarea {
   flex-direction: column;
   border: 2px solid black;
   width: fit-content;
-  padding: 20px;
+  padding: 20px 50px;
   border-radius: 20px;
   background-color: rgb(182, 182, 182);
 }
@@ -579,7 +579,7 @@ textarea {
   flex-direction: column;
   border: 2px solid black;
   width: fit-content;
-  padding: 20px;
+  padding: 20px 50px;
   border-radius: 20px;
   background-color: rgb(182, 182, 182);
 }
