@@ -70,23 +70,70 @@ Project: Social Media Project
         <div class="api-answer">
           <p>Task from API goes here</p>
         </div>
-        <div class="randomdiv">
-          <form action="status" method="post" id="random">
-            <input type="hidden" name="initload" value="initload" />
-            <input type="submit" value="Random" id="main-button" />
+        <div class="categories">
+          <form action="status" method="post" id="apiform">
+            <div class="radiobtn">
+              <input type="radio" name="random" id="random" />
+              <label for="random">Random</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="education" id="education" />
+              <label for="education">Education</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="recration" id="recration" />
+              <label for="recration">Recration</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="social" id="social" />
+              <label for="social">Social</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="diy" id="diy" />
+              <label for="diy">DIY</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="charity" id="charity" />
+              <label for="charity">Charity</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="cooking" id="cooking" />
+              <label for="cooking">Cooking</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="relaxation" id="relaxation" />
+              <label for="relaxation">Relaxation</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="music" id="music" />
+              <label for="music">Music</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="busywork" id="busywork" />
+              <label for="busywork">Busywork</label>
+            </div>
+            <label for="difficulty">Choose Diffuclty:</label>
+            <select name="difficulty" id="difficulty">
+              <option disabled selected value>Optional</option>
+              <option value="0.0">Easy</option>
+              <option value="0.5">Medium</option>
+              <option value="1.0">Hard</option>
+            </select>
+            <label for="cost">Cost:</label>
+            <select name="cost" id="cost">
+              <option disabled selected value>Optional</option>
+              <option value="0.0">Free</option>
+              <option value="0.25">Low</option>
+              <option value="0.5">Moderate</option>
+              <option value="0.75">High</option>
+              <option value="1.0">Expensive</option>
+            </select>
+            <label for="people">Number of participants:</label>
+            <input type="number" name="people" id="people" placeholder="Optional" min="1" />
+            <input type="submit" value="Submit" />
           </form>
         </div>
-        <div class="categories">
-          <input type="radio" name="Education" id="education" />
-          <input type="radio" name="Recration" id="recration" />
-          <input type="radio" name="Social" id="social" />
-          <input type="radio" name="DIY" id="diy" />
-          <input type="radio" name="Charity" id="charity" />
-          <input type="radio" name="Cooking" id="cooking" />
-          <input type="radio" name="Relaxation" id="relaxation" />
-          <input type="radio" name="Music" id="music" />
-          <input type="radio" name="Busywork" id="busywork" />
-        </div>
+        <div class="categories"></div>
       </div>
     </div>
   </body>
