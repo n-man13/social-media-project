@@ -72,46 +72,26 @@ Project: Social Media Project
         </div>
         <div class="categories">
           <form action="status" method="post" id="apiform">
-            <div class="radiobtn">
-              <input type="radio" name="random" id="random" />
-              <label for="random">Random</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="education" id="education" />
-              <label for="education">Education</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="recration" id="recration" />
-              <label for="recration">Recration</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="social" id="social" />
-              <label for="social">Social</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="diy" id="diy" />
-              <label for="diy">DIY</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="charity" id="charity" />
-              <label for="charity">Charity</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="cooking" id="cooking" />
-              <label for="cooking">Cooking</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="relaxation" id="relaxation" />
-              <label for="relaxation">Relaxation</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="music" id="music" />
-              <label for="music">Music</label>
-            </div>
-            <div class="radiobtn">
-              <input type="radio" name="busywork" id="busywork" />
-              <label for="busywork">Busywork</label>
-            </div>
+            <input type="radio" name="choice" value="random" id="random" />
+            <label for="random">Random</label>
+            <input type="radio" name="choice" value="education" id="education" />
+            <label for="education">Education</label>
+            <input type="radio" name="choice" value="recreation" id="recreation" />
+            <label for="recreation">Recreation</label>
+            <input type="radio" name="choice" value="social" id="social" />
+            <label for="social">Social</label>
+            <input type="radio" name="choice" value="diy" id="diy" />
+            <label for="diy">DIY</label>
+            <input type="radio" name="choice" value="charity" id="charity" />
+            <label for="charity">Charity</label>
+            <input type="radio" name="choice" value="cooking" id="cooking" />
+            <label for="cooking">Cooking</label>
+            <input type="radio" name="choice" value="relaxation" id="relaxation" />
+            <label for="relaxation">Relaxation</label>
+            <input type="radio" name="choice" value="music" id="music" />
+            <label for="music">Music</label>
+            <input type="radio" name="choice" value="busywork" id="busywork" />
+            <label for="busywork">Busywork</label>
             <label for="difficulty">Choose Diffuclty:</label>
             <select name="difficulty" id="difficulty">
               <option disabled selected value>Optional</option>
