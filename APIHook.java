@@ -1,11 +1,12 @@
 import java.io.*;
 import java.net.*;
+import org.json.JSONObject;
 
 public class APIHook {
 
 	private String url = "http://www.boredapi.com/api/activity";
 
-	public String getHTML(String param) throws Exception {
+	public BoredItem getHTML(String param) throws Exception {
 		StringBuilder result = new StringBuilder();
 		URL url = new URL(urlToRead);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -15,7 +16,16 @@ public class APIHook {
 				result.append(line);
 			}
 		}
-		return result.toString();
+		return parseJSON(result.toString());
+	}
+	
+	public BoredItem parseJSON(String js) {
+		BoredItem item = new BoredItem();
+		JSONObject obj = new JSONObject(js);
+		item.setActivity(obj.getString("activity"));
+		item.setPrice(Double.valueOf(obj.getString("price")));
+		item.setAccessibility(Double.valueOf(obj.getString("accessibility")));
+		return item;
 	}
 
 	public String getThis(String category) {
