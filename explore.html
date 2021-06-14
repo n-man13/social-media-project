@@ -71,7 +71,7 @@ Project: Social Media Project
           <p>Task from API goes here</p>
         </div>
         <div class="categories">
-          <form action="status" method="post" id="apiform">
+          <form action="activity" method="post" id="apiform">
             <input type="radio" name="choice" value="random" id="random" />
             <label for="random">Random</label>
             <input type="radio" name="choice" value="education" id="education" />
