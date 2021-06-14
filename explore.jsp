@@ -72,7 +72,7 @@ Project: Social Media Project
         </div>
         <div class="categories">
           <form action="activity" method="post" id="apiform">
-            <input type="radio" name="choice" value="random" id="random" />
+            <input type="radio" name="choice" value="random" id="random" checked="checked" />
             <label for="random">Random</label>
             <input type="radio" name="choice" value="education" id="education" />
             <label for="education">Education</label>
