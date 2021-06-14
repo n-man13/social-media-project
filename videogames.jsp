@@ -45,12 +45,14 @@ if (request.getAttribute("posts") != null) {
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
-      <a href="user-inbox.jsp">Inbox</a>
-      <div class="right">
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <a href="login.jsp" id="nav-text">Logout</a>
       </div>
     </div>
 
@@ -87,6 +89,8 @@ if (request.getAttribute("posts") != null) {
         		List<UserMessage> replies = userPost.getReplies();
         	%>
           <div class="post-content">
+            <!-- hidden id for scrolling to post ID -->
+            <input type="hidden" name="postid" id="<%request.getAttribute("postId");%>"/>
             <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
             <p>
               <%=userPost.getPostContent() %>
