@@ -19,7 +19,7 @@ public class APIHook {
 	}
 
 	public String getThis(String category) {
-		switch (category) {
+		switch (category.toLowerCase()) {
 			case "random":
 				url += "/";
 				break;
