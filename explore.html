@@ -70,56 +70,70 @@ Project: Social Media Project
         <div class="api-answer">
           <p>Task from API goes here</p>
         </div>
-        <div class="randomdiv">
-          <form action="status" method="post" id="random">
-            <input type="hidden" name="initload" value="initload" />
-            <input type="submit" value="Random" id="main-button" />
+        <div class="categories">
+          <form action="status" method="post" id="apiform">
+            <div class="radiobtn">
+              <input type="radio" name="random" id="random" />
+              <label for="random">Random</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="education" id="education" />
+              <label for="education">Education</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="recration" id="recration" />
+              <label for="recration">Recration</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="social" id="social" />
+              <label for="social">Social</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="diy" id="diy" />
+              <label for="diy">DIY</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="charity" id="charity" />
+              <label for="charity">Charity</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="cooking" id="cooking" />
+              <label for="cooking">Cooking</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="relaxation" id="relaxation" />
+              <label for="relaxation">Relaxation</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="music" id="music" />
+              <label for="music">Music</label>
+            </div>
+            <div class="radiobtn">
+              <input type="radio" name="busywork" id="busywork" />
+              <label for="busywork">Busywork</label>
+            </div>
+            <label for="difficulty">Choose Diffuclty:</label>
+            <select name="difficulty" id="difficulty">
+              <option disabled selected value>Optional</option>
+              <option value="0.0">Easy</option>
+              <option value="0.5">Medium</option>
+              <option value="1.0">Hard</option>
+            </select>
+            <label for="cost">Cost:</label>
+            <select name="cost" id="cost">
+              <option disabled selected value>Optional</option>
+              <option value="0.0">Free</option>
+              <option value="0.25">Low</option>
+              <option value="0.5">Moderate</option>
+              <option value="0.75">High</option>
+              <option value="1.0">Expensive</option>
+            </select>
+            <label for="people">Number of participants:</label>
+            <input type="number" name="people" id="people" placeholder="Optional" min="1" />
+            <input type="submit" value="Submit" />
           </form>
         </div>
-        <div class="categories">
-          <div class="row">
-            <form action="status" method="post" id="education">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="education" id="main-button" />
-            </form>
-            <form action="status" method="post" id="recreation">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="recration" id="main-button" />
-            </form>
-            <form action="status" method="post" id="social">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="social" id="main-button" />
-            </form>
-          </div>
-          <div class="row">
-            <form action="status" method="post" id="diy">
-              <input type="hidden" name="diy" value="initload" />
-              <input type="submit" value="Random" id="main-button" />
-            </form>
-            <form action="status" method="post" id="charity">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="charity" id="main-button" />
-            </form>
-            <form action="status" method="post" id="cooking">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="cooking" id="main-button" />
-            </form>
-          </div>
-          <div class="row">
-            <form action="status" method="post" id="relaxation">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="relaxation" id="main-button" />
-            </form>
-            <form action="status" method="post" id="music">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="music" id="main-button" />
-            </form>
-            <form action="status" method="post" id="busywork">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="busywork" id="main-button" />
-            </form>
-          </div>
-        </div>
+        <div class="categories"></div>
       </div>
     </div>
   </body>

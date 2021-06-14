@@ -274,7 +274,7 @@ div#errormsg {
 
 .main-content {
   background-color: rgb(221, 236, 255);
-  width: 641px;
+  width: 800px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -349,7 +349,7 @@ div#errormsg {
   display: flex;
   flex-direction: column;
   margin: 20px;
-  width: 600px;
+  width: 800px;
 }
 
 #userheader {
@@ -366,7 +366,7 @@ textarea {
 #post-textbox,
 #message-textbox {
   resize: none;
-  width: 84%;
+  width: 100%;
 }
 
 .profile-post h2 {
@@ -534,28 +534,6 @@ textarea {
   border: 2px solid black;
   padding: 20px;
   width: 550px;
-}
-
-.randomdiv {
-  margin: 0px auto;
-  width: 530px;
-}
-
-.categories {
-  margin: 0px auto;
-}
-
-.row {
-  display: flex;
-}
-
-.row form {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.row #main-button {
-  width: 150px;
 }
 
 /* explore.html END ----------------------------- */

@@ -77,48 +77,15 @@ Project: Social Media Project
           </form>
         </div>
         <div class="categories">
-          <div class="row">
-            <form action="status" method="post" id="education">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="education" id="main-button" />
-            </form>
-            <form action="status" method="post" id="recreation">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="recration" id="main-button" />
-            </form>
-            <form action="status" method="post" id="social">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="social" id="main-button" />
-            </form>
-          </div>
-          <div class="row">
-            <form action="status" method="post" id="diy">
-              <input type="hidden" name="diy" value="initload" />
-              <input type="submit" value="Random" id="main-button" />
-            </form>
-            <form action="status" method="post" id="charity">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="charity" id="main-button" />
-            </form>
-            <form action="status" method="post" id="cooking">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="cooking" id="main-button" />
-            </form>
-          </div>
-          <div class="row">
-            <form action="status" method="post" id="relaxation">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="relaxation" id="main-button" />
-            </form>
-            <form action="status" method="post" id="music">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="music" id="main-button" />
-            </form>
-            <form action="status" method="post" id="busywork">
-              <input type="hidden" name="initload" value="initload" />
-              <input type="submit" value="busywork" id="main-button" />
-            </form>
-          </div>
+          <input type="radio" name="Education" id="education" />
+          <input type="radio" name="Recration" id="recration" />
+          <input type="radio" name="Social" id="social" />
+          <input type="radio" name="DIY" id="diy" />
+          <input type="radio" name="Charity" id="charity" />
+          <input type="radio" name="Cooking" id="cooking" />
+          <input type="radio" name="Relaxation" id="relaxation" />
+          <input type="radio" name="Music" id="music" />
+          <input type="radio" name="Busywork" id="busywork" />
         </div>
       </div>
     </div>
