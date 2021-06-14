@@ -4,6 +4,10 @@ Author: Joseph Santantonio
 Project: Social Media Project
 -->
 
+<!-- Java Collaboration: Atharv -->
+<%@ page import="java.util.ArrayList"%> <%@ page import="java.util.List"%> <%@ page import="com.njit.smp.model.BoredItem"%> <% BoredItem activity = null; if (request.getAttribute("activity") != null)
+{ activity = (BoredItem) request.getAttribute("activity"); } %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,8 +70,68 @@ Project: Social Media Project
       </div>
       <div class="main-content">
         <h2 id="explore-text">Are you bored and uninspired? <br />Generate a hobby idea!</h2>
-        <div class="api-answer">
-          <p>Generate a task below!</p>
+        <div class="api-answer" id="api-answer">
+          <% if(activity != null) { %>
+          <p><% activity.getActivity(); %></p>
+          <div class="activitystats">
+            <div class="pricediv">
+              <%if(activity.getPrice() == 0) {%>
+              <div class="price">
+                <h3 id="price">Price:</h3>
+                <p id="on"></p>
+                <p id="off">$$$$</p>
+              </div>
+              <%} else if (activity.getPrice() <= 0.25) {%>
+              <div class="price">
+                <h3 id="price">Price:</h3>
+                <p id="on">$</p>
+                <p id="off">$$$</p>
+              </div>
+              <%} else if (activity.getPrice() <= 0.5) {%>
+              <div class="price">
+                <h3 id="price">Price:</h3>
+                <p id="on">$$</p>
+                <p id="off">$$</p>
+              </div>
+              <%} else if (activity.getPrice() <= 0.75) {%>
+              <div class="price">
+                <h3 id="price">Price:</h3>
+                <p id="on">$$$</p>
+                <p id="off">$</p>
+              </div>
+              <%} else {%>
+              <div class="price">
+                <h3 id="price">Price:</h3>
+                <p id="on">$$$$</p>
+                <p id="off"></p>
+              </div>
+              <%}%>
+            </div>
+            <div class="accessdiv">
+              <%if(activity.getAccessibility() == 0) {%>
+              <div class="access">
+                <h3 id="access">Accessibility:</h3>
+                <p id="on">***</p>
+                <p id="off"></p>
+              </div>
+              <%} else if (activity.getAccessibility() <= 0.5) {%>
+              <div class="access">
+                <h3 id="access">Accessibility:</h3>
+                <p id="on">**</p>
+                <p id="off">*</p>
+              </div>
+              <%} else {%>
+              <div class="access">
+                <h3 id="access">Accessibility:</h3>
+                <p id="on">*</p>
+                <p id="off">**</p>
+              </div>
+              <%}%>
+            </div>
+          </div>
+          <% } else{ %>
+          <p>Generate a hobby idea below!</p>
+          <% }%>
         </div>
         <div class="categories">
           <form action="activity" method="post" id="apiform">

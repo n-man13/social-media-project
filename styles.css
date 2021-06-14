@@ -626,4 +626,52 @@ select {
 #generatebutton:hover {
   background-color: rgb(188, 130, 255);
 }
+
+.price {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+
+.price p {
+  margin: 0;
+  margin-top: 15px;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.access {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.activitystats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price #on {
+  color: rgb(33, 179, 70);
+}
+
+.access #on {
+  color: rgb(172, 100, 255);
+}
+
+.activitystats #off {
+  color: rgba(0, 0, 0, 0.247);
+}
+
+.access p {
+  margin: 0px;
+  margin-top: 13px;
+  padding: 0px;
+  font-size: 45px;
+}
+
+.activitystats h3 {
+  margin-right: 10px;
+}
 /* explore.html END ----------------------------- */
