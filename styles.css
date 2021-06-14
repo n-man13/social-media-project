@@ -246,6 +246,14 @@ div#errormsg {
   color: black;
 }
 
+#exploreform #main-button {
+  background-color: rgb(205, 164, 252);
+}
+
+#exploreform #main-button:hover {
+  background-color: rgb(188, 130, 255);
+}
+
 .search-bar {
   display: flex;
 }
