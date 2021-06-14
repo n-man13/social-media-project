@@ -218,6 +218,7 @@ div#errormsg {
   text-transform: uppercase;
   border: 2px solid black;
   margin: 10px 0px;
+  border-radius: 50px;
 }
 
 #main-button:hover {
