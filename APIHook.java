@@ -1,5 +1,9 @@
+package com.njit.smp.servlets;
+
 import java.io.*;
 import java.net.*;
+
+import com.njit.smp.model.BoredItem;
 
 
 public class APIHook {
@@ -7,15 +11,19 @@ public class APIHook {
 	private String url = "http://www.boredapi.com/api/activity";
 
 	public BoredItem getHTML(String param) throws Exception {
+		String activity = getThis(param);
 		StringBuilder result = new StringBuilder();
+		String urlToRead = url + activity;
 		URL url = new URL(urlToRead);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		
 		conn.setRequestMethod("GET");
-		try (var reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-			for (String line; (line = reader.readLine()) != null;) {
-				result.append(line);
-			}
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		for (String line; (line = reader.readLine()) != null;) {
+			result.append(line);
 		}
+		
 		return parseJSON(result.toString());
 	}
 	
@@ -61,5 +69,6 @@ public class APIHook {
 				url += "?type=busywork";
 				break;
 		}
+		return category;
 	}
 }
