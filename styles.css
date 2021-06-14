@@ -268,14 +268,26 @@ div#errormsg {
   margin-right: 0px;
   padding: 5px;
   width: 131px;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+#search-box:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: 0 0 10px rgb(68, 68, 68);
 }
 
 .search-bar #search-submit {
   width: 39px;
   height: 27px;
   font-weight: bold;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+#search-submit:hover {
+  background-color: rgb(204, 204, 204);
 }
 
 .main-content {
@@ -365,6 +377,17 @@ div#errormsg {
 
 textarea {
   font-family: sans-serif;
+  resize: none;
+  border-radius: 20px;
+  padding: 10px 0px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+textarea:focus {
+  outline: none;
+  border: 1px solid black;
+  box-shadow: 0 0 10px grey;
 }
 
 #userpage-textbox,
@@ -383,6 +406,24 @@ textarea {
   display: flex;
 }
 
+.profile-post button[type="submit"] {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 10px;
+  width: 108px;
+}
+
+#postbutton,
+#post-response {
+  background-color: rgb(205, 164, 252);
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+#postbutton:hover,
+#post-response:hover {
+  background-color: rgb(188, 130, 255);
+}
 .profile-post input[type="submit"],
 .post-content input[type="submit"] {
   font-weight: bold;
