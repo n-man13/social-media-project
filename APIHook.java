@@ -1,6 +1,6 @@
 import java.io.*;
 import java.net.*;
-import org.json.JSONObject;
+
 
 public class APIHook {
 
@@ -19,12 +19,15 @@ public class APIHook {
 		return parseJSON(result.toString());
 	}
 	
-	public BoredItem parseJSON(String js) {
+	public static BoredItem parseJSON(String js) {
 		BoredItem item = new BoredItem();
-		JSONObject obj = new JSONObject(js);
-		item.setActivity(obj.getString("activity"));
-		item.setPrice(Double.valueOf(obj.getString("price")));
-		item.setAccessibility(Double.valueOf(obj.getString("accessibility")));
+		
+		String[] act = js.split("\"");
+		
+		item.setActivity(act[3]);
+		item.setPrice(Double.valueOf(act[12].substring(1, act[12].length()-1)));
+		item.setAccessibility(Double.valueOf(act[22].substring(1, act[22].length()-1)));
+		
 		return item;
 	}
 
