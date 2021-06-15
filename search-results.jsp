@@ -81,7 +81,7 @@ if (request.getAttribute("fullname") != null) {
           <div class="post-content">
             <!-- hidden id for scrolling to post ID -->
             <input type="hidden" name="postid" id="<%request.getAttribute("postId");%>"/>
-            <a href="videogames.jsp#<%request.getAttribute("postId");%>">
+            <a href="videogames.jsp#<%=userPost.getPostId()%>">
               <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
             </a>
             <p>
