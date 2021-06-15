@@ -183,20 +183,20 @@ Project: Social Media Project
                   <label for="difficulty">Diffuclty</label>
                   <select name="difficulty" id="difficulty">
                     <option selected value>Random</option>
-                    <option value="0.0">Easy</option>
-                    <option value="0.5">Medium</option>
-                    <option value="1.0">Hard</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
                   </select>
                 </div>
                 <div class="optional-form">
                   <label for="cost">Cost</label>
                   <select name="cost" id="cost">
                     <option selected value>Random</option>
-                    <option value="0.0">Free</option>
-                    <option value="0.25">Low</option>
-                    <option value="0.5">Moderate</option>
-                    <option value="0.75">High</option>
-                    <option value="1.0">Expensive</option>
+                    <option value="free">Free</option>
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                    <option value="expensive">Expensive</option>
                   </select>
                 </div>
                 <div class="optional-form">
