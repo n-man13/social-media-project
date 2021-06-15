@@ -1,27 +1,46 @@
 package com.njit.smp.servlets;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.io.*;
-import java.net.*;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import com.njit.smp.model.BoredItem;
 
 
 public class APIHook {
 
-	private String url = "http://www.boredapi.com/api/activity";
+	private String urlToRead = "https://www.boredapi.com/api/activity";
 
-	public BoredItem getHTML(String param) throws Exception {
-		String activity = getThis(param);
+	public BoredItem getHTML(String param, double price, double accessibility) throws Exception {
+		getThis(param, price, accessibility);
+		
 		StringBuilder result = new StringBuilder();
-		String urlToRead = url + activity;
-		URL url = new URL(urlToRead);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		
-		conn.setRequestMethod("GET");
-		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		for (String line; (line = reader.readLine()) != null;) {
-			result.append(line);
+		try {
+			URL url = new URL(urlToRead);
+			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+			
+			if (conn != null) {
+				try {
+					BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					String input = "";
+					
+					while ((input = br.readLine()) != null) {
+						result.append(input);
+					}
+				}
+				catch (IOException e) {
+					System.err.println(e.toString());
+				}
+			}
+		}
+		catch (MalformedURLException e) {
+			System.err.println(e.toString());
+		}
+		catch (IOException e) {
+			System.err.println(e.toString());
 		}
 		
 		return parseJSON(result.toString());
@@ -32,43 +51,49 @@ public class APIHook {
 		
 		String[] act = js.split("\"");
 		
-		item.setActivity(act[3]);
-		item.setPrice(Double.valueOf(act[12].substring(1, act[12].length()-1)));
-		item.setAccessibility(Double.valueOf(act[22].substring(1, act[22].length()-1)));
+		if (act.length == 5) {
+			item.setActivity("error");
+		}
+		else {
+			item.setActivity(act[3]);
+			item.setPrice(Double.valueOf(act[12].substring(1, act[12].length()-1)));
+			item.setAccessibility(Double.valueOf(act[22].substring(1, act[22].length()-1)));
+		}
 		
 		return item;
 	}
 
-	public String getThis(String category) {
+	public void getThis(String category, double price, double accessibility) {
 		switch (category.toLowerCase()) {
 			case "random":
-				url += "/";
-				break;
+				urlToRead += "/";
+				return;
 			case "education":
-				url += "?type=education";
+				urlToRead += "?type=education";
 				break;
 			case "recreation":
-				url += "?type=recreation";
+				urlToRead += "?type=recreation";
 				break;
 			case "social":
-				url += "?type=recreation";
+				urlToRead += "?type=recreation";
 				break;
 			case "charity":
-				url += "?type=charity";
+				urlToRead += "?type=charity";
 				break;
 			case "cooking":
-				url += "?type=cooking";
+				urlToRead += "?type=cooking";
 				break;
 			case "relaxation":
-				url += "?type=relaxation";
+				urlToRead += "?type=relaxation";
 				break;
 			case "music":
-				url += "?type=music";
+				urlToRead += "?type=music";
 				break;
 			case "busywork":
-				url += "?type=busywork";
+				urlToRead += "?type=busywork";
 				break;
 		}
-		return category;
+		
+		urlToRead += "&price=" + price + "&accessibility=" + accessibility;
 	}
 }
