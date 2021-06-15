@@ -16,7 +16,12 @@ List<UserMessage> userPosts = null;
 if (request.getAttribute("posts") != null) {
   userPosts = (List<UserMessage>) request.getAttribute("posts");
 }
+
+if (session.getAttribute("postId") != null) {
+  scroll();
+}
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,6 +36,12 @@ if (request.getAttribute("posts") != null) {
         var first = '<%= session.getAttribute("fname") %>';
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
+      }
+
+      function scroll() {
+        document.getElementById('<%= session.getAttribute("postId") %>').scrollIntoView({
+          behavior:"smooth"
+        });
       }
     </script>
   </head>

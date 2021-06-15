@@ -716,3 +716,26 @@ select {
   margin-right: 10px;
 }
 /* explore.html END ----------------------------- */
+
+/* search-results.html START ----------------------------- */
+
+#postlink {
+  margin: 0;
+}
+
+#userlink {
+  margin: 0;
+  background-color: rgb(204, 204, 204);
+  width: fit-content;
+  padding: 2px 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(150, 150, 150);
+  color: rgb(0, 119, 255);
+  font-weight: bolder;
+}
+
+#userlink:hover {
+  cursor: pointer;
+}
+
+/* search-results.html END ----------------------------- */

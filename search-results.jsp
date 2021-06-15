@@ -79,11 +79,10 @@ if (request.getAttribute("fullname") != null) {
         		List<UserMessage> replies = userPost.getReplies();
         	%>
           <div class="post-content">
-            <!-- hidden id for scrolling to post ID -->
-            <input type="hidden" name="postid" id="<%request.getAttribute("postId");%>"/>
-            <a href="videogames.jsp#<%=userPost.getPostId()%>">
-              <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
-            </a>
+              <form action="status" method="post" id="postlink">
+                <input type="hidden" name="redirect" id="redirect"/>
+                <input type="submit" value="<%=userPost.getFirstName()%> <%=userPost.getLastName() %>" id="userlink">
+              </form>
             <p>
               <%=userPost.getPostContent() %>
             </p>
