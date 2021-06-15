@@ -69,10 +69,12 @@ Project: Social Media Project
         <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
-        <h2 id="explore-text">Are you bored and uninspired? <br />Generate a hobby idea!</h2>
+        <h2 id="explore-text">Are you bored and uninspired? <br />Generate an Activity!</h2>
         <div class="api-answer" id="api-answer">
-          <% if(activity != null) { %>
-          <p><%= activity.getActivity(); %></p>
+          <% if(activity != null) { if (activity.getActivity() == "error") { %>
+          <p>No Activity was found with those search parameters. Please try again.</p>
+          <% } else { %>
+          <p><%=activity.getActivity()%></p>
           <div class="activitystats">
             <div class="pricediv">
               <%if(activity.getPrice() == 0) {%>
@@ -129,7 +131,7 @@ Project: Social Media Project
               <%}%>
             </div>
           </div>
-          <% } else{ %>
+          <% } %> <% } else{ %>
           <p>Generate a hobby idea below!</p>
           <% }%>
         </div>
@@ -182,7 +184,7 @@ Project: Social Media Project
                 <div class="optional-form">
                   <label for="difficulty">Diffuclty</label>
                   <select name="difficulty" id="difficulty">
-                    <option selected value>Random</option>
+                    <option value="random" selected>Random</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
@@ -191,7 +193,7 @@ Project: Social Media Project
                 <div class="optional-form">
                   <label for="cost">Cost</label>
                   <select name="cost" id="cost">
-                    <option selected value>Random</option>
+                    <option value="random" selected>Random</option>
                     <option value="free">Free</option>
                     <option value="low">Low</option>
                     <option value="moderate">Moderate</option>
