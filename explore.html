@@ -72,7 +72,7 @@ Project: Social Media Project
         <h2 id="explore-text">Are you bored and uninspired? <br />Generate a hobby idea!</h2>
         <div class="api-answer" id="api-answer">
           <% if(activity != null) { %>
-          <p><% activity.getActivity(); %></p>
+          <p><%= activity.getActivity(); %></p>
           <div class="activitystats">
             <div class="pricediv">
               <%if(activity.getPrice() == 0) {%>
