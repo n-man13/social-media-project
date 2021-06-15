@@ -127,7 +127,7 @@ if (session.getAttribute("messaging") != null) {
           	<input type="hidden" name="sendmessage" value="sendmessage">
           	<input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
           	<input type="hidden" name="messageto" value="<%=userFullName%>" id="userbutton" />
-            <textarea name="messagetextbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
+            <textarea name="messagetextbox" id="messagetextbox" cols="60" rows="4" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />
           </form>
         </div>
