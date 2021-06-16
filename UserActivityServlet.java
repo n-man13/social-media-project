@@ -26,7 +26,7 @@ public class UserActivityServlet extends HttpServlet {
         super();
     }
     
-    protected BoredItem getActivity(String activity, double price, double accessibility) {
+    protected BoredItem getActivity(String activity, String price, String accessibility) {
     	APIHook api = new APIHook();
     	BoredItem act = null;
     	
@@ -55,40 +55,54 @@ public class UserActivityServlet extends HttpServlet {
 		String choice = request.getParameter("choice");
 		String cost = request.getParameter("cost");
 		String difficulty = request.getParameter("difficulty");
-		
+		System.out.println("cost = " + cost + " difficulty = " + difficulty);
 		RequestDispatcher dispatcher = null;
 		
 		if (choice != null) {
 			BoredItem activity = null;
-			Random generator = new Random();
 			
-			if (cost == "random" && difficulty == "random") {
-				activity = getActivity(choice, 0.0, 0.0);
+			if (choice == "random") {
+				System.out.println("hi from random");
+				activity = getActivity(choice, "", "");
 			}
 			else {
-				double price = 0;
-				int accessibility = 0;
+				String price = "";
+				String accessibility = "";
 				
 				switch (cost.toLowerCase()) {
+					case "random":
+						price = "&minprice=0&maxprice=1";
+						break;
 					case "free":
-						price = (generator.nextInt(25)) / 100.0;
+						price = "&minprice=0&maxprice=0";
+						break;
 					case "low":
-						price = (generator.nextInt((int)((0.49-0.25)*10+1))+0.25*10) / 10.0;
+						price = "&minprice=0&maxprice=0.24";
+						break;
 					case "moderate":
-						price = (generator.nextInt((int)((0.75-0.50)*10+1))+0.50*10) / 10.0;
+						price = "&minprice=0.25&maxprice=0.49";
+						break;
 					case "high":
-						price = (generator.nextInt((int)((0.99-0.75)*10+1))+0.75*10) / 10.0;
+						price = "&minprice=0.50&maxprice=0.74";
+						break;
 					case "expensive":
-						price = 1.0;
+						price = "&minprice=0.75&maxprice=1";
+						break;
 				}
 				
 				switch (difficulty.toLowerCase()) {
+					case "random":
+						accessibility = "&minaccessibility=0&maxaccessibility=1";
+						break;
 					case "easy":
-						price = (generator.nextInt(49)) / 100.0;
+						accessibility = "&minaccessibility=0&maxaccessibility=0.32";
+						break;
 					case "medium":
-						price = (generator.nextInt((int)((0.99-0.50)*10+1))+0.50*10) / 10.0;
+						accessibility = "&minaccessibility=0.33&maxaccessibility=0.66";
+						break;
 					case "hard":
-						price = 1.0;
+						accessibility = "&minaccessibility=0.67&maxaccessibility=1";
+						break;
 				}
 				
 				activity = getActivity(choice, price, accessibility);

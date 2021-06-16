@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.njit.smp.model.DirectMessage;
 import com.njit.smp.model.UserMessage;
 
 /**
@@ -57,12 +58,15 @@ public class UserStatusServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userPost = request.getParameter("userpagetextbox");
-		String userReply = request.getParameter("replytextbox");
-		String pageLoad = request.getParameter("initload");
-		String username = request.getParameter("username");
+		String userPost 	= request.getParameter("userpagetextbox");
+		String userReply 	= request.getParameter("replytextbox");
+		String pageLoad 	= request.getParameter("initload");
+		String postRedirect = request.getParameter("redirect");
 		
-		boolean success = false;
+		String username 	  = request.getParameter("username");
+		String postRedirectId = request.getParameter("postRedirectId");
+		
+		boolean success 			 = false;
 		RequestDispatcher dispatcher = null;
 		
 		//Send to database to log.
@@ -72,15 +76,20 @@ public class UserStatusServlet extends HttpServlet {
 		}
 		if (userReply != null) {
 			int postId = Integer.parseInt(request.getParameter("postId"));
-			success = logReply(username, userReply, postId);
+			success    = logReply(username, userReply, postId);
 		}
 		if (pageLoad != null) {
+			success = true;
+		}
+		if (postRedirect != null) {
 			success = true;
 		}
 		
 		if (success) {
 			List<UserMessage> posts = getAllPosts();
 			request.setAttribute("posts", posts);
+			
+			if (postRedirectId != null) { System.out.println("setting postRedirectId = " + postRedirectId); request.setAttribute("postRedirectId", postRedirectId); }
 			
 			dispatcher = getServletContext().getRequestDispatcher("/videogames.jsp");
 			dispatcher.forward(request, response);

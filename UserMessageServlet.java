@@ -62,6 +62,7 @@ public class UserMessageServlet extends HttpServlet {
 		String messageUser = request.getParameter("messageuser");
 		String sendMessage = request.getParameter("sendmessage");
 		String resetFullName = request.getParameter("resetfullname");
+		
 		String username = request.getParameter("username");
 		String otherPerson = request.getParameter("messageto");
 		String messageContent = request.getParameter("messagetextbox");
@@ -123,7 +124,6 @@ public class UserMessageServlet extends HttpServlet {
 				List<DirectMessage> messages = getMessages(username, firstName, lastName);
 				
 				request.setAttribute("messages", messages);
-				
 				request.setAttribute("fullname", userFullName);
 				
 				dispatcher = getServletContext().getRequestDispatcher("/user-inbox.jsp");

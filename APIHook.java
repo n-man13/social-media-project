@@ -13,7 +13,7 @@ public class APIHook {
 
 	private String urlToRead = "https://www.boredapi.com/api/activity";
 
-	public BoredItem getHTML(String param, double price, double accessibility) throws Exception {
+	public BoredItem getHTML(String param, String price, String accessibility) throws Exception {
 		getThis(param, price, accessibility);
 		
 		StringBuilder result = new StringBuilder();
@@ -63,7 +63,7 @@ public class APIHook {
 		return item;
 	}
 
-	public void getThis(String category, double price, double accessibility) {
+	public void getThis(String category, String price, String accessibility) {
 		switch (category.toLowerCase()) {
 			case "random":
 				urlToRead += "/";
@@ -94,6 +94,6 @@ public class APIHook {
 				break;
 		}
 		
-		urlToRead += "&price=" + price + "&accessibility=" + accessibility;
+		urlToRead += price + accessibility;
 	}
 }
