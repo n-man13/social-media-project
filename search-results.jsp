@@ -29,7 +29,7 @@ if (request.getAttribute("fullname") != null) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Videogames</title>
+    <title>Search Results</title>
     <link rel="stylesheet" href="styles.css" />    
     <script>
       function getInfo() {
@@ -51,12 +51,14 @@ if (request.getAttribute("fullname") != null) {
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
-      <a href="user-inbox.jsp">Inbox</a>
-      <div class="right">
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <a href="login.jsp" id="nav-text">Logout</a>
       </div>
     </div>
 
@@ -77,7 +79,11 @@ if (request.getAttribute("fullname") != null) {
         		List<UserMessage> replies = userPost.getReplies();
         	%>
           <div class="post-content">
-            <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
+              <form action="status" method="post" id="postlink">
+                <input type="hidden" name="redirect" id="redirect"/>
+                <input type="hidden" name="postRedirectId" id="postRedirectId" value="<%=userPost.getPostId()%>"/>
+                <input type="submit" value="<%=userPost.getFirstName()%> <%=userPost.getLastName() %>" id="userlink">
+              </form>
             <p>
               <%=userPost.getPostContent() %>
             </p>
@@ -93,6 +99,12 @@ if (request.getAttribute("fullname") != null) {
               		</div>
             	</div>
             <% } }%>
+            <form action="status" method="post">
+              <input type="hidden" name="postId" value="<%=userPost.getPostId() %>">
+              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+              <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+              <input type="submit" value="Reply" id="post-response" />
+            </form>
           </div>
           <% } }%>
         </div>

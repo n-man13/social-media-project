@@ -12,11 +12,18 @@ Project: Social Media Project
 
 <%
 List<UserMessage> userPosts = null;
+String postRedirectId = null;
 
 if (request.getAttribute("posts") != null) {
   userPosts = (List<UserMessage>) request.getAttribute("posts");
 }
+
+if (request.getAttribute("postRedirectId") != null) {
+	postRedirectId = (String) request.getAttribute("postRedirectId");
+	System.out.println("postRedirectId = " + postRedirectId);
+}
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,9 +39,18 @@ if (request.getAttribute("posts") != null) {
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
+
+      function scroll() {
+    	<% if (request.getAttribute("postRedirectId") != null) { %>
+	    	document.getElementById(<%=postRedirectId%>).parentElement.scrollIntoView({
+	            behavior:"smooth",
+	            inline:"center"
+	          });
+    	<% } %>
+      }
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();scroll();">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -45,12 +61,14 @@ if (request.getAttribute("posts") != null) {
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
-      <a href="user-inbox.jsp">Inbox</a>
-      <div class="right">
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <a href="login.jsp" id="nav-text">Logout</a>
       </div>
     </div>
 
@@ -63,6 +81,9 @@ if (request.getAttribute("posts") != null) {
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
+        <a href="explore.jsp" id="exploreform">
+          <input type="submit" value="Explore" id="main-button" />
+        </a>
         <form action="status" method="post" id="videogameform">
           <input type="hidden" name="initload" value="initload" />
           <input type="submit" value="Video Games" id="main-button" />
@@ -76,9 +97,10 @@ if (request.getAttribute("posts") != null) {
         <div class="profile-post">
           <label for="userpage-textbox"><h2>Post your status!</h2></label>
           <form action="status" method="post">
-            <textarea name="userpagetextbox" id="userpagetextbox" cols="80" rows="8" placeholder="Let the world know..." required></textarea>
+            <textarea name="userpagetextbox" id="userpagetextbox" cols="60" rows="4" placeholder="Let the world know..." required></textarea>
             <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
-            <input type="submit" value="Post Status" />
+            <button type="submit" id="postbutton">Post<br> Status</button>
+            <!-- <input type="submit" value="Post Status" /> -->
           </form>
         </div>
         <div class="user-posts userposts-mainpage">
@@ -87,6 +109,8 @@ if (request.getAttribute("posts") != null) {
         		List<UserMessage> replies = userPost.getReplies();
         	%>
           <div class="post-content">
+            <!-- hidden id for scrolling to post ID -->
+            <input type="hidden" name="<%=postRedirectId%>" id="<%=postRedirectId%>"/>
             <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
             <p>
               <%=userPost.getPostContent() %>
@@ -105,7 +129,7 @@ if (request.getAttribute("posts") != null) {
             <% } }%>
             <form action="status" method="post">
               <input type="hidden" name="postId" value="<%=userPost.getPostId() %>">
-              <textarea name="replytextbox" id="replytextbox" cols="80" rows="4" placeholder="Reply to this post" required></textarea>
+              <textarea name="replytextbox" id="replytextbox" cols="80" rows="2" placeholder="Reply to this post" required></textarea>
               <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
               <input type="submit" value="Reply" id="post-response" />
             </form>
