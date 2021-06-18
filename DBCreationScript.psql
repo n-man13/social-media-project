@@ -20,7 +20,7 @@ CREATE TABLE HobbyHome.login (
   email VARCHAR(45) NOT NULL,
   password VARCHAR(20) NOT NULL,
   isadmin BOOL NOT NULL,
-  PRIMARY KEY(username),
+  PRIMARY KEY(username)
 );
 
 -- -----------------------------------------------------
@@ -29,13 +29,13 @@ CREATE TABLE HobbyHome.login (
 CREATE TABLE HobbyHome.posts (
     postID SERIAL,
     username VARCHAR(20) NOT NULL,
-    postTitle VARCHAR(45),
+    postPage VARCHAR(20) NOT NULL,
     postContent VARCHAR(240)NOT NULL,
     parentPost INT,
     PRIMARY KEY(postID),
     CONSTRAINT fk_user
       FOREIGN KEY(username) 
-	  REFERENCES HobbyHome.login(username),
+	  REFERENCES HobbyHome.login(username)
 );
 
 -- -----------------------------------------------------
