@@ -5,6 +5,7 @@ import java.util.List;
 public class UserMessage {
 	
 	private Integer postId;
+	private String pageName;
 	private String firstName;
 	private String lastName;
 	private String postContent;
@@ -18,6 +19,14 @@ public class UserMessage {
 
 	public void setPostId(Integer postId) {
 		this.postId = postId;
+	}
+	
+	public String getPageName() {
+		return pageName;
+	}
+	
+	public void setPageName(String postPage) {
+		pageName = postPage;
 	}
 
 	public String getFirstName() {

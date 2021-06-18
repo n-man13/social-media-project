@@ -199,14 +199,15 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	public boolean pushPost(String username, String userPost) {
+	public boolean pushPost(String username, String userPost, String pageName) {
 		boolean retVal = false;
-		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent) VALUES (?, ?)";
+		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent, postpage) VALUES (?, ?, ?)";
 		PreparedStatement ps = null;
 		try {
 			ps = this.conn.prepareStatement(sqlAddNewPost);
 			ps.setString(1, username);
 			ps.setString(2, userPost);
+			ps.setString(3, pageName);
 			ps.executeUpdate();
 			retVal = true;
 		} catch (SQLException e){
@@ -219,13 +220,14 @@ public class DBConnector {
 	
 	public boolean pushReply(String username, String userPost, int postId) {
 		boolean retVal = false;
-		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost) VALUES (?, ?, ?)";
+		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost, postpage) VALUES (?, ?, ?, ?)";
 		PreparedStatement ps = null;
 		try {
 			ps = this.conn.prepareStatement(sqlAddReply);
 			ps.setString(1, username);
 			ps.setString(2, userPost);
 			ps.setInt(3, postId);
+			ps.setString(4, pageName);
 			ps.executeUpdate();
 			retVal = true;
 		} catch (SQLException e){
@@ -251,7 +253,7 @@ public class DBConnector {
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		StringBuilder sbr = new StringBuilder();
-		sbr.append("SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p");
+		sbr.append("SELECT u.firstname, u.lastname, p.postcontent, p.postid, p.postpage FROM HobbyHome.login u, HobbyHome.posts p");
 		sbr.append(" WHERE u.username=p.username AND p.parentpost is null");
 		sbr.append(" AND u.firstname=?");
 		if(lastName!=null) {
@@ -260,7 +262,7 @@ public class DBConnector {
 		sbr.append(" ORDER BY postid desc");
 		
 		String sqlSelectUserPosts = sbr.toString();
-		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
+		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent, p.postpage FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
 		
 		try {
 			UserMessage post = null;
@@ -277,6 +279,7 @@ public class DBConnector {
 				post.setFirstName(rs.getString("firstname"));
 				post.setLastName(rs.getString("lastname"));
 				post.setPostContent(rs.getString("postcontent"));
+				post.setPageName(rs.getString("postpage"));
 				
 				ps2 = this.conn.prepareStatement(sqlSelectReplies);
 				ps2.setInt(1, post.getPostId());
@@ -290,6 +293,7 @@ public class DBConnector {
 					reply.setFirstName(rs2.getString("firstname"));
 					reply.setLastName(rs2.getString("lastname"));
 					reply.setPostContent(rs2.getString("postcontent"));
+					reply.setPageName(rs2.getString("postpage"));
 					replies.add(reply);
 				}
 				post.setReplies(replies);
@@ -306,22 +310,24 @@ public class DBConnector {
 	}
 	
 	/**
-	 * Returns a list of Posts
+	 * Returns a list of Posts on a page
+	 * @param 		pageName	name of page the posts are on
 	 * @return 					List of Posts ordered by postID
 	 */
 	
-	public List<UserMessage> getAllPosts() {
+	public List<UserMessage> getAllPosts(String pageName) {
 		List<UserMessage> primaryPosts = new ArrayList<UserMessage>();
 		
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		String sqlSelectPrimaryPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost is null order by postid desc";
-		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
+		String sqlSelectPrimaryPosts = "SELECT u.firstname, u.lastname, p.postcontent, p.postid, p.postpage FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.postPage=? AND p.parentpost is null order by postid desc";
+		String sqlSelectReplies = "SELECT u.firstname, u.lastname, p.postcontent, p.postpage FROM HobbyHome.login u, HobbyHome.posts p WHERE u.username=p.username AND p.parentpost=?";
 		
 		try {
 			ps = this.conn.prepareStatement(sqlSelectPrimaryPosts);
+			ps.setString(1, pageName);
 			ps2 = this.conn.prepareStatement(sqlSelectReplies);
 			rs = ps.executeQuery();			
 			UserMessage poster = null;
@@ -331,6 +337,7 @@ public class DBConnector {
 				poster.setFirstName(rs.getString("firstname"));
 				poster.setLastName(rs.getString("lastname"));
 				poster.setPostContent(rs.getString("postcontent"));
+				poster.setPageName(rs.getString("postpage"));
 				
 				//loop to get replies for this post				
 				ps2.setInt(1, poster.getPostId());
@@ -343,6 +350,7 @@ public class DBConnector {
 					replier.setFirstName(rs2.getString("firstname"));
 					replier.setLastName(rs2.getString("lastname"));
 					replier.setPostContent(rs2.getString("postcontent"));
+					replier.setPageName(rs2.getString("postpage"));
 					replies.add(replier);					
 				}				
 				poster.setReplies(replies);
