@@ -68,17 +68,19 @@ if (session.getAttribute("messaging") != null) {
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <form action="message" method="post">
-      	<input type="hidden" name="resetfullname" value="resetfullname" />	
-        <input type="submit" value="Home" id="reset-messages" />
-      </form>
-      <!-- a href="user-landing.jsp">Home</a-->
-      <a href="user-inbox.jsp">Inbox</a>
-      <div class="right">
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <form action="message" method="post">
+          <input type="hidden" name="resetfullname" value="resetfullname" />
+          <input type="submit" value="Home" id="reset-messages" />
+        </form>
+        <!-- <a href="user-landing.jsp">Home</a> -->
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
         <form action="login" method="post">
-      	  <input type="hidden" name="resetfullname" value="resetfullname" />	
+          <input type="hidden" name="resetfullname" value="resetfullname" />
           <input type="submit" value="Logout" id="reset-messages" />
         </form>
         <!-- a href="login.jsp">Logout</a-->
@@ -125,7 +127,7 @@ if (session.getAttribute("messaging") != null) {
           	<input type="hidden" name="sendmessage" value="sendmessage">
           	<input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
           	<input type="hidden" name="messageto" value="<%=userFullName%>" id="userbutton" />
-            <textarea name="messagetextbox" id="messagetextbox" cols="80" rows="8" placeholder="Send your message" required></textarea>
+            <textarea name="messagetextbox" id="messagetextbox" cols="60" rows="4" placeholder="Send your message" required></textarea>
             <input type="submit" value="Send" id="send-message" />
           </form>
         </div>
