@@ -82,6 +82,7 @@ if (request.getAttribute("fullname") != null) {
               <form action="status" method="post" id="postlink">
                 <input type="hidden" name="redirect" id="redirect"/>
                 <input type="hidden" name="postRedirectId" id="postRedirectId" value="<%=userPost.getPostId()%>"/>
+                <input type="hidden" name="pagename" id="pagename" value="<%userPost.getPageName()%>">
                 <input type="submit" value="<%=userPost.getFirstName()%> <%=userPost.getLastName() %>" id="userlink">
               </form>
             <p>
