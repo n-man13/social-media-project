@@ -150,6 +150,7 @@ if (request.getAttribute("postRedirectId") != null) {
             <% } }%>
             <form action="status" method="post">
               <input type="hidden" name="postId" value="<%=userPost.getPostId() %>">
+              <input type="hidden" name="pagename" value="music">
               <textarea name="replytextbox" id="replytextbox" cols="80" rows="2" placeholder="Reply to this post" required></textarea>
               <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
               <input type="submit" value="Reply" id="post-response" />
