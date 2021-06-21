@@ -22,9 +22,36 @@ Wrote HTML code for signup page
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function banned() {
+        var myDiv = document.getElementById("errormsg");
+
+        const codes = {
+          5: "User has been Banned.",
+          6: "There was an issue with banning this user.",
+
+        };
+
+        <% if (request.getAttribute("success") != null) {%>
+          <% if (request.getAttribute("success")) {%>
+              errorCode = 5;
+          <%}else {%>
+              errorCode = 6;
+          <%}%>
+
+          myDiv.innerHTML = codes[errorCode];
+          myDiv.style.display = "block";
+          await sleep(3000);
+          myDiv.style.display = "none";
+        <%}%>
+      }
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();banned();">
     <!-- Header  -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -51,6 +78,8 @@ Wrote HTML code for signup page
       <h2>ADMINISTRATION PAGE</h2>
     </div>
 
+    <div id="errormsg">Error message</div>
+
     <div class="adminpage-container">
       <!-- div left contains the login page image -->
       <div class="search-bar" id="admin-search">
@@ -73,7 +102,6 @@ Wrote HTML code for signup page
           </form>
         </div>
       </div>
-      <% } %>
       <button type="button"><p>CREATE USER ACCOUNT</p></button>
     </div>
   </body>
