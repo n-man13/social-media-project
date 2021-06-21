@@ -32,12 +32,14 @@ Project: Social Media Project
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <a href="user-landing.jsp">Home</a>
-      <a href="user-inbox.jsp">Inbox</a>
-      <div class="right">
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
         <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+        <a href="login.jsp" id="nav-text">Logout</a>
       </div>
     </div>
 
@@ -50,6 +52,9 @@ Project: Social Media Project
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
+        <a href="explore.jsp" id="exploreform">
+          <input type="submit" value="Explore" id="main-button" />
+        </a>
         <form action="status" method="post" id="videogameform">
           <input type="hidden" name="initload" value="initload" />
           <input type="submit" value="Video Games" id="main-button" />

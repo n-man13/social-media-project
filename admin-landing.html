@@ -60,7 +60,7 @@ Wrote HTML code for signup page
       </div>
       <div class="admin-searchresult">
         <div class="user-adminsearch">
-          <h5 id="post-owner"><%=user.getFirstName()%> <%=user.getLastName()%></h5>
+          <h5 id="post-owner"><%=user.getUsername()%></h5>
         </div>
         <div class="banbutton">
           <form action="admin" method="post">
