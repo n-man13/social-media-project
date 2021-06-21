@@ -8,7 +8,7 @@ async function pageLoad() {
   var errorCode = '<%= request.getAttribute("error") %>';
   console.log(errorCode);
 
-  if (errorCode == 10 || errorCode == 12) {
+  if (errorCode == 10 || errorCode == 11) {
     const codes = {
       10: "User does not exist.",
       11: "This user account has be banned.",
