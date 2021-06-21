@@ -30,7 +30,7 @@ if (request.getAttribute("postRedirectId") != null) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Videogames</title>
+    <title>Music</title>
     <link rel="stylesheet" href="styles.css" />    
     <script>
       function getInfo() {
@@ -112,14 +112,14 @@ if (request.getAttribute("postRedirectId") != null) {
       </div>
       <div class="main-content">
         <div class="page-name">
-          <h1>VIDEOGAMES</h1>
+          <h1>MUSIC</h1>
         </div>
         <div class="profile-post">
           <label for="userpage-textbox"><h2>Post your status!</h2></label>
           <form action="status" method="post">
             <textarea name="userpagetextbox" id="userpagetextbox" cols="60" rows="4" placeholder="Let the world know..." required></textarea>
             <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
-            <input type="hidden" name="pagename" value="videogames">
+            <input type="hidden" name="pagename" value="music">
             <button type="submit" id="postbutton">Post<br> Status</button>
             <!-- <input type="submit" value="Post Status" /> -->
           </form>

@@ -86,19 +86,40 @@ if (request.getAttribute("postRedirectId") != null) {
         </a>
         <form action="status" method="post" id="videogameform">
           <input type="hidden" name="initload" value="initload" />
+          <input type="hidden" name="pagename" value="videogames">
           <input type="submit" value="Video Games" id="main-button" />
         </form>
-        <input type="submit" value="Music" id="main-button" />
-        <input type="submit" value="Arts & Crafts" id="main-button" />
-        <input type="submit" value="Technology" id="main-button" />
-        <input type="submit" value="Sports" id="main-button" />
+        <form action="status" method="post" id="musicform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="hidden" name="pagename" value="music">
+          <input type="submit" value="Music" id="main-button" />
+        </form>
+        <form action="status" method="post" id="artsncraftsform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="hidden" name="pagename" value="artsncrafts">
+          <input type="submit" value="Arts & Crafts" id="main-button" />
+        </form>
+        <form action="status" method="post" id="technologyform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="hidden" name="pagename" value="technology">
+          <input type="submit" value="Technology" id="main-button" />
+        </form>
+        <form action="status" method="post" id="sportsform">
+          <input type="hidden" name="initload" value="initload" />
+          <input type="hidden" name="pagename" value="sports">
+          <input type="submit" value="Sports" id="main-button" />
+        </form>
       </div>
       <div class="main-content">
+        <div class="page-name">
+          <h1>VIDEOGAMES</h1>
+        </div>
         <div class="profile-post">
           <label for="userpage-textbox"><h2>Post your status!</h2></label>
           <form action="status" method="post">
             <textarea name="userpagetextbox" id="userpagetextbox" cols="60" rows="4" placeholder="Let the world know..." required></textarea>
             <input type="hidden" name="username" value="<%=session.getAttribute("uname")%>">
+            <input type="hidden" name="pagename" value="videogames">
             <button type="submit" id="postbutton">Post<br> Status</button>
             <!-- <input type="submit" value="Post Status" /> -->
           </form>
