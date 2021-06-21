@@ -5,6 +5,8 @@ Project: Social Media Project
 Wrote HTML code for signup page
 -->
 
+<%@ page import="com.njit.smp.model.User"%> <% User user = null; if (request.getAttribute("result") != null) { user = (User) request.getAttribute("result"); } %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -58,6 +60,7 @@ Wrote HTML code for signup page
           <input type="submit" value="GO" id="search-submit" />
         </form>
       </div>
+      <% if (user != null) { %>
       <div class="admin-searchresult">
         <div class="user-adminsearch">
           <h5 id="post-owner"><%=user.getUsername()%></h5>
@@ -65,10 +68,12 @@ Wrote HTML code for signup page
         <div class="banbutton">
           <form action="admin" method="post">
             <input type="hidden" name="ban" />
+            <input type="hidden" name="username" value="<%=user.getUsername()%>" />
             <input type="submit" value="BAN" id="admin-submit" />
           </form>
         </div>
       </div>
+      <% } %>
       <button type="button"><p>CREATE USER ACCOUNT</p></button>
     </div>
   </body>
