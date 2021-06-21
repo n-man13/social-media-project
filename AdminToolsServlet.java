@@ -33,10 +33,16 @@ public class AdminToolsServlet extends HttpServlet {
     	return connector.getUser(firstName, lastName);
     }
     
-    protected boolean banUser(String username) {
+    protected int banUser(String username) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.banUser(username);
+    }
+    
+    protected int unBanUser(String username) {
+    	DBConnector connector = DBConnector.getInstance();
+    	
+    	return connector.unBanUser(username);
     }
 
 	/**
@@ -51,7 +57,7 @@ public class AdminToolsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
-		String ban 	  = request.getParameter("ban");
+		String action = request.getParameter("action");
 		
 		String fullName = request.getParameter("searchbox");
 		String username = request.getParameter("username");
@@ -82,8 +88,15 @@ public class AdminToolsServlet extends HttpServlet {
 			dispatcher = getServletContext().getRequestDispatcher("/admin-landing.jsp");
 			dispatcher.forward(request, response);
 		}
-		else if (ban != null) {
-			boolean success = banUser(username);
+		else if (action != null) {
+			int success = -1;
+			
+			if (action.equals("DE-ACTIVATE")) {
+				success = banUser(username);
+			}
+			else {
+				success = unBanUser(username);
+			}
 			
 			request.setAttribute("success", success);
 			

@@ -86,12 +86,32 @@ public class UserStatusServlet extends HttpServlet {
 		}
 		
 		if (success) {
+			String redirectUrl = "/user-landing.jsp";
+			
 			List<UserMessage> posts = getAllPosts(pageName);
 			request.setAttribute("posts", posts);
 			
 			if (postRedirectId != null) { request.setAttribute("postRedirectId", postRedirectId); }
 			
-			dispatcher = getServletContext().getRequestDispatcher("/videogames.jsp");
+			switch (pageName) {
+				case "videogames":
+					redirectUrl = "/videogames.jsp";
+					break;
+				case "music":
+					redirectUrl = "/music.jsp";
+					break;
+				case "artsncrafts":
+					redirectUrl = "/artsncrafts.jsp";
+					break;
+				case "technology":
+					redirectUrl = "/technology.jsp";
+					break;
+				case "sports":
+					redirectUrl = "/sports.jsp";
+					break;
+			}
+			
+			dispatcher = getServletContext().getRequestDispatcher(redirectUrl);
 			dispatcher.forward(request, response);
 		}
 		else {

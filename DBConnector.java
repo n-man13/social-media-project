@@ -75,7 +75,7 @@ public class DBConnector {
 		PreparedStatement ps = null;
 		if (!isUserExists(newUser)){
 			String passHash = newPass; //getSHA(newPass); skipping hashing for alpha
-			String sqlAddEntry = "INSERT INTO HobbyHome.login(username, firstname, lastname, email, password, isadmin) VALUES (?, ?, ?, ?, ?, ?)";
+			String sqlAddEntry = "INSERT INTO HobbyHome.login(username, firstname, lastname, email, password, isadmin, isbanned) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			try {
 				ps = this.conn.prepareStatement(sqlAddEntry);
 				ps.setString(1, newUser);
@@ -84,6 +84,7 @@ public class DBConnector {
 				ps.setString(4, email);
 				ps.setString(5, passHash);
 				ps.setBoolean(6, false);
+				ps.setBoolean(7, false);
 				ps.executeUpdate();
 				retVal = true;
 			}
@@ -166,12 +167,11 @@ public class DBConnector {
 	}
 	
 	public User getUser(String firstName, String lastName){
-		System.out.println("in connector first name = " + firstName + " last name = " + lastName);
 		User us = new User();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT username FROM HobbyHome.login WHERE firstname=?");
+		query.append("SELECT username, isbanned FROM HobbyHome.login WHERE firstname=?");
 		if (lastName != null) {
 			query.append(" AND lastname=?");
 		}
@@ -185,6 +185,7 @@ public class DBConnector {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				us.setUsername(rs.getString("username"));
+				us.setActive(!rs.getBoolean("isbanned"));
 			}
 		}
 		catch (SQLException e){
@@ -196,16 +197,37 @@ public class DBConnector {
 		return us;
 	}
 	
-	public boolean banUser(String username) {
-		boolean retVal = false;
+	public int banUser(String username) {
+		int retVal = -1;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlSelectUsernames = "UPDATE HobbyHome.login SET password='kZxUFkASl' WHERE username=?";
+		String sqlSelectUsernames = "UPDATE HobbyHome.login SET isbanned=TRUE WHERE username=?";
 		try {
 			ps = this.conn.prepareStatement(sqlSelectUsernames);
 			ps.setString(1, username);
 			ps.executeUpdate();
-			retVal = true;
+			retVal = 0;
+		} 
+		catch (SQLException e){
+			System.err.println(e.toString());
+		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		
+		return retVal;
+	}
+	
+	public int unBanUser(String username) {
+		int retVal = -1;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "UPDATE HobbyHome.login SET isbanned=FALSE WHERE username=?";
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUsernames);
+			ps.setString(1, username);
+			ps.executeUpdate();
+			retVal = 1;
 		} 
 		catch (SQLException e){
 			System.err.println(e.toString());
@@ -228,29 +250,30 @@ public class DBConnector {
 		int retVal = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sqlSelectUsernames = "SELECT username, password, isadmin FROM HobbyHome.login WHERE username=? AND password=?";
-		
-			try {
-				ps = this.conn.prepareStatement(sqlSelectUsernames);
-				ps.setString(1, user);
-				ps.setString(2, pass);
-				rs = ps.executeQuery();
-				while(rs.next()) {
-					retVal = 1;
-					if (rs.getBoolean("isadmin")) {
-						retVal = 2;
-					}
-					if (rs.getString("password") == "kZxUFkASl") {
-						retVal = 3;
-					}
+		String sqlSelectUsernames = "SELECT username, password, isadmin, isbanned FROM HobbyHome.login WHERE username=? AND password=?";
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUsernames);
+			ps.setString(1, user);
+			ps.setString(2, pass);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				retVal = 1;
+				
+				if (rs.getBoolean("isadmin")) {
+					retVal = 2;
+				}
+				else if (rs.getBoolean("isbanned")) {
+					System.out.println("banned");
+					retVal = 3;
 				}
 			}
-			catch (SQLException e){
-				System.err.println(e.toString());
-			}
-			finally {
-				closeResultSetStatement(rs, ps);
-			}
+		}
+		catch (SQLException e){
+			System.err.println(e.toString());
+		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
 		
 		return retVal;
 	}

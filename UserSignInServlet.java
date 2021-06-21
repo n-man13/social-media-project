@@ -81,7 +81,7 @@ public class UserSignInServlet extends HttpServlet {
     		authVal = authenticate(username, password);
     		firstName = getFirstName(username, password);
     		lastName = getLastName(username, password);
-    		
+    		System.out.println(authVal);
 			if (authVal == 1) {
 				//Redirect to user landing
 				dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
@@ -99,6 +99,15 @@ public class UserSignInServlet extends HttpServlet {
 				hs.setAttribute("uname", username);
 				hs.setAttribute("fname", firstName);
 				hs.setAttribute("lname", lastName);
+				
+				dispatcher.forward(request, response);
+			}
+			else if (authVal == 3) {
+				System.out.println("from servlet: banned");
+				//Redirect login
+				dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+				
+				request.setAttribute("error", "11");
 				
 				dispatcher.forward(request, response);
 			}
