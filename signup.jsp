@@ -3,8 +3,7 @@
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
-Wrote HTML code for signup page
-Wrote Script for CheckPassword
++Wrote Script for CheckPassword
 -->
 
 <!DOCTYPE html>
