@@ -8,11 +8,10 @@ async function pageLoad() {
   var errorCode = '<%= request.getAttribute("error") %>';
   console.log(errorCode);
 
-  if (errorCode == 10) {
+  if (errorCode == 10 || errorCode == 12) {
     const codes = {
       10: "User does not exist.",
-      5: "A user already exists with that username",
-      6: "A user already exists with that email address",
+      11: "This user account has be banned.",
     };
 
     myDiv.innerHTML = codes[errorCode];
