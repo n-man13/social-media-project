@@ -1,3 +1,5 @@
+package com.njit.smp.model;
+
 public class BoredItem {
 	
 	private String activity;
