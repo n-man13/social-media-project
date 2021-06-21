@@ -115,10 +115,19 @@ if (session.getAttribute("messaging") != null) {
             	System.out.println("message = "+userMessage.getMessage()+" user then otheruser = "+userMessage.getUsername()+" "+userMessage.getOtherUser());
           %>
           <!-- User Message\reply Template START -->
+          <% if(userMessage.getUsername() == session.getAttribute("uname")) {%>
          <div class="user-reply user-message" id="messagetemplate">
            <h5><%=userMessage.getUsername()%></h5>
             <p><%=userMessage.getMessage()%></p>
           </div>
+          <%} else { %>
+            <div class="user-reply user-message" id="othermessagetemplate">
+              <div class="innermsg">
+                <h5><%=userMessage.getUsername()%></h5>
+                 <p><%=userMessage.getMessage()%></p>
+              </div>
+             </div>
+          <% } %>
           <%} }%>
           <!-- User Message\reply Template END -->
         </div>
