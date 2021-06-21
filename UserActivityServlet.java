@@ -1,7 +1,6 @@
 package com.njit.smp.servlets;
 
 import java.io.IOException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.njit.smp.model.BoredItem;
 
 /**
- * Servlet implementation class UserActivityServlet
+ * @author Atharv Tyagi <at477@njit.edu>
+ * @project Social Media Project 
+ * Servlet implementation to retrieve activities from Bored API
  */
 @WebServlet("/UserActivityServlet")
 public class UserActivityServlet extends HttpServlet {
@@ -55,14 +56,13 @@ public class UserActivityServlet extends HttpServlet {
 		String choice = request.getParameter("choice");
 		String cost = request.getParameter("cost");
 		String difficulty = request.getParameter("difficulty");
-		System.out.println("cost = " + cost + " difficulty = " + difficulty);
+		
 		RequestDispatcher dispatcher = null;
 		
 		if (choice != null) {
 			BoredItem activity = null;
 			
 			if (choice == "random") {
-				System.out.println("hi from random");
 				activity = getActivity(choice, "", "");
 			}
 			else {

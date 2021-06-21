@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.njit.smp.model.DirectMessage;
 import com.njit.smp.model.UserMessage;
 
 /**
@@ -29,22 +28,22 @@ public class UserStatusServlet extends HttpServlet {
         super();
     }
     
-    protected boolean logPost(String username, String userPost) {
+    protected boolean logPost(String username, String userPost, String pageName) {
     	DBConnector connector = DBConnector.getInstance();
     	
-    	return connector.pushPost(username, userPost);
+    	return connector.pushPost(username, userPost, pageName);
     }
     
-    protected boolean logReply(String username, String userPost, int postId) {
+    protected boolean logReply(String username, String userPost, int postId, String pageName) {
     	DBConnector connector = DBConnector.getInstance();
     	
-    	return connector.pushReply(username, userPost, postId);
+    	return connector.pushReply(username, userPost, postId, pageName);
     }
     
-    protected List<UserMessage> getAllPosts() {
+    protected List<UserMessage> getAllPosts(String pageName) {
     	DBConnector connector = DBConnector.getInstance();
     	
-    	return connector.getAllPosts();
+    	return connector.getAllPosts(pageName);
     }
 
 	/**
@@ -62,6 +61,7 @@ public class UserStatusServlet extends HttpServlet {
 		String userReply 	= request.getParameter("replytextbox");
 		String pageLoad 	= request.getParameter("initload");
 		String postRedirect = request.getParameter("redirect");
+		String pageName		= request.getParameter("pagename");
 		
 		String username 	  = request.getParameter("username");
 		String postRedirectId = request.getParameter("postRedirectId");
@@ -72,11 +72,11 @@ public class UserStatusServlet extends HttpServlet {
 		//Send to database to log.
 		
 		if (userPost != null) {
-			success = logPost(username, userPost);
+			success = logPost(username, userPost, pageName);
 		}
 		if (userReply != null) {
 			int postId = Integer.parseInt(request.getParameter("postId"));
-			success    = logReply(username, userReply, postId);
+			success    = logReply(username, userReply, postId, pageName);
 		}
 		if (pageLoad != null) {
 			success = true;
@@ -86,10 +86,10 @@ public class UserStatusServlet extends HttpServlet {
 		}
 		
 		if (success) {
-			List<UserMessage> posts = getAllPosts();
+			List<UserMessage> posts = getAllPosts(pageName);
 			request.setAttribute("posts", posts);
 			
-			if (postRedirectId != null) { System.out.println("setting postRedirectId = " + postRedirectId); request.setAttribute("postRedirectId", postRedirectId); }
+			if (postRedirectId != null) { request.setAttribute("postRedirectId", postRedirectId); }
 			
 			dispatcher = getServletContext().getRequestDispatcher("/videogames.jsp");
 			dispatcher.forward(request, response);

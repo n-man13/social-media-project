@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.njit.smp.model.DirectMessage;
 import com.njit.smp.model.UserMessage;
+import com.njit.smp.model.User;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -164,6 +165,58 @@ public class DBConnector {
 		return null;
 	}
 	
+	public User getUser(String firstName, String lastName){
+		System.out.println("in connector first name = " + firstName + " last name = " + lastName);
+		User us = new User();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT username FROM HobbyHome.login WHERE firstname=?");
+		if (lastName != null) {
+			query.append(" AND lastname=?");
+		}
+		String sqlSelectUsernames = query.toString();
+		
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUsernames);
+			ps.setString(1, firstName);
+			if (lastName != null) { ps.setString(2, lastName); }
+			
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				us.setUsername(rs.getString("username"));
+			}
+		}
+		catch (SQLException e){
+			System.err.println(e.toString());
+		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		return us;
+	}
+	
+	public boolean banUser(String username) {
+		boolean retVal = false;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sqlSelectUsernames = "UPDATE HobbyHome.login SET password='kZxUFkASl' WHERE username=?";
+		try {
+			ps = this.conn.prepareStatement(sqlSelectUsernames);
+			ps.setString(1, username);
+			ps.executeUpdate();
+			retVal = true;
+		} 
+		catch (SQLException e){
+			System.err.println(e.toString());
+		}
+		finally {
+			closeResultSetStatement(rs, ps);
+		}
+		
+		return retVal;
+	}
+	
 	/**
 	 * Method to try to sign in a user
 	 * 
@@ -186,6 +239,9 @@ public class DBConnector {
 					retVal = 1;
 					if (rs.getBoolean("isadmin")) {
 						retVal = 2;
+					}
+					if (rs.getString("password") == "kZxUFkASl") {
+						retVal = 3;
 					}
 				}
 			}
@@ -218,7 +274,7 @@ public class DBConnector {
 		return retVal;
 	}
 	
-	public boolean pushReply(String username, String userPost, int postId) {
+	public boolean pushReply(String username, String userPost, int postId, String pageName) {
 		boolean retVal = false;
 		String sqlAddReply = "INSERT INTO HobbyHome.posts(username, postContent, parentPost, postpage) VALUES (?, ?, ?, ?)";
 		PreparedStatement ps = null;
@@ -245,7 +301,7 @@ public class DBConnector {
 	 * @return 					List of Posts ordered by postID
 	 */
 	
-	public List<UserMessage> getUserPosts(String firstName, String lastName){
+	public List<UserMessage> getUserPosts(String firstName, String lastName, String pageName){
 		List<UserMessage> userPosts = new ArrayList<UserMessage>();
 		
 		PreparedStatement ps = null;

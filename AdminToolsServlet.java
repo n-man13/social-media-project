@@ -1,7 +1,6 @@
 package com.njit.smp.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,35 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.njit.smp.model.UserMessage;
+import com.njit.smp.model.User;
 
 /**
  * @author Atharv Tyagi <at477@njit.edu>
  * @project Social Media Project 
- * Servlet implementation to search for and display posts made by users
+ * Servlet implementation for administrative tools
  */
-@WebServlet("/UserSearchServlet")
-public class UserSearchServlet extends HttpServlet {
+@WebServlet("/AdminToolsServlet")
+public class AdminToolsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserSearchServlet() {
+    public AdminToolsServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-    protected List<UserMessage> getUserPosts(String firstName, String lastName, String pageName) {
+    protected User searchResult(String firstName, String lastName) {
     	DBConnector connector = DBConnector.getInstance();
     	
-    	return connector.getUserPosts(firstName, lastName, pageName);
+    	return connector.getUser(firstName, lastName);
     }
     
-    protected String userExists(String firstName, String lastName) {
+    protected boolean banUser(String username) {
     	DBConnector connector = DBConnector.getInstance();
     	
-    	return connector.doesUserExistByName(firstName, lastName);
+    	return connector.banUser(username);
     }
 
 	/**
@@ -52,14 +50,20 @@ public class UserSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userSearch = request.getParameter("searchbox");
+		String search = request.getParameter("search");
+		String ban 	  = request.getParameter("ban");
+		
+		String fullName = request.getParameter("searchbox");
+		String username = request.getParameter("username");
+		
 		String firstName = null;
-		String lastName = null;
-		String pageName = request.getParameter("pagename");
+		String lastName  = null;
+		
 		RequestDispatcher dispatcher = null;
 		
-		if (userSearch != null) {
-			String[] str = userSearch.split(" ");
+		//Split first and last name
+		if (fullName != null) {
+			String[] str = fullName.split(" ");
 			if(str.length > 1) {
 				firstName = str[0];
 				lastName  = str[1];
@@ -67,24 +71,25 @@ public class UserSearchServlet extends HttpServlet {
 			else if(str.length==1) {
 				firstName = str[0];
 			}
-			
-			//Send to database to log.
-			List<UserMessage> posts = getUserPosts(firstName, lastName, pageName);
-			String userFullName = userExists(firstName, lastName);
-			
-			request.setAttribute("searchposts", posts);
-			
-			if(userFullName != null) {
-				request.setAttribute("fullname", userFullName);
-			}
-			
-			dispatcher = getServletContext().getRequestDispatcher("/search-results.jsp");
-			dispatcher.forward(request, response);
-
 		}
-		else {
-			dispatcher = getServletContext().getRequestDispatcher("/user-landing.jsp");
+		
+		//Handle actions
+		if (search != null) {
+			User us = searchResult(firstName, lastName);
+			
+			request.setAttribute("result", us);
+			
+			dispatcher = getServletContext().getRequestDispatcher("/admin-landing.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if (ban != null) {
+			boolean success = banUser(username);
+			
+			request.setAttribute("success", success);
+			
+			dispatcher = getServletContext().getRequestDispatcher("/admin-landing.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
+
 }
