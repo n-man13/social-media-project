@@ -12,13 +12,15 @@ Project: Social Media Project
 
 <%
 List<UserMessage> userPosts = null;
+String postRedirectId = null;
 
 if (request.getAttribute("posts") != null) {
   userPosts = (List<UserMessage>) request.getAttribute("posts");
 }
 
-if (session.getAttribute("postId") != null) {
-  scroll();
+if (request.getAttribute("postRedirectId") != null) {
+	postRedirectId = (String) request.getAttribute("postRedirectId");
+	System.out.println("postRedirectId = " + postRedirectId);
 }
 %>
 
@@ -39,13 +41,16 @@ if (session.getAttribute("postId") != null) {
       }
 
       function scroll() {
-        document.getElementById('<%= session.getAttribute("postId") %>').scrollIntoView({
-          behavior:"smooth"
-        });
+    	<% if (request.getAttribute("postRedirectId") != null) { %>
+	    	document.getElementById(<%=postRedirectId%>).parentElement.scrollIntoView({
+	            behavior:"smooth",
+	            inline:"center"
+	          });
+    	<% } %>
       }
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();scroll();">
     <!-- Header -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -105,7 +110,7 @@ if (session.getAttribute("postId") != null) {
         	%>
           <div class="post-content">
             <!-- hidden id for scrolling to post ID -->
-            <input type="hidden" name="postid" id="<%request.getAttribute("postId");%>"/>
+            <input type="hidden" name="<%=postRedirectId%>" id="<%=postRedirectId%>"/>
             <h5 id="post-owner"><%=userPost.getFirstName()%> <%=userPost.getLastName() %></h5>
             <p>
               <%=userPost.getPostContent() %>

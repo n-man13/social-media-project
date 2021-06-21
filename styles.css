@@ -10,10 +10,6 @@ body {
   margin: 0;
 }
 
-/* ::-webkit-scrollbar {
-  display: none;
-} */
-
 .main-container {
   height: 100%;
 }
@@ -166,37 +162,27 @@ div#errormsg {
 }
 /* Log-in Container END ----------------------------- */
 
-/* Navbar START ----------------------------- */
-.nav {
+/* Navigation bar START ----------------------------- */
+.navigation {
   background-color: black;
   height: 50px;
-  display: flex;
-  justify-content: space-between;
 }
 
-#left-nav,
-#right-nav {
-  display: flex;
-}
-
-#reset-messages,
-#nav-text,
-#username_placeholder {
+.navigation a,
+.navigation p {
   color: white;
+  float: left;
+  display: block;
   text-align: center;
   padding: 16px 20px;
-  font-size: 16px;
   text-decoration: none;
 }
 
-#reset-messages {
-  background-color: black;
-  border: none;
+.navigation .right {
+  float: right;
 }
 
-#reset-messages:hover,
-#nav-text:hover,
-#username_placeholder:hover {
+.navigation a:hover {
   background-color: rgb(56, 56, 56);
 }
 
@@ -209,8 +195,7 @@ div#errormsg {
 }
 
 #main-button {
-  /* background-color: rgb(167, 255, 163); */
-  background-color: rgb(119, 183, 255);
+  background-color: rgb(167, 255, 163);
   width: 100%;
   height: 80px;
   color: black;
@@ -219,12 +204,10 @@ div#errormsg {
   text-transform: uppercase;
   border: 2px solid black;
   margin: 10px 0px;
-  border-radius: 50px;
 }
 
 #main-button:hover {
-  /* background-color: rgba(110, 255, 91, 0.767); */
-  background-color: rgb(100, 170, 250);
+  background-color: rgba(110, 255, 91, 0.767);
 }
 
 .main-box p {
@@ -234,28 +217,19 @@ div#errormsg {
 .hobby-bar {
   display: flex;
   flex-direction: column;
-  background-color: rgb(216, 216, 216);
+  background-color: rgb(182, 182, 182);
   padding: 20px 20px;
-  width: 175px;
+  width: 250px;
   border-right: 4px solid black;
 }
 
-.hobby-bar form {
+.hobby-bar #videogameform {
   margin: 0px;
 }
 
 .hobby-bar a {
   text-decoration: none;
   color: black;
-  text-align: center;
-}
-
-#exploreform #main-button {
-  background-color: rgb(205, 164, 252);
-}
-
-#exploreform #main-button:hover {
-  background-color: rgb(188, 130, 255);
 }
 
 .search-bar {
@@ -267,40 +241,21 @@ div#errormsg {
   margin-bottom: 5px;
   margin-right: 0px;
   padding: 5px;
-  width: 131px;
-  border: 2px solid black;
-  border-radius: 50px;
-}
-
-#search-box:focus {
-  outline: none;
-  border: 2px solid black;
-  box-shadow: 0 0 10px rgb(68, 68, 68);
+  width: 136px;
 }
 
 .search-bar #search-submit {
   width: 39px;
-  height: 27px;
+  height: 29px;
   font-weight: bold;
-  border: 2px solid black;
-  border-radius: 50px;
-}
-
-#search-submit:hover {
-  background-color: rgb(204, 204, 204);
 }
 
 .main-content {
   background-color: rgb(221, 236, 255);
-  width: 800px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow-y: scroll;
-}
-
-.main-content::-webkit-scrollbar {
-  display: none;
 }
 
 .content-piece {
@@ -367,7 +322,7 @@ div#errormsg {
   display: flex;
   flex-direction: column;
   margin: 20px;
-  width: 800px;
+  width: 100%;
 }
 
 #userheader {
@@ -377,17 +332,6 @@ div#errormsg {
 
 textarea {
   font-family: sans-serif;
-  resize: none;
-  border-radius: 20px;
-  padding: 10px 0px;
-  padding-left: 10px;
-  font-size: 20px;
-}
-
-textarea:focus {
-  outline: none;
-  border: 1px solid black;
-  box-shadow: 0 0 10px grey;
 }
 
 #userpage-textbox,
@@ -395,7 +339,7 @@ textarea:focus {
 #post-textbox,
 #message-textbox {
   resize: none;
-  width: 100%;
+  width: 84%;
 }
 
 .profile-post h2 {
@@ -406,24 +350,6 @@ textarea:focus {
   display: flex;
 }
 
-.profile-post button[type="submit"] {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-left: 10px;
-  width: 108px;
-}
-
-#postbutton,
-#post-response {
-  background-color: rgb(205, 164, 252);
-  border: 2px solid black;
-  border-radius: 20px;
-}
-
-#postbutton:hover,
-#post-response:hover {
-  background-color: rgb(188, 130, 255);
-}
 .profile-post input[type="submit"],
 .post-content input[type="submit"] {
   font-weight: bold;
@@ -568,174 +494,3 @@ textarea:focus {
   text-align: center;
 }
 /* user-inbox.html END ----------------------------- */
-
-/* explore.html START ----------------------------- */
-
-#explore-text {
-  margin: 20px auto;
-  text-align: center;
-}
-
-.api-answer {
-  margin: 20px auto;
-  border: 2px solid black;
-  background-color: whitesmoke;
-  padding: 20px;
-  width: 550px;
-  text-align: center;
-  border-radius: 50px;
-}
-
-.api-answer p {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.categories {
-  margin: 10px auto;
-}
-
-.radio-buttons {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
-  width: fit-content;
-  padding: 20px 50px;
-  border-radius: 20px;
-  background-color: rgb(209, 209, 209);
-}
-
-.categories label {
-  font-size: 17px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.rbtn {
-  margin: 8px;
-}
-
-.optional-category {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
-  width: fit-content;
-  padding: 20px 50px;
-  border-radius: 20px;
-  background-color: rgb(209, 209, 209);
-}
-
-.optional-form {
-  display: flex;
-  flex-direction: column;
-  margin: 8px;
-}
-
-#people {
-  width: 40px;
-}
-
-.categories form {
-  display: flex;
-}
-
-.categories .form-right {
-  display: flex;
-  flex-direction: column;
-  padding-left: 20px;
-}
-
-select {
-  font-size: 18px;
-}
-
-.form-right label {
-  margin-bottom: 5px;
-}
-
-#generatebutton {
-  margin-top: 20px;
-  border-radius: 20px;
-  height: 50px;
-  font-size: 20px;
-  font-weight: bold;
-  height: 133px;
-  border: 2px solid black;
-  background-color: rgb(205, 164, 252);
-}
-
-#generatebutton:hover {
-  background-color: rgb(188, 130, 255);
-}
-
-.price {
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 20px;
-}
-
-.price p {
-  margin: 0;
-  margin-top: 15px;
-  padding: 0;
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.access {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 20px;
-}
-
-.activitystats {
-  display: flex;
-  justify-content: space-between;
-}
-
-.price #on {
-  color: rgb(33, 179, 70);
-}
-
-.access #on {
-  color: rgb(172, 100, 255);
-}
-
-.activitystats #off {
-  color: rgba(0, 0, 0, 0.247);
-}
-
-.access p {
-  margin: 0px;
-  margin-top: 13px;
-  padding: 0px;
-  font-size: 45px;
-}
-
-.activitystats h3 {
-  margin-right: 10px;
-}
-/* explore.html END ----------------------------- */
-
-/* search-results.html START ----------------------------- */
-
-#postlink {
-  margin: 0;
-}
-
-#userlink {
-  margin: 0;
-  background-color: rgb(204, 204, 204);
-  width: fit-content;
-  padding: 2px 10px;
-  border-radius: 10px;
-  border: 1px solid rgb(150, 150, 150);
-  color: rgb(0, 119, 255);
-  font-weight: bolder;
-}
-
-#userlink:hover {
-  cursor: pointer;
-}
-
-/* search-results.html END ----------------------------- */

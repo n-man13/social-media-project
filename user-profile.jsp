@@ -50,9 +50,6 @@ Project: Social Media Project
             <input type="submit" value="GO" id="search-submit" />
           </form>
         </div>
-        <a href="explore.jsp" id="exploreform">
-          <input type="submit" value="Explore" id="main-button" />
-        </a>
         <form action="status" method="post" id="videogameform">
           <input type="hidden" name="initload" value="initload" />
           <input type="submit" value="Video Games" id="main-button" />

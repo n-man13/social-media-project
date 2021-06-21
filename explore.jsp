@@ -69,69 +69,72 @@ Project: Social Media Project
         <input type="submit" value="Sports" id="main-button" />
       </div>
       <div class="main-content">
-        <h2 id="explore-text">Are you bored and uninspired? <br />Generate an Activity!</h2>
+        <h2 id="explore-text">Are you bored and uninspired? <br />Generate a hobby idea!</h2>
         <div class="api-answer" id="api-answer">
-          <% if(activity != null) { if (activity.getActivity() == "error") { %>
-          <p>No Activity was found with those search parameters. Please try again.</p>
-          <% } else { %>
-          <p><%=activity.getActivity()%></p>
-          <div class="activitystats">
-            <div class="pricediv">
-              <%if(activity.getPrice() == 0) {%>
-              <div class="price">
-                <h3 id="price">Price:</h3>
-                <p id="on"></p>
-                <p id="off">$$$$</p>
-              </div>
-              <%} else if (activity.getPrice() <= 0.25) {%>
-              <div class="price">
-                <h3 id="price">Price:</h3>
-                <p id="on">$</p>
-                <p id="off">$$$</p>
-              </div>
-              <%} else if (activity.getPrice() <= 0.5) {%>
-              <div class="price">
-                <h3 id="price">Price:</h3>
-                <p id="on">$$</p>
-                <p id="off">$$</p>
-              </div>
-              <%} else if (activity.getPrice() <= 0.75) {%>
-              <div class="price">
-                <h3 id="price">Price:</h3>
-                <p id="on">$$$</p>
-                <p id="off">$</p>
-              </div>
-              <%} else {%>
-              <div class="price">
-                <h3 id="price">Price:</h3>
-                <p id="on">$$$$</p>
-                <p id="off"></p>
-              </div>
-              <%}%>
-            </div>
-            <div class="accessdiv">
-              <%if(activity.getAccessibility() == 0) {%>
-              <div class="access">
-                <h3 id="access">Accessibility:</h3>
-                <p id="on">***</p>
-                <p id="off"></p>
-              </div>
-              <%} else if (activity.getAccessibility() <= 0.5) {%>
-              <div class="access">
-                <h3 id="access">Accessibility:</h3>
-                <p id="on">**</p>
-                <p id="off">*</p>
-              </div>
-              <%} else {%>
-              <div class="access">
-                <h3 id="access">Accessibility:</h3>
-                <p id="on">*</p>
-                <p id="off">**</p>
-              </div>
-              <%}%>
-            </div>
-          </div>
-          <% } %> <% } else{ %>
+          <% if(activity != null) {
+          		if (activity.getActivity() == "error") { %>
+          			<p>No hobby idea was found with those search parameters. Please try again.</p>
+          	 <% }
+          		else { %>
+          			<p><%=activity.getActivity()%></p>
+          			<div class="activitystats">
+		            <div class="pricediv">
+		              <%if(activity.getPrice() == 0) {%>
+		              <div class="price">
+		                <h3 id="price">Price:</h3>
+		                <p id="on"></p>
+		                <p id="off">$$$$</p>
+		              </div>
+		              <%} else if (activity.getPrice() <= 0.25) {%>
+		              <div class="price">
+		                <h3 id="price">Price:</h3>
+		                <p id="on">$</p>
+		                <p id="off">$$$</p>
+		              </div>
+		              <%} else if (activity.getPrice() <= 0.5) {%>
+		              <div class="price">
+		                <h3 id="price">Price:</h3>
+		                <p id="on">$$</p>
+		                <p id="off">$$</p>
+		              </div>
+		              <%} else if (activity.getPrice() <= 0.75) {%>
+		              <div class="price">
+		                <h3 id="price">Price:</h3>
+		                <p id="on">$$$</p>
+		                <p id="off">$</p>
+		              </div>
+		              <%} else {%>
+		              <div class="price">
+		                <h3 id="price">Price:</h3>
+		                <p id="on">$$$$</p>
+		                <p id="off"></p>
+		              </div>
+		              <%}%>
+		            </div>
+		            <div class="accessdiv">
+		              <%if(activity.getAccessibility() == 0) {%>
+		              <div class="access">
+		                <h3 id="access">Accessibility:</h3>
+		                <p id="on">***</p>
+		                <p id="off"></p>
+		              </div>
+		              <%} else if (activity.getAccessibility() <= 0.5) {%>
+		              <div class="access">
+		                <h3 id="access">Accessibility:</h3>
+		                <p id="on">**</p>
+		                <p id="off">*</p>
+		              </div>
+		              <%} else {%>
+		              <div class="access">
+		                <h3 id="access">Accessibility:</h3>
+		                <p id="on">*</p>
+		                <p id="off">**</p>
+		              </div>
+		              <%}%>
+		            </div>
+		          </div>
+          	 <% } %>
+          <% } else{ %>
           <p>Generate a hobby idea below!</p>
           <% }%>
         </div>
