@@ -51,10 +51,10 @@ Wrote HTML code for signup page
 
     <div class="adminpage-container">
       <!-- div left contains the login page image -->
-      <div class="search-bar">
+      <div class="search-bar" id="admin-search">
         <form action="admin" method="post">
           <input type="hidden" name="search" />
-          <input type="text" class="search" name="searchbox" placeholder="Search..." id="search-box" />
+          <input type="text" class="search" name="searchbox" placeholder="Search for a User..." id="adminsearch-box" />
           <input type="submit" value="GO" id="search-submit" />
         </form>
       </div>
@@ -69,7 +69,7 @@ Wrote HTML code for signup page
           </form>
         </div>
       </div>
-      <button type="button"><p>Banned Users</p></button>
+      <button type="button"><p>CREATE USER ACCOUNT</p></button>
     </div>
   </body>
 </html>
