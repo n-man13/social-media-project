@@ -137,7 +137,7 @@ if (request.getAttribute("postRedirectId") != null) {
               <%=userPost.getPostContent() %>
             </p>
             <hr />
-            Replies to this post:
+            <p id="user-replies-text">Replies to this post:</p>
             <% if(!replies.isEmpty()) {
             	for(UserMessage reply: replies){ 
             	%>
