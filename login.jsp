@@ -23,15 +23,22 @@ Wrote HTML code for login page
 		
 		async function pageLoad() {
 			var myDiv = document.getElementById("errormsg");
-		
-			var errorCode = '<%= request.getAttribute("error") %>';
-		  
+			var errorCode = '<%=request.getAttribute("error")%>';
+		  	var code = "";
+		  	
+		  	document.forms[0].username.focus();
+		  	
 			if (errorCode == "10") {
-				myDiv.innerHTML = "User does not exist";
-				myDiv.style.display = "block";
-				await sleep(3000);
-				myDiv.style.display = "none";
+				code = "User does not exist.";
 			}
+			else if(errorCode == "11") {
+				code = "This user account has been de-activated.";
+			}
+			
+			myDiv.innerHTML = code;
+			myDiv.style.display = "block";
+			await sleep(3000);
+			myDiv.style.display = "none";
 		}
     </script>
   </head>

@@ -8,8 +8,10 @@ Project: Social Media Project
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.DirectMessage"%>
 
-<% List<DirectMessage> userMessages = null;
-  String userFullName = null;
+<%
+List<DirectMessage> userMessages = null;
+String userFullName = null;
+String username = null;
 
 if (request.getAttribute("messages") != null) {
   userMessages = (List<DirectMessage>) request.getAttribute("messages");
@@ -25,6 +27,10 @@ if (request.getAttribute("otherperson") != null) {
 
 if (session.getAttribute("messaging") != null) {
 	userFullName = (String) session.getAttribute("messaging");
+}
+
+if (session.getAttribute("uname") != null) {
+	username = (String) session.getAttribute("uname");
 }
 %>
 

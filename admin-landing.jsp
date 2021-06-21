@@ -5,13 +5,18 @@ Project: Social Media Project
 Wrote HTML code for signup page
 -->
 
-<%@ page import="com.njit.smp.model.User"%>
+<%@ page import="com.njit.smp.model.User"%> 
 
 <%
 User user = null;
+int success = -1;
 
 if (request.getAttribute("result") != null) {
-  user = (User) request.getAttribute("result");
+	user = (User) request.getAttribute("result");
+}
+
+if (request.getAttribute("success") != null) {
+	success = (int) request.getAttribute("success");
 }
 %>
 
@@ -30,9 +35,39 @@ if (request.getAttribute("result") != null) {
         var last = '<%= session.getAttribute("lname") %>';
         a_value.innerHTML = first + ", " + last;
       }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function banned() {
+        var myDiv = document.getElementById("errormsg");
+
+        const codes = {
+          5: "This user account has been de-activated.",
+          6: "This user account has been activated.",
+          7: "There was an issue with de-activating this user.",
+
+        };
+		<% if (success > -1) {
+	         if (success == 0) { %>
+	              errorCode = 5;
+	        <% } 
+	           else if (success == 1) { %>
+	              errorCode = 6;
+	        <% }
+	           else { %>
+	           	  errorCode = 7;
+	        <% } %>
+	        myDiv.innerHTML = codes[errorCode];
+	        myDiv.style.display = "block";
+	        await sleep(3000);
+	        myDiv.style.display = "none";
+	    <% } %>
+      }
     </script>
   </head>
-  <body onload="getInfo()">
+  <body onload="getInfo();banned();">
     <!-- Header  -->
     <div class="header_container">
       <h1 class="hobby">HOBBY</h1>
@@ -59,6 +94,8 @@ if (request.getAttribute("result") != null) {
       <h2>ADMINISTRATION PAGE</h2>
     </div>
 
+    <div id="errormsg">Error message</div>
+
     <div class="adminpage-container">
       <!-- div left contains the login page image -->
       <div class="search-bar" id="admin-search">
@@ -68,15 +105,22 @@ if (request.getAttribute("result") != null) {
           <input type="submit" value="GO" id="search-submit" />
         </form>
       </div>
-      <% if (user != null) { %>
+      <% if (user != null) { 
+    	 	String val = "ACTIVATE";
+    	 	System.out.println(user.isActive());
+      	 	if (user.isActive()) {
+      	 		val = "DE-ACTIVATE";
+      	 	}
+      %>
 	      <div class="admin-searchresult">
 	        <div class="user-adminsearch">
 	          <h5 id="post-owner"><%=user.getUsername()%></h5>
 	        </div>
 	        <div class="banbutton">
 	          <form action="admin" method="post">
-	            <input type="hidden" name="ban" />
-	            <input type="submit" value="BAN" id="admin-submit" />
+	            <input type="hidden" name="action" value=<%=val%> />
+	            <input type="hidden" name="username" value="<%=user.getUsername()%>" />
+	            <input type="submit" value=<%=val%> id="admin-submit" />
 	          </form>
 	        </div>
 	      </div>
