@@ -51,9 +51,24 @@ Wrote HTML code for signup page
 
     <div class="adminpage-container">
       <!-- div left contains the login page image -->
-      <button type="button"><p>User Statistics</p></button>
-      <button type="button"><p>User lookup</p></button>
-      <button type="button"><p>Administrative tools</p></button>
+      <div class="search-bar">
+        <form action="admin" method="post">
+          <input type="hidden" name="search" />
+          <input type="text" class="search" name="searchbox" placeholder="Search..." id="search-box" />
+          <input type="submit" value="GO" id="search-submit" />
+        </form>
+      </div>
+      <div class="admin-searchresult">
+        <div class="user-adminsearch">
+          <h5 id="post-owner"><%=user.getFirstName()%> <%=user.getLastName()%></h5>
+        </div>
+        <div class="banbutton">
+          <form action="admin" method="post">
+            <input type="hidden" name="ban" />
+            <input type="submit" value="BAN" id="admin-submit" />
+          </form>
+        </div>
+      </div>
       <button type="button"><p>Banned Users</p></button>
     </div>
   </body>
