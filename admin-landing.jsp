@@ -1,10 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!-- 
 Author: Joseph Santantonio
 Project: Social Media Project
 Wrote HTML code for signup page
 -->
+
+<%@ page import="com.njit.smp.model.User"%>
+
+<%
+User user = null;
+
+if (request.getAttribute("result") != null) {
+  user = (User) request.getAttribute("result");
+}
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,13 +43,14 @@ Wrote HTML code for signup page
     </div>
 
     <!-- Navigation -->
-    <div class="navigation">
-      <a href="">Home</a>
-      <a href="">Link</a>
-      <a href="">Link</a>
-      <div class="right">
-        <a href="">Username_Placeholder</a>
-        <a href="login.jsp">Logout</a>
+    <div class="nav">
+      <div class="left" id="left-nav">
+        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="user-inbox.jsp" id="nav-text">Inbox</a>
+      </div>
+      <div class="right" id="right-nav">
+        <a href="user-profile.jsp" id="username_placeholder">Username_Placeholder</a>
+        <a href="login.jsp" id="nav-text">Logout</a>
       </div>
     </div>
 
@@ -51,10 +61,27 @@ Wrote HTML code for signup page
 
     <div class="adminpage-container">
       <!-- div left contains the login page image -->
-      <button type="button"><p>User Statistics</p></button>
-      <button type="button"><p>User lookup</p></button>
-      <button type="button"><p>Administrative tools</p></button>
-      <button type="button"><p>Banned Users</p></button>
+      <div class="search-bar" id="admin-search">
+        <form action="admin" method="post">
+          <input type="hidden" name="search" />
+          <input type="text" class="search" name="searchbox" placeholder="Search for a User..." id="adminsearch-box" />
+          <input type="submit" value="GO" id="search-submit" />
+        </form>
+      </div>
+      <% if (user != null) { %>
+	      <div class="admin-searchresult">
+	        <div class="user-adminsearch">
+	          <h5 id="post-owner"><%=user.getUsername()%></h5>
+	        </div>
+	        <div class="banbutton">
+	          <form action="admin" method="post">
+	            <input type="hidden" name="ban" />
+	            <input type="submit" value="BAN" id="admin-submit" />
+	          </form>
+	        </div>
+	      </div>
+	  <% } %>
+      <button type="button"><p>CREATE USER ACCOUNT</p></button>
     </div>
   </body>
 </html>
