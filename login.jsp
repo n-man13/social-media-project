@@ -26,6 +26,8 @@ Wrote HTML code for login page
         var errorCode = '<%= request.getAttribute("error") %>';
         console.log(errorCode);
 
+        document.forms[0].username.focus();
+
         var code = "";
         if (errorCode == 10) {
           code = "User does not exist.";
