@@ -560,7 +560,12 @@ textarea:focus {
 
 #othermessagetemplate {
   background-color: rgb(205, 164, 252);
-  float: right;
+}
+
+.outermsg {
+  margin: 0px;
+  display: flex;
+  justify-content: right;
 }
 
 .page-name {
@@ -589,7 +594,8 @@ textarea:focus {
 }
 
 .messages {
-  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
   overflow: auto;
   margin-bottom: 168px;
   width: 100%;
