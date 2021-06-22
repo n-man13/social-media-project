@@ -59,7 +59,8 @@ html {
   font-size: 20px;
 }
 
-.login_container {
+.login_container,
+.admincreate_container {
   width: 500px;
   height: 400px;
   background: white;
@@ -78,7 +79,18 @@ html {
   min-width: 100px;
 }
 
-.login_container .right {
+.admincreate_container .left {
+  float: left;
+  width: 50%;
+  height: 400px;
+  background: url(images/admin.png);
+  box-sizing: border-box;
+  max-width: 400px;
+  min-width: 100px;
+}
+
+.login_container .right,
+.admincreate_container .right {
   float: right;
   width: 50%;
   height: 400px;
@@ -344,7 +356,7 @@ div#errormsg {
 }
 
 .adminpage-container {
-  width: 500px;
+  width: 400px;
   background-color: white;
   border: 2px solid black;
   margin: 30px auto;
@@ -355,6 +367,7 @@ div#errormsg {
 
 .adminpage-container button {
   margin: 10px;
+  width: 380px;
 }
 
 .adminpage-container button p {

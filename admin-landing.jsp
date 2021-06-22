@@ -68,7 +68,7 @@ Project: Social Media Project
     <!-- Navigation -->
     <div class="nav">
       <div class="left" id="left-nav">
-        <a href="user-landing.jsp" id="nav-text">Home</a>
+        <a href="admin-landing.jsp" id="nav-text">Home</a>
         <a href="user-inbox.jsp" id="nav-text">Inbox</a>
       </div>
       <div class="right" id="right-nav">
@@ -107,7 +107,9 @@ Project: Social Media Project
         </div>
       </div>
       <% } %>
-      <button type="button"><p>CREATE USER ACCOUNT</p></button>
+      <a href="usercreation.jsp"
+        ><button type="button"><p>CREATE USER ACCOUNT</p></button></a
+      >
     </div>
   </body>
 </html>
