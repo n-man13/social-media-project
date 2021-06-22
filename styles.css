@@ -559,9 +559,8 @@ textarea:focus {
 }
 
 #othermessagetemplate {
-  background-color: rgb(96, 190, 67);
-  display: flex;
-  justify-content: right;
+  background-color: rgb(205, 164, 252);
+  float: right;
 }
 
 .page-name {
@@ -593,6 +592,7 @@ textarea:focus {
   flex: 1 0 auto;
   overflow: auto;
   margin-bottom: 168px;
+  width: 100%;
 }
 
 .send-message {
