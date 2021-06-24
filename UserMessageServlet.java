@@ -29,17 +29,41 @@ public class UserMessageServlet extends HttpServlet {
         super();
     }
     
+    /**
+	 * Method to check if a user exists given their first and last name
+	 * @param  firstName	first name of requested user
+	 * @param  lastName  last name of requested user
+	 * @return true if user exists, false if user does not exist
+	**/
+    
     protected String userExists(String firstName, String lastName) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.doesUserExistByName(firstName, lastName);
     }
     
+    /**
+	 * Returns a list of Messages between two users
+	 * @param username 			username logged in and asking for message history
+	 * @param firstname			first name of user that is in contact with main user
+	 * @param lastname			last name of user that is in contact with main user
+	 * @return 					List of messages between the two specified users ordered by messageID
+	 */
+    
     protected List<DirectMessage> getMessages(String username, String firstName, String lastName) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.getMessages(username, firstName, lastName);
     }
+    
+    /**
+	 * Adds a new Message to the Database
+	 * 
+	 * @param sendingUser		username associated to post
+	 * @param receivingUser		post content to be written
+	 * @param message			content of message
+	 * @return 					true if message was sent, otherwise false
+	 */
     
     protected boolean pushMessage(String sendingUser, String firstName, String lastName, String message) {
     	DBConnector connector = DBConnector.getInstance();

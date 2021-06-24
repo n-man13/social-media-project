@@ -98,6 +98,13 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Method to check if a user exists given their first and last name
+	 * @param  firstName	first name of requested user
+	 * @param  lastName  last name of requested user
+	 * @return true if user exists, false if user does not exist
+	**/
+	
 	public String doesUserExistByName(String firstName, String lastName) {
 		String retVal = null;
 		
@@ -166,6 +173,14 @@ public class DBConnector {
 		return null;
 	}
 	
+	/**
+	 * Method to get the username of a user given their first and last name (optional)
+	 * 
+	 * @param firstName	first name of requested user
+	 * @param lastName  last name of requested user
+	 * @return 			User object of the requested user
+	**/
+	
 	public User getUser(String firstName, String lastName){
 		User us = new User();
 		PreparedStatement ps = null;
@@ -197,6 +212,13 @@ public class DBConnector {
 		return us;
 	}
 	
+	/**
+	 * Method to de-activate a user
+	 * 
+	 * @param user		username of account to be de-activated
+	 * @return 			0 if user has been successfully activated, -1 if unsuccessful
+	**/
+	
 	public int banUser(String username) {
 		int retVal = -1;
 		PreparedStatement ps = null;
@@ -217,6 +239,13 @@ public class DBConnector {
 		
 		return retVal;
 	}
+	
+	/**
+	 * Method to activate a user
+	 * 
+	 * @param user		username of account to be activated
+	 * @return 			1 if user has been successfully activated, -1 if unsuccessful
+	**/
 	
 	public int unBanUser(String username) {
 		int retVal = -1;
@@ -278,6 +307,14 @@ public class DBConnector {
 		return retVal;
 	}
 	
+	/**
+	 * Stores a post in the database
+	 * @param username username of the poster
+	 * @param userPost content of the post
+	 * @param pageName name of the page the post is being posted to
+	 * @return		   true if post is successfully logged into database, otherwise false
+	 */
+	
 	public boolean pushPost(String username, String userPost, String pageName) {
 		boolean retVal = false;
 		String sqlAddNewPost = "INSERT INTO HobbyHome.posts(username, postContent, postpage) VALUES (?, ?, ?)";
@@ -296,6 +333,15 @@ public class DBConnector {
 		}
 		return retVal;
 	}
+	
+	/**
+	 * Stores a reply to a post in the database
+	 * @param username username of the poster
+	 * @param userPost content of the post
+	 * @param postId   postId of the parent post
+	 * @param pageName name of the page the post is being posted to
+	 * @return		   true if reply is successfully logged into database, otherwise false
+	 */
 	
 	public boolean pushReply(String username, String userPost, int postId, String pageName) {
 		boolean retVal = false;

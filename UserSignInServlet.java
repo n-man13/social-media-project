@@ -29,9 +29,10 @@ public class UserSignInServlet extends HttpServlet {
     
     
     /** 
-     * Authenticate
-     * @param username username to pass to database
-     * @param password password to pass to database 
+     * authenticate
+     * @param  username username to pass to database
+     * @param  password password to pass to database 
+     * @return 1 if user can be signed in, 2 if admin, otherwise 0
      * @throws SQLException 
      */
     protected int authenticate(String username, String password) throws SQLException {
@@ -41,12 +42,28 @@ public class UserSignInServlet extends HttpServlet {
     	return isAuth;
 	}
     
+    /** 
+     * getFirstName
+     * @param  username username to pass to database
+     * @param  password password to pass to database 
+     * @return first name of the user searched
+     * @throws SQLException 
+     */
+    
     protected String getFirstName(String username, String password) {
     	DBConnector connector = DBConnector.getInstance();
     	String fName = connector.getFName(username, password);
     	
     	return fName;
     }
+    
+    /** 
+     * getLastName
+     * @param  username username to pass to database
+     * @param  password password to pass to database 
+     * @return last name of the user searched
+     * @throws SQLException 
+     */
     
     protected String getLastName(String username, String password) {
     	DBConnector connector = DBConnector.getInstance();

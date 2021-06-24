@@ -8,10 +8,8 @@ Project: Social Media Project
 <%@ page import="java.util.List"%>
 <%@ page import="com.njit.smp.model.DirectMessage"%>
 
-<%
-List<DirectMessage> userMessages = null;
-String userFullName = null;
-String username = null;
+<% List<DirectMessage> userMessages = null;
+  String userFullName = null;
 
 if (request.getAttribute("messages") != null) {
   userMessages = (List<DirectMessage>) request.getAttribute("messages");
@@ -27,10 +25,6 @@ if (request.getAttribute("otherperson") != null) {
 
 if (session.getAttribute("messaging") != null) {
 	userFullName = (String) session.getAttribute("messaging");
-}
-
-if (session.getAttribute("uname") != null) {
-	username = (String) session.getAttribute("uname");
 }
 %>
 
@@ -118,13 +112,19 @@ if (session.getAttribute("uname") != null) {
           <% if(userMessages != null && !userMessages.isEmpty()) {
         	  userMessages = (List<DirectMessage>) request.getAttribute("messages");
             for(DirectMessage userMessage: userMessages){
-            	System.out.println("message = "+userMessage.getMessage()+" user then otheruser = "+userMessage.getUsername()+" "+userMessage.getOtherUser());
           %>
           <!-- User Message\reply Template START -->
+          <% if(userMessage.getUsername().equals(session.getAttribute("uname"))) {%>
          <div class="user-reply user-message" id="messagetemplate">
            <h5><%=userMessage.getUsername()%></h5>
             <p><%=userMessage.getMessage()%></p>
           </div>
+          <%} else { %>
+            <div class="user-reply user-message" id="othermessagetemplate">
+			    <h5><%=userMessage.getUsername()%></h5>
+			    <p><%=userMessage.getMessage()%></p>
+			</div>
+          <% } %>
           <%} }%>
           <!-- User Message\reply Template END -->
         </div>

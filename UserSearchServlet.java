@@ -29,11 +29,25 @@ public class UserSearchServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    /**
+	 * Returns a list of Posts by the person specified in the search parameters
+	 * @param firstName			first name of the poster
+	 * @param lastName			last name of the poster
+	 * @return 					List of Posts ordered by postID
+	 */
+    
     protected List<UserMessage> getUserPosts(String firstName, String lastName, String pageName) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.getUserPosts(firstName, lastName, pageName);
     }
+    
+    /**
+	 * Method to check if a user exists given their first and last name
+	 * @param  firstName	first name of requested user
+	 * @param  lastName  last name of requested user
+	 * @return true if user exists, false if user does not exist
+	**/
     
     protected String userExists(String firstName, String lastName) {
     	DBConnector connector = DBConnector.getInstance();

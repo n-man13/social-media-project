@@ -27,6 +27,15 @@ public class UserActivityServlet extends HttpServlet {
         super();
     }
     
+    /**
+	 * getActivity
+	 * Method to retrieve an activity within the specified search parameters from Bored API
+	 * @param  activity name of the activity requested
+	 * @param  price price range in USD of the activity requested
+	 * @param  accessibility accessibility range (0-1) of the activity requested
+	 * @return BoredItem object containing the activity, price, and accessibility
+	**/
+    
     protected BoredItem getActivity(String activity, String price, String accessibility) {
     	APIHook api = new APIHook();
     	BoredItem act = null;

@@ -1,6 +1,7 @@
 package com.njit.smp.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,17 +28,40 @@ public class AdminToolsServlet extends HttpServlet {
         super();
     }
     
+    /** 
+     * searchResult
+     * Method to get the user object of a user being searched
+     * @param  firstName first name of the user being searched
+     * @param  lastName  last name of the user being searched 
+     * @return User object of the requested user
+     * @throws SQLException
+     */
+    
     protected User searchResult(String firstName, String lastName) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.getUser(firstName, lastName);
     }
     
+    /**
+	 * banUser
+	 * Method to de-activate a user account
+	 * @param user username of account to be de-activated
+	 * @return 	   0 if user has been successfully activated, -1 if unsuccessful
+	**/
+    
     protected int banUser(String username) {
     	DBConnector connector = DBConnector.getInstance();
     	
     	return connector.banUser(username);
     }
+    
+    /**
+	 * unBanUser
+	 * Method to activate a user
+	 * @param user		username of account to be activated
+	 * @return 			1 if user has been successfully activated, -1 if unsuccessful
+	**/
     
     protected int unBanUser(String username) {
     	DBConnector connector = DBConnector.getInstance();
