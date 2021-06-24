@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">  
+  <display-name>BasicWebApplication</display-name>  
+  <welcome-file-list>  
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>  
+  <servlet>  
+    <servlet-name>UserSignInServlet</servlet-name>  
+    <servlet-class>com.njit.smp.servlets.UserSignInServlet</servlet-class>  
+  </servlet>
+  <servlet>  
+    <servlet-name>UserSignUpServlet</servlet-name>  
+    <servlet-class>com.njit.smp.servlets.UserSignUpServlet</servlet-class>  
+  </servlet>
+  <servlet>  
+    <servlet-name>UserStatusServlet</servlet-name>  
+    <servlet-class>com.njit.smp.servlets.UserStatusServlet</servlet-class>  
+  </servlet>
+  <servlet-mapping>  
+    <servlet-name>UserSignInServlet</servlet-name>  
+    <url-pattern>/login</url-pattern> 
+  </servlet-mapping>
+  <servlet-mapping>  
+  	<servlet-name>UserSignUpServlet</servlet-name>  
+  	<url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UserStatusServlet</servlet-name>  
+  	<url-pattern>/status</url-pattern>
+  </servlet-mapping>
+</web-app>
